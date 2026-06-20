@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blake's Garden Shop - Buy Grow a Garden 2 Seeds & Sheckles</title>
+
+<!-- SEO -->
+<meta name="description" content="Buy Grow a Garden 2 seeds and Sheckles cheap. Dragon Breath, Moon Bloom, Poison Apple, Venus Fly Trap and more. Fast delivery, trade in-game. Starting at $0.05.">
+<meta name="keywords" content="grow a garden 2, grow a garden 2 seeds, buy gag2 seeds, grow a garden sheckles, roblox grow a garden, cheap seeds roblox, moon bloom seed, poison apple seed, dragon breath seed, venus fly trap seed, grow a garden 2 shop">
+<meta name="author" content="Blake's Garden Shop">
+<link rel="canonical" href="https://blakes-garden-shop.vercel.app/">
+
+<!-- Open Graph (shows preview when sharing link on Discord, Twitter etc) -->
+<meta property="og:title" content="Blake's Garden Shop - Grow a Garden 2 Seeds & Sheckles">
+<meta property="og:description" content="Buy rare Grow a Garden 2 seeds and Sheckles fast and cheap. Moon Bloom, Poison Apple, Dragon Breath and more. Trade delivered in-game.">
+<meta property="og:url" content="https://blakes-garden-shop.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blake's Garden Shop">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blake's Garden Shop - Grow a Garden 2 Seeds & Sheckles">
+<meta name="twitter:description" content="Buy rare Grow a Garden 2 seeds and Sheckles fast and cheap. Starting at $0.05.">
+
+<!-- Schema.org structured data for Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "Blake's Garden Shop",
+  "description": "Buy Grow a Garden 2 seeds and Sheckles. Fast in-game delivery.",
+  "url": "https://blakes-garden-shop.vercel.app/",
+  "currenciesAccepted": "USD",
+  "paymentAccepted": "Venmo, Cash App",
+  "offers": [
+    {"@type":"Offer","name":"Dragon Breath Seed","price":"1.00","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Moon Bloom Seed","price":"10.00","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Poison Apple Seed","price":"4.00","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Venus Fly Trap Seed","price":"3.00","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Pomegranate Seed","price":"2.00","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Bamboo Seed","price":"0.05","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Mushroom Seed","price":"0.10","priceCurrency":"USD"},
+    {"@type":"Offer","name":"Sheckles","price":"0.06","priceCurrency":"USD"}
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0a0f0a;color:#fff;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(45,106,79,0.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(82,183,136,0.1) 0%,transparent 50%);pointer-events:none;z-index:0}
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.seed-rain{position:absolute;font-size:14px;opacity:0;animation:seed-fall linear infinite;user-select:none}
+@keyframes seed-fall{0%{transform:translateY(-40px) rotate(0deg);opacity:0}10%{opacity:0.5}85%{opacity:0.3}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+nav{position:sticky;top:0;background:rgba(10,15,10,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(82,183,136,0.2);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;z-index:50}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:900;font-size:1.2rem;color:#fff;display:flex;align-items:center;gap:10px}
+
+.accent{color:#52b788}
+.nav-logo.glitch{animation:glitch-anim 0.3s steps(1) forwards}
+@keyframes glitch-anim{
+  0%{transform:none;filter:none}
+  10%{transform:skewX(-5deg) translateX(3px);filter:hue-rotate(90deg) brightness(1.5)}
+  20%{transform:skewX(4deg) translateX(-3px);filter:hue-rotate(180deg)}
+  30%{transform:none;filter:none}
+  40%{transform:translateX(4px) skewX(-3deg);filter:invert(0.3)}
+  50%{transform:none;filter:none}
+  60%{transform:skewX(2deg) translateX(-2px);filter:hue-rotate(270deg) brightness(1.3)}
+  70%{transform:none;filter:none}
+  80%{transform:translateX(-3px);filter:saturate(3)}
+  100%{transform:none;filter:none}
+}
+.nav-badge{background:rgba(82,183,136,0.15);color:#52b788;font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;border:1px solid rgba(82,183,136,0.3)}
+.hero{text-align:center;padding:6rem 2rem 4rem;position:relative;z-index:1;overflow:hidden}
+.hero-parallax-bg{position:absolute;inset:-20%;background:radial-gradient(ellipse at 50% 40%,rgba(82,183,136,0.12) 0%,transparent 60%);pointer-events:none;will-change:transform;transition:transform .1s linear}
+.hero-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#52b788;background:rgba(82,183,136,0.1);padding:6px 18px;border-radius:20px;border:1px solid rgba(82,183,136,0.3);margin-bottom:1.5rem;animation:pulse-border 2s ease infinite}
+@keyframes pulse-border{0%,100%{border-color:rgba(82,183,136,0.3)}50%{border-color:rgba(82,183,136,0.7)}}
+.hero h1{font-family:'Syne',sans-serif;font-weight:900;font-size:clamp(2.5rem,6vw,4.5rem);line-height:1.05;margin-bottom:1rem}
+.hero h1 .line1{color:#fff}
+.hero h1 .line2{background:linear-gradient(135deg,#52b788,#95d5b2,#52b788);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.hero p{font-size:1.05rem;color:rgba(255,255,255,0.6);line-height:1.7;max-width:460px;margin:0 auto 2rem}
+@keyframes gold-slide{0%{background-position:100% 0}100%{background-position:0% 0}}
+@keyframes coin-spin{0%,100%{transform:rotateY(0deg)}50%{transform:rotateY(180deg)}}
+.sheckles-hero-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:14px;color:#ffd700;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;text-decoration:none;letter-spacing:.04em;transition:background .2s,border-color .2s;cursor:pointer;animation:pulse-gold 2.5s ease infinite}
+.sheckles-hero-btn:hover{background:rgba(255,215,0,0.15);border-color:rgba(255,215,0,0.6)}
+.sheckles-hero-btn .coin{font-size:1.3rem;animation:coin-spin 2s ease infinite}
+@keyframes pulse-gold{0%,100%{box-shadow:0 0 0px rgba(255,215,0,0)}50%{box-shadow:0 0 20px rgba(255,215,0,0.2)}}
+.section-label{text-align:center;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:1rem 0 2rem;position:relative;z-index:1}
+.ticker-wrap{width:100%;overflow:hidden;background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:10px 0;position:relative;z-index:1}
+.ticker-track{display:flex;animation:ticker 30s linear infinite;width:max-content}
+.ticker-item{display:flex;align-items:center;gap:8px;padding:0 2.5rem;font-size:13px;font-weight:600;white-space:nowrap}
+.ticker-item .t-name{color:rgba(255,255,255,0.7)}
+.ticker-item .t-price{color:#52b788}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.how-section{max-width:1060px;margin:0 auto;padding:0 1.5rem 4rem;position:relative;z-index:1}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.how-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:1.5rem;text-align:center;position:relative;overflow:hidden}
+.how-num{font-family:'Syne',sans-serif;font-weight:900;font-size:2.5rem;margin-bottom:.5rem;line-height:1}
+.how-card:nth-child(1) .how-num{color:#52b788}
+.how-card:nth-child(2) .how-num{color:#ffd700}
+.how-card:nth-child(3) .how-num{color:#52b788}
+.how-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#fff;margin-bottom:.5rem}
+.how-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:0 1.5rem 1.5rem;position:relative;z-index:1}
+.filter-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;color:rgba(255,255,255,0.5);transition:all .15s}
+.filter-btn:hover{border-color:rgba(255,255,255,0.25);color:#fff}
+.filter-btn.active{background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.3)}
+.filter-btn[data-r="Mythical"].active{background:rgba(236,72,153,0.2);border-color:rgba(236,72,153,0.4);color:#f472b6}
+.filter-btn[data-r="Legendary"].active{background:rgba(234,179,8,0.2);border-color:rgba(234,179,8,0.4);color:#facc15}
+.filter-btn[data-r="Common"].active{background:rgba(156,163,175,0.2);border-color:rgba(156,163,175,0.4);color:#9ca3af}
+.featured-wrap{max-width:1060px;margin:0 auto;padding:0 1.5rem 1.5rem;position:relative;z-index:1}
+.featured-card{background:rgba(255,255,255,0.04);border:1px solid rgba(82,183,136,0.25);border-radius:20px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;position:relative;animation:feat-glow 3s ease infinite}
+@keyframes feat-glow{0%,100%{border-color:rgba(82,183,136,0.25)}50%{border-color:rgba(82,183,136,0.5);box-shadow:0 0 40px rgba(82,183,136,0.1)}}
+.featured-card::before{content:'FEATURED';position:absolute;top:14px;left:14px;background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;font-size:9px;font-weight:800;padding:4px 12px;border-radius:20px;letter-spacing:.1em;z-index:5}
+.featured-art{display:flex;align-items:center;justify-content:center;padding:3rem 2rem;background:rgba(82,183,136,0.05)}
+.featured-art svg{width:130px;height:130px;filter:drop-shadow(0 0 30px rgba(82,183,136,0.3))}
+.featured-info{padding:2rem;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.featured-name{font-family:'Syne',sans-serif;font-weight:900;font-size:1.6rem;color:#fff;line-height:1.1}
+.featured-desc{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.6}
+.featured-price-row{display:flex;align-items:center;gap:12px;margin-top:4px}
+.featured-price{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#52b788}
+.featured-old{font-size:16px;color:rgba(255,100,100,0.7);text-decoration:line-through}
+.featured-foot{display:flex;align-items:center;gap:12px;margin-top:8px}
+.featured-buy{background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:12px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}
+.featured-buy:hover{opacity:.85}
+.featured-qty-row{display:flex;align-items:center;gap:8px}
+.sold-count{font-size:11px;color:rgba(255,255,255,0.35);font-weight:500;margin-top:2px}
+.sold-count span{color:#52b788;font-weight:700}
+@media(max-width:650px){.featured-card{grid-template-columns:1fr}}
+.grid{max-width:1060px;margin:0 auto;padding:0 1.5rem 6rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;position:relative;z-index:1}
+.card{background:rgba(255,255,255,0.04);border-radius:20px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;display:flex;flex-direction:column;position:relative}
+.card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(82,183,136,0.05) 0%,transparent 60%);opacity:0;transition:opacity .2s;pointer-events:none;border-radius:20px}
+.card:hover{transform:translateY(-6px)}
+.card:hover::before{opacity:1}
+.card[data-r="Common"]:hover{box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 30px rgba(156,163,175,0.15)}
+.card[data-r="Legendary"]:hover{box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(234,179,8,0.25)}
+.card[data-r="Mythical"]:hover{box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(236,72,153,0.25)}
+.card[data-r="Super"]:hover{box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 50px rgba(251,191,36,0.4),0 0 80px rgba(168,85,247,0.2)}
+.card[data-r="Super"]{border-color:rgba(251,191,36,0.4);animation:super-card-glow 2s ease infinite}
+@keyframes super-card-glow{0%,100%{border-color:rgba(251,191,36,0.3)}50%{border-color:rgba(251,191,36,0.7);box-shadow:0 0 30px rgba(251,191,36,0.15)}}
+.card-art{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.card-art svg{width:90px;height:90px;position:relative;z-index:1;transition:transform .2s}
+.card:hover .card-art svg{transform:scale(1.1)}
+.rbadge{position:absolute;top:12px;right:12px;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase;z-index:4}
+.card.special .rbadge{top:30px}
+.rc{background:rgba(156,163,175,0.2);color:#9ca3af;border:1px solid rgba(156,163,175,0.3)}
+.ru{background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid rgba(34,197,94,0.3)}
+.rr{background:rgba(59,130,246,0.2);color:#60a5fa;border:1px solid rgba(59,130,246,0.3)}
+.re{background:rgba(168,85,247,0.2);color:#c084fc;border:1px solid rgba(168,85,247,0.3)}
+.rl{background:rgba(234,179,8,0.2);color:#facc15;border:1px solid rgba(234,179,8,0.4)}
+.rm{background:rgba(236,72,153,0.2);color:#f472b6;border:1px solid rgba(236,72,153,0.4)}
+.rs{background:linear-gradient(135deg,rgba(251,191,36,0.2),rgba(239,68,68,0.2),rgba(168,85,247,0.2));color:#fff;border:1px solid rgba(251,191,36,0.5);animation:super-shimmer 2s linear infinite;background-size:200%}
+@keyframes super-shimmer{0%{background-position:0%}100%{background-position:200%}}
+.card-body{padding:1.1rem 1.2rem 1.2rem;flex:1;display:flex;flex-direction:column;gap:6px}
+.card-name{font-size:1rem;font-weight:700;color:#fff}
+.card-desc{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;flex:1}
+.card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.card-price{font-size:1.1rem;font-weight:700;color:#52b788}
+.buybtn{background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s}
+.buybtn:hover{opacity:.9}
+.special-banner{position:absolute;top:0;left:0;right:0;background:linear-gradient(135deg,#ff6d00,#ff8c00);color:#fff;font-size:10px;font-weight:800;text-align:center;padding:5px;letter-spacing:.1em;text-transform:uppercase;z-index:3}
+.card.special{border-color:rgba(255,165,0,0.4)}
+.new-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;font-size:9px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;z-index:5;box-shadow:0 0 12px rgba(59,130,246,0.5)}
+.low-stock{font-size:11px;font-weight:700;color:#f87171;display:flex;align-items:center;gap:4px;margin-top:3px}
+.low-stock::before{content:'';width:6px;height:6px;border-radius:50%;background:#f87171;display:inline-block;animation:blink 1.2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.oos{opacity:.55;pointer-events:none}
+.oos-badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5;pointer-events:none}
+.oos-pill{background:rgba(0,0,0,0.75);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;letter-spacing:.1em;text-transform:uppercase;backdrop-filter:blur(4px)}
+.qty-row{display:flex;align-items:center;gap:6px}
+.qty-btn{width:28px;height:28px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.qty-btn:hover{background:rgba(82,183,136,0.2);border-color:rgba(82,183,136,0.4)}
+.qty-num{font-size:14px;font-weight:700;color:#fff;min-width:18px;text-align:center}
+.card-foot-prices{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.old-price{font-size:11px;color:rgba(255,255,255,0.35);text-decoration:line-through;margin-right:2px}
+.sotd .old-price{font-size:13px;color:rgba(255,100,100,0.7);text-decoration:line-through}
+.sotd .card-price{color:#ffd700!important}
+.sotd-price-tag{display:inline-block;background:rgba(255,50,50,0.2);border:1px solid rgba(255,50,50,0.4);color:#f87171;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;margin-left:4px;letter-spacing:.04em}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:100;align-items:center;justify-content:center;padding:1rem}
+.overlay.open{display:flex}
+.modal{background:#0f1a0f;border:1px solid rgba(82,183,136,0.2);border-radius:20px;width:100%;max-width:430px;overflow:hidden;animation:pop .2s ease;box-shadow:0 40px 80px rgba(0,0,0,.8)}
+@keyframes pop{from{transform:scale(.9) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.mhead{padding:18px 20px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:14px;position:relative;background:rgba(255,255,255,0.02)}
+.mhead svg{width:48px;height:48px;flex-shrink:0}
+.mname{font-size:15px;font-weight:700;color:#fff}
+.mprice{font-size:14px;color:#52b788;font-weight:600;margin-top:2px}
+.mclose{position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.08);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center}
+.mclose:hover{background:rgba(255,255,255,0.15)}
+.tabs{display:flex;border-bottom:1px solid rgba(255,255,255,0.08)}
+.tab{flex:1;text-align:center;padding:10px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);border-bottom:2px solid transparent;font-family:'Inter',sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.tab.on{color:#52b788;border-bottom-color:#52b788}
+.tab.done{color:rgba(255,255,255,0.3)}
+.pane{display:none;padding:20px}
+.pane.on{display:block}
+.pay-item-box{background:rgba(82,183,136,0.08);border:1px solid rgba(82,183,136,0.2);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.pay-item-name{font-size:14px;font-weight:600;color:#fff}
+.pay-item-price{font-size:20px;font-weight:800;color:#52b788}
+.pay-methods{display:flex;flex-direction:column;gap:10px;margin-bottom:4px}
+.pay-btn{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);cursor:pointer;font-family:'Inter',sans-serif;transition:border-color .15s,background .15s;width:100%;text-align:left}
+.pay-btn:hover{border-color:rgba(82,183,136,0.4);background:rgba(82,183,136,0.08)}
+.pay-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pay-label{font-size:14px;font-weight:600;color:#fff}
+.pay-handle{font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px}
+.pay-notice{font-size:11px;color:rgba(255,255,255,0.3);text-align:center;line-height:1.6;margin-top:12px}
+.confirm-box{background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.2);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.confirm-box p{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6}
+.confirm-box strong{color:#facc15}
+.abtn{width:100%;padding:13px;font-size:14px;font-weight:700;border-radius:12px;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:opacity .15s;margin-top:10px;display:block;letter-spacing:.02em}
+.abtn.green{background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff}
+.abtn.green:hover{opacity:.9}
+.abtn.soft{background:rgba(82,183,136,0.12);color:#52b788;border:1px solid rgba(82,183,136,0.2)}
+.abtn.soft:hover{background:rgba(82,183,136,0.2)}
+.chat-prompt{text-align:center;padding:16px 0 8px}
+.chat-prompt h3{font-family:'Syne',sans-serif;font-weight:800;color:#fff;margin-bottom:8px;font-size:1.1rem}
+.chat-prompt p{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:16px}
+.chat-tip{background:rgba(82,183,136,0.1);border:1px solid rgba(82,183,136,0.25);border-radius:12px;padding:11px 14px;font-size:13px;color:#52b788;font-weight:600}
+.purchase-notif{position:fixed;bottom:2rem;left:2rem;background:rgba(15,26,15,0.95);border:1px solid rgba(82,183,136,0.3);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;z-index:300;transform:translateX(-200%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-width:280px;backdrop-filter:blur(12px)}
+.purchase-notif.show{transform:translateX(0)}
+.pn-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2d6a4f,#52b788);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.pn-text{flex:1}
+.pn-name{font-size:12px;font-weight:700;color:#fff}
+.pn-item{font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px}
+.pn-time{font-size:10px;color:#52b788;margin-top:2px}
+.confetti-piece{position:fixed;width:8px;height:8px;border-radius:2px;pointer-events:none;z-index:500;animation:conf-fall linear forwards}
+@keyframes conf-fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.sheckles-section{max-width:1060px;margin:0 auto;padding:0 1.5rem 5rem;position:relative;z-index:1}
+.sheckles-card{background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.25);border-radius:20px;padding:2rem;position:relative;overflow:hidden}
+.sheckles-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(255,215,0,0.12) 0%,transparent 70%);pointer-events:none}
+.sheckles-header{display:flex;align-items:center;gap:16px;margin-bottom:1.5rem}
+.sheckles-icon{font-size:2.5rem;filter:drop-shadow(0 0 12px rgba(255,215,0,0.5))}
+.sheckles-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:#fff}
+.sheckles-subtitle{font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px}
+.sheckles-body{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:center}
+.sheckles-controls{display:flex;flex-direction:column;gap:14px}
+.sheckles-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.sheckles-amount-row{display:flex;align-items:center;gap:10px}
+.sheckles-qty-btn{width:36px;height:36px;border-radius:10px;border:1px solid rgba(255,215,0,0.3);background:rgba(255,215,0,0.08);color:#ffd700;font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+.sheckles-qty-btn:hover{background:rgba(255,215,0,0.18)}
+.sheckles-input{width:100px;border:1px solid rgba(255,215,0,0.3);border-radius:10px;padding:8px 12px;font-size:16px;font-weight:700;font-family:'Inter',sans-serif;color:#ffd700;background:rgba(255,215,0,0.06);outline:none;text-align:center}
+.sheckles-input:focus{border-color:rgba(255,215,0,0.6)}
+.sheckles-unit{font-size:14px;color:rgba(255,255,255,0.4);font-weight:600}
+.sheckles-summary{background:rgba(0,0,0,0.3);border:1px solid rgba(255,215,0,0.2);border-radius:14px;padding:1.25rem 1.5rem;text-align:center}
+.sheckles-total-label{font-size:12px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.sheckles-total{font-family:'Syne',sans-serif;font-weight:900;font-size:2.5rem;color:#ffd700;line-height:1;margin-bottom:4px}
+.sheckles-total-sub{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:16px}
+.sheckles-buy-btn{background:linear-gradient(135deg,#b8860b,#ffd700);color:#000;border:none;border-radius:12px;padding:13px 28px;font-size:15px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;width:100%;transition:opacity .15s;letter-spacing:.02em}
+.sheckles-buy-btn:hover{opacity:.9}
+.sheckles-permill{font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin-top:10px}
+footer{text-align:center;padding:2.5rem;font-size:13px;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.06);position:relative;z-index:1}
+footer span{color:#52b788}
+
+/* MYSTERY BOX */
+.mystery-section{max-width:1060px;margin:0 auto;padding:0 1.5rem 4rem;position:relative;z-index:1}
+.mystery-card{border-radius:20px;border:1px solid rgba(168,85,247,0.3);overflow:hidden;position:relative;background:rgba(168,85,247,0.06);padding:2rem;text-align:center}
+.mystery-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(168,85,247,0.12) 0%,transparent 70%);pointer-events:none}
+.mystery-icon{font-size:4rem;margin-bottom:1rem;display:block;animation:float-box 3s ease infinite}
+@keyframes float-box{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.mystery-title{font-family:'Syne',sans-serif;font-weight:900;font-size:1.8rem;color:#fff;margin-bottom:.5rem}
+.mystery-title span{color:#c084fc}
+.mystery-price{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:#c084fc;margin:.75rem 0}
+.mystery-desc{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:520px;margin:0 auto 1rem}
+.mystery-warning{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:12px;padding:12px 18px;font-size:13px;color:#fca5a5;line-height:1.6;max-width:480px;margin:0 auto 1.5rem;font-weight:500}
+.mystery-warning strong{color:#f87171}
+.mystery-odds{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:1.5rem}
+.mystery-odd{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em}
+.mystery-buy-btn{background:linear-gradient(135deg,#6b21a8,#a855f7);color:#fff;border:none;border-radius:14px;padding:14px 40px;font-size:16px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s,transform .1s;letter-spacing:.03em;box-shadow:0 0 30px rgba(168,85,247,0.3)}
+.mystery-buy-btn:hover{opacity:.9}
+.mystery-buy-btn:active{transform:scale(.97)}
+.mystery-reveal{display:none;text-align:center;padding:1rem 0}
+.mystery-reveal.active{display:block}
+.mystery-reveal-icon{font-size:5rem;animation:pop-in .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop-in{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.mystery-reveal h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;margin:.75rem 0 .4rem}
+.mystery-reveal p{font-size:13px;color:rgba(255,255,255,0.5)}
+
+/* VISITOR COUNTER */
+.visitor-count{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5)}
+.visitor-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;flex-shrink:0;animation:pulse-dot 2s ease infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.4)}50%{box-shadow:0 0 0 5px rgba(74,222,128,0)}}
+
+/* DISCORD BANNER */
+.discord-banner{background:linear-gradient(135deg,rgba(88,101,242,0.15),rgba(88,101,242,0.05));border-top:1px solid rgba(88,101,242,0.25);border-bottom:1px solid rgba(88,101,242,0.25);padding:12px 2rem;display:flex;align-items:center;justify-content:center;gap:16px;position:relative;z-index:1}
+.discord-banner-text{font-size:13px;color:rgba(255,255,255,0.7);font-weight:500}
+.discord-banner-text strong{color:#fff}
+.discord-join-btn{display:inline-flex;align-items:center;gap:8px;background:#5865f2;color:#fff;border:none;border-radius:10px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;transition:opacity .15s;flex-shrink:0}
+.discord-join-btn:hover{opacity:.85}
+.discord-icon{width:18px;height:18px;flex-shrink:0}
+.discord-close{position:absolute;right:1rem;background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:18px;padding:4px}
+.discord-close:hover{color:rgba(255,255,255,0.6)}
+
+/* 3D CARD FLIP */
+.card{perspective:1000px}
+.card-inner{position:relative;width:100%;height:100%;transition:transform 0.6s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;display:flex;flex-direction:column}
+.card:hover .card-inner{transform:rotateY(180deg)}
+.card-front,.card-back{backface-visibility:hidden;-webkit-backface-visibility:hidden;width:100%;flex-direction:column}
+.card-front{display:flex;flex-direction:column;flex:1}
+.card-back{position:absolute;inset:0;background:rgba(15,26,15,0.98);border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:1.5rem;gap:12px}
+.card-back-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#fff;text-align:center}
+.card-back-stats{width:100%;display:flex;flex-direction:column;gap:8px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:6px}
+.stat-label{color:rgba(255,255,255,0.4);font-weight:500}
+.stat-val{font-weight:700;color:#fff}
+.card-back-btn{background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:4px;width:100%}
+.card-back-btn:hover{opacity:.9}
+
+
+.loader-text{font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+
+/* COUNTDOWN */
+.countdown-banner{background:rgba(255,109,0,0.1);border:1px solid rgba(255,109,0,0.3);border-radius:10px;padding:8px 14px;display:flex;align-items:center;gap:8px;margin-top:10px;justify-content:center}
+.countdown-label{font-size:12px;color:rgba(255,255,255,0.5);font-weight:500}
+.countdown-timer{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#ff6d00;letter-spacing:.05em}
+.countdown-unit{display:inline-flex;flex-direction:column;align-items:center;gap:1px}
+.countdown-sep{color:rgba(255,109,0,0.5);margin:0 2px}
+
+/* EASTER EGG */
+#easter-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2000;align-items:center;justify-content:center;flex-direction:column;gap:20px}
+#easter-overlay.show{display:flex;animation:pop .3s ease}
+.easter-emoji{font-size:5rem;animation:wobble 0.5s ease infinite alternate}
+@keyframes wobble{from{transform:rotate(-10deg) scale(1)}to{transform:rotate(10deg) scale(1.1)}}
+.easter-msg{font-family:'Syne',sans-serif;font-weight:900;font-size:1.5rem;color:#fff;text-align:center;max-width:400px;line-height:1.4}
+.easter-close{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:10px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-top:8px}
+.easter-close:hover{background:rgba(255,255,255,0.2)}
+
+
+
+
+
+/* SPROUTING HERO ANIMATION */
+.hero-sprout{display:flex;justify-content:center;margin-bottom:1.5rem}
+.sprout-svg{width:60px;height:60px;overflow:visible}
+.sprout-stem{stroke-dasharray:60;stroke-dashoffset:60;animation:draw-stem 0.8s ease forwards 1.5s}
+@keyframes draw-stem{to{stroke-dashoffset:0}}
+.sprout-leaf-l{transform-origin:30px 35px;transform:scale(0) rotate(-30deg);animation:pop-leaf .4s cubic-bezier(.34,1.56,.64,1) forwards 2.2s;opacity:0}
+.sprout-leaf-r{transform-origin:30px 25px;transform:scale(0) rotate(30deg);animation:pop-leaf .4s cubic-bezier(.34,1.56,.64,1) forwards 2.5s;opacity:0}
+@keyframes pop-leaf{to{transform:scale(1) rotate(0deg);opacity:1}}
+.sprout-glow{animation:glow-pulse2 2s ease infinite 3s;opacity:0}
+@keyframes glow-pulse2{0%,100%{opacity:0}50%{opacity:1}}
+
+/* FAQ */
+.faq-section{max-width:760px;margin:0 auto;padding:0 1.5rem 4rem;position:relative;z-index:1}
+.faq-item{border:1px solid rgba(255,255,255,0.07);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.faq-item.open{border-color:rgba(82,183,136,0.3)}
+.faq-q{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:14px;font-weight:600;color:#fff;gap:12px}
+.faq-q:hover{background:rgba(255,255,255,0.02)}
+.faq-arrow{color:#52b788;font-size:18px;flex-shrink:0;transition:transform .2s}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 20px 16px;font-size:13px;color:rgba(255,255,255,0.55);line-height:1.8}
+.faq-item.open .faq-a{display:block}
+
+/* LAST RESTOCKED */
+.restock-time{font-size:11px;color:rgba(255,255,255,0.3);margin-top:3px;display:flex;align-items:center;gap:4px}
+.restock-time::before{content:'\21bb';font-size:10px;color:rgba(255,255,255,0.2)}
+
+/* PRICE GUARANTEE BANNER */
+.price-guarantee{max-width:1060px;margin:0 auto;padding:0 1.5rem 2rem;position:relative;z-index:1}
+.price-guarantee-inner{background:rgba(82,183,136,0.06);border:1px solid rgba(82,183,136,0.2);border-radius:14px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pg-left{display:flex;align-items:center;gap:12px}
+.pg-icon{font-size:1.5rem}
+.pg-text{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.5}
+.pg-text strong{color:#fff}
+.pg-btn{background:none;border:1px solid rgba(82,183,136,0.4);color:#52b788;border-radius:10px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .15s;text-decoration:none;display:inline-block}
+.pg-btn:hover{background:rgba(82,183,136,0.1)}
+
+/* SEED OF THE DAY */
+.card.sotd{border-color:rgba(255,215,0,0.5);box-shadow:0 0 30px rgba(255,215,0,0.15)}
+.card.sotd .card-inner{border-radius:20px}
+.sotd-badge{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#b8860b,#ffd700);color:#000;font-size:9px;font-weight:800;padding:3px 12px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;z-index:6;white-space:nowrap;box-shadow:0 0 10px rgba(255,215,0,0.4)}
+
+/* ORDER COUNTER */
+.order-counter{font-size:12px;font-weight:600;color:rgba(255,255,255,0.45);display:flex;align-items:center;gap:5px}
+.order-counter strong{color:#52b788;font-weight:700}
+
+/* FIREFLIES */
+.firefly{position:fixed;width:4px;height:4px;border-radius:50%;background:#ffd700;pointer-events:none;z-index:1;animation:fly linear infinite}
+@keyframes fly{
+  0%{transform:translate(0,0);opacity:0}
+  10%{opacity:1}
+  90%{opacity:0.8}
+  100%{transform:translate(var(--fx),var(--fy));opacity:0}
+}
+.firefly::after{content:'';position:absolute;inset:-4px;border-radius:50%;background:rgba(255,215,0,0.3);animation:ff-pulse 1.5s ease infinite}
+@keyframes ff-pulse{0%,100%{transform:scale(1);opacity:0.8}50%{transform:scale(2.5);opacity:0}}
+
+/* DISCORD ROLE BANNER */
+.role-banner{max-width:1060px;margin:0 auto;padding:0 1.5rem 2rem;position:relative;z-index:1}
+.role-banner-inner{background:linear-gradient(135deg,rgba(88,101,242,0.12),rgba(88,101,242,0.06));border:1px solid rgba(88,101,242,0.3);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.role-banner-icon{font-size:2rem;flex-shrink:0}
+.role-banner-text{flex:1}
+.role-banner-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+.role-banner-sub{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.5}
+.role-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(88,101,242,0.2);border:1px solid rgba(88,101,242,0.4);color:#818cf8;font-size:12px;font-weight:700;padding:3px 12px;border-radius:20px;margin-left:4px}
+.role-discord-btn{background:#5865f2;color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:opacity .15s;flex-shrink:0}
+.role-discord-btn:hover{opacity:.85}
+
+/* HOLOGRAPHIC SHIMMER */
+.card[data-r="Super"] .card-inner{position:relative}
+.card[data-r="Super"] .card-front::after{
+  content:'';position:absolute;inset:0;border-radius:20px;
+  background:linear-gradient(135deg,
+    rgba(255,0,0,0) 0%,
+    rgba(255,154,0,0.15) 10%,
+    rgba(208,222,33,0.15) 20%,
+    rgba(79,220,74,0.15) 30%,
+    rgba(63,218,216,0.15) 40%,
+    rgba(47,201,226,0.15) 50%,
+    rgba(28,127,238,0.15) 60%,
+    rgba(95,21,242,0.15) 70%,
+    rgba(186,12,248,0.15) 80%,
+    rgba(251,7,217,0.15) 90%,
+    rgba(255,0,0,0) 100%
+  );
+  background-size:200% 200%;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s;
+  mix-blend-mode:screen;
+  animation:holo-shift 4s linear infinite;
+  z-index:10;
+}
+.card[data-r="Super"]:hover .card-front::after{opacity:1}
+@keyframes holo-shift{
+  0%{background-position:0% 0%}
+  50%{background-position:100% 100%}
+  100%{background-position:0% 0%}
+}
+.card[data-r="Super"] .card-front{position:relative;overflow:hidden}
+.holo-cursor{
+  position:absolute;inset:0;border-radius:20px;pointer-events:none;z-index:11;opacity:0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.25) 0%,transparent 60%);
+  transition:opacity .2s;mix-blend-mode:screen;
+}
+.card[data-r="Super"]:hover .holo-cursor{opacity:1}
+@media(max-width:600px){nav{padding:0 1rem}.hero{padding:4rem 1.25rem 3rem}.grid{padding:0 1rem 4rem}.pane{padding:16px}.how-grid{grid-template-columns:1fr}.sheckles-body{grid-template-columns:1fr}.sheckles-section{padding:0 1rem 4rem}}
+</style>
+</head>
+<body>
+<div class="particles" id="particles"></div>
+<nav>
+  <div class="nav-logo">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><path d="M16 3C16 3 7 10 7 19a9 9 0 0018 0C25 10 16 3 16 3z" fill="#52b788"/><path d="M16 10v16M10 16l6-6 6 6" stroke="#1b4332" stroke-width="2" stroke-linecap="round"/></svg>
+    <span><span class="accent">Blake's</span> Garden Shop</span>
+  </div>
+  <span class="nav-badge">Grow a Garden 2</span>
+  <div class="visitor-count"><span class="visitor-dot"></span><span id="visitor-num">0</span> browsing now</div>
+  <div class="order-counter">&#9989; <strong id="order-count">127</strong> orders fulfilled</div>
+</nav>
+
+<div class="discord-banner" id="discord-banner">
+  <div class="discord-banner-text"><strong>Get restock alerts!</strong> Join the Discord for new seeds, price drops and exclusive deals.</div>
+  <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="discord-join-btn">
+    <svg class="discord-icon" viewBox="0 0 24 24" fill="white"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.034.055a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+    Join Discord
+  </a>
+  <button class="discord-close" onclick="document.getElementById('discord-banner').style.display='none'">&#x2715;</button>
+</div>
+
+<div class="ticker-wrap"><div class="ticker-track" id="ticker-track"></div></div>
+
+<section class="hero">
+  <div class="hero-parallax-bg" id="hero-parallax-bg"></div>
+  <div class="hero-sprout">
+    <svg class="sprout-svg" viewBox="0 0 60 60" fill="none">
+      <circle class="sprout-glow" cx="30" cy="55" r="8" fill="#52b788" opacity=".15"/>
+      <path class="sprout-stem" d="M30 55 Q30 40 30 20" stroke="#52b788" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="sprout-leaf-l" d="M30 35 Q18 28 20 18 Q28 22 30 35Z" fill="#4caf50"/>
+      <path class="sprout-leaf-r" d="M30 25 Q42 18 40 8 Q32 12 30 25Z" fill="#52b788"/>
+    </svg>
+  </div>
+  <div class="hero-tag">&#128722; Roblox Shop</div>
+  <h1><span class="line1">Real seeds,</span><br><span class="line2">delivered in-game.</span></h1>
+  <p>Pick a seed, pay, then drop your Roblox username. I'll trade you directly in Grow a Garden 2.</p>
+  <button class="sheckles-hero-btn" onclick="document.getElementById('sheckles').scrollIntoView({behavior:'smooth'})">
+    <span class="coin">&#128176;</span>
+    Looking for Sheckles?
+    <span class="coin" style="animation-direction:reverse">&#128176;</span>
+  </button>
+</section>
+
+<div class="section-label">&#10022; How it works &#10022;</div>
+<section class="how-section">
+  <div class="how-grid">
+    <div class="how-card"><div class="how-num">01</div><div class="how-title">Pick your seeds</div><div class="how-desc">Browse the shop and choose what you want. Use the quantity selector to add multiple of the same seed.</div></div>
+    <div class="how-card"><div class="how-num">02</div><div class="how-title">Send payment</div><div class="how-desc">Pay via Venmo or Cash App. Confirm once sent and a chat with Blake opens automatically.</div></div>
+    <div class="how-card"><div class="how-num">03</div><div class="how-title">Get your trade</div><div class="how-desc">Send Blake your Roblox username in the chat. Once payment is verified he'll find you in-game and send the trade.</div></div>
+  </div>
+</section>
+
+<div class="role-banner">
+  <div class="role-banner-inner">
+    <div class="role-banner-icon">&#127807;</div>
+    <div class="role-banner-text">
+      <div class="role-banner-title">Buy any seed and earn the <span class="role-pill">&#127807; Buyer</span> role in the Discord!</div>
+      <div class="role-banner-sub">Join the server, make a purchase, and DM @eclipsekw with proof. Role granted within 24 hours.</div>
+    </div>
+    <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="role-discord-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.034.055a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+      Join Discord
+    </a>
+  </div>
+</div>
+
+<div class="price-guarantee">
+  <div class="price-guarantee-inner">
+    <div class="pg-left">
+      <span class="pg-icon">&#128176;</span>
+      <div class="pg-text"><strong>Price Guarantee</strong> &mdash; Found the same seed cheaper somewhere else? DM me and I'll match it.</div>
+    </div>
+    <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="pg-btn">DM @eclipsekw</a>
+  </div>
+</div>
+
+<div class="section-label">&#10022; Available seeds &#10022;</div>
+
+
+<div class="filter-bar" id="filter-bar">
+  <button class="filter-btn active" data-r="All">All</button>
+  <button class="filter-btn" data-r="Legendary">Legendary</button>
+  <button class="filter-btn" data-r="Mythical">Mythical</button>
+  <button class="filter-btn" data-r="Super">Super</button>
+</div>
+
+<div class="featured-wrap" id="featured-wrap"></div>
+<main class="grid" id="grid"></main>
+
+<div class="section-label">&#10022; Sheckles &#10022;</div>
+<section class="sheckles-section" id="sheckles">
+  <div class="sheckles-card">
+    <div class="sheckles-glow"></div>
+    <div class="sheckles-header">
+      <div class="sheckles-icon">&#128176;</div>
+      <div>
+        <div class="sheckles-title">Buy Sheckles</div>
+        <div class="sheckles-subtitle">$0.06 per million &nbsp;&middot;&nbsp; 100M minimum</div>
+      </div>
+    </div>
+    <div class="sheckles-body">
+      <div class="sheckles-controls">
+        <div>
+          <div class="sheckles-label">Amount</div>
+          <div class="sheckles-amount-row">
+            <button class="sheckles-qty-btn" id="sh-minus">&#8722;</button>
+            <input class="sheckles-input" type="number" id="sh-amount" value="100" min="100" max="500" step="1">
+            <span class="sheckles-unit">Million</span>
+            <button class="sheckles-qty-btn" id="sh-plus">&#43;</button>
+          </div>
+        </div>
+      </div>
+      <div class="sheckles-summary">
+        <div class="sheckles-total-label">Total price</div>
+        <div class="sheckles-total" id="sh-total">$6.00</div>
+        <div class="sheckles-total-sub" id="sh-breakdown">100M Sheckles</div>
+        <button class="sheckles-buy-btn" id="sh-buy-btn">Buy Sheckles &#128176;</button>
+        <div class="sheckles-permill">$0.06 per million &nbsp;&middot;&nbsp; Prices may change at any time without notice</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="purchase-notif" id="purchase-notif">
+  <div class="pn-avatar">&#127807;</div>
+  <div class="pn-text">
+    <div class="pn-name" id="pn-name"></div>
+    <div class="pn-item" id="pn-item"></div>
+    <div class="pn-time">just now</div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="mhead">
+      <div id="m-svg"></div>
+      <div><div class="mname" id="m-name"></div><div class="mprice" id="m-price"></div></div>
+      <button class="mclose" id="mclose">&#x2715;</button>
+    </div>
+    <div class="tabs">
+      <div class="tab on" id="t1">1. Pay</div>
+      <div class="tab" id="t2">2. Confirm</div>
+      <div class="tab" id="t3">3. Chat</div>
+    </div>
+    <div class="pane on" id="p1">
+      <div class="pay-item-box">
+        <div class="pay-item-name" id="pay-item-name"></div>
+        <div class="pay-item-price" id="pay-item-price"></div>
+      </div>
+      <div class="pay-methods">
+        <button class="pay-btn" id="pay-venmo">
+          <div class="pay-icon" style="background:#008CFF"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.5 2c.6 1 .9 2.1.9 3.4 0 4.2-3.6 9.7-6.5 13.6H7.8L5 2.9l5.8-.6 1.5 11.9c1.4-2.3 3.1-5.9 3.1-8.4 0-1.4-.2-2.3-.6-3.1L19.5 2z"/></svg></div>
+          <div><div class="pay-label">Venmo</div><div class="pay-handle">@eclipsekw</div></div>
+        </button>
+        <button class="pay-btn" id="pay-cashapp">
+          <div class="pay-icon" style="background:#00D632"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></div>
+          <div><div class="pay-label">Cash App</div><div class="pay-handle">$keywestBlake</div></div>
+        </button>
+      </div>
+      <p class="pay-notice">Send the exact amount then click your payment method above.</p>
+    </div>
+    <div class="pane" id="p2">
+      <div class="confirm-box"><p>&#128338; Sent payment via <strong id="pay-method-label"></strong>? Click confirm and I'll verify it before sending your item.</p></div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:4px">After confirming, use the chat bubble in the corner to message Blake directly.</p>
+      <button class="abtn green" id="confirmbtn">I've sent payment &#10003;</button>
+    </div>
+    <div class="pane" id="p3">
+      <div class="chat-prompt">
+        <div style="font-size:3rem;margin-bottom:10px">&#128172;</div>
+        <h3>Now message Blake</h3>
+        <p>Use the green chat bubble in the bottom-right corner. Send your Roblox username and he'll find you in-game.</p>
+        <div class="chat-tip">&#128073; Tap the green chat button in the corner</div>
+      </div>
+      <button class="abtn soft" id="backbtn" style="margin-top:16px">Back to shop</button>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">&#10022; Mystery Box &#10022;</div>
+<section class="mystery-section">
+  <div class="mystery-card">
+    <span class="mystery-icon">&#127381;</span>
+    <div class="mystery-title">Mystery <span>Seed Box</span></div>
+    <div class="mystery-price">$5.00</div>
+    <p class="mystery-desc">Pay $2 and get a completely random seed from the shop. Could be anything from a $0.05 Bamboo to a $10 Moon Bloom. Pure luck.</p>
+    <div class="mystery-warning">
+      <strong>&#9888; Heads up:</strong> You are very likely to get a Common or Legendary seed. Mythical seeds are rare. There are no refunds on mystery boxes — you get what you get. Only buy if you're okay with any outcome.
+    </div>
+    <div class="mystery-odds">
+      <span class="mystery-odd rc">Common &mdash; 70%</span>
+      <span class="mystery-odd rl">Legendary &mdash; 25%</span>
+      <span class="mystery-odd rm">Mythical &mdash; 5%</span>
+    </div>
+    <button class="mystery-buy-btn" id="mystery-buy-btn">Open Mystery Box &#127381;</button>
+  </div>
+</section>
+
+<div class="section-label">&#10022; FAQ &#10022;</div>
+<section class="faq-section">
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Is this safe? How do I know I won't get scammed?<span class="faq-arrow">&#8964;</span></div>
+    <div class="faq-a">All trades are done manually by Blake in-game. Payment is required upfront, and Blake will find you in Roblox and send the items directly. If you're unsure, start with a cheap seed like Bamboo ($0.05) to build trust first.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">How fast will I get my seeds?<span class="faq-arrow">&#8964;</span></div>
+    <div class="faq-a">Usually within minutes of payment being confirmed. Blake will reach out via the chat and find you in Roblox as soon as possible. Make sure you're online and in-game. Response times may vary if Blake is offline.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">What if I don't receive my item?<span class="faq-arrow">&#8964;</span></div>
+    <div class="faq-a">If Blake can't find you in-game, he'll reach out via the chat to arrange another time. Make sure your Roblox username is spelled correctly. If there's a genuine issue, contact Blake on Discord (@eclipsekw) and it will be sorted out.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Can I buy multiple different seeds in one order?<span class="faq-arrow">&#8964;</span></div>
+    <div class="faq-a">Currently each order is per item. You can buy multiple quantities of the same seed using the +/- selector. For mixed orders, just place multiple orders or message Blake in the chat and he can combine them into one trade.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Are refunds available?<span class="faq-arrow">&#8964;</span></div>
+    <div class="faq-a">All sales are final once a trade has been sent. Mystery boxes are non-refundable by nature. If you paid but the trade was never delivered, contact Blake on Discord (@eclipsekw) and he will make it right.</div>
+  </div>
+</section>
+
+<footer>Blake's Garden Shop &nbsp;&middot;&nbsp; <span>Grow a Garden 2</span> &nbsp;&middot;&nbsp; All trades done manually in-game</footer>
+
+<script type="text/javascript">
+window.$crisp=[];
+window.CRISP_WEBSITE_ID="d5a8f5d1-23fb-4d2b-8feb-785cabf08ed2";
+(function(){var d=document;var s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+window.$crisp.push(["on","session:loaded",function(){
+  window.$crisp.push(["do","chat:hide"]);
+}]);
+</script>
+
+<script>
+var WEBHOOK = 'https://discord.com/api/webhooks/1517706753012273175/tKMGvXo-M-ZoM7_gC3gGtF4wAMQMt-_oyqOCMlxz9N0gk4dCMDsB9dCOfSbaTwAU_YA6';
+
+var seeds = [
+  {name:"Dragon Breath Seed",key:"dragon",restock:"2 hours ago",price:"$1.00",oldprice:"$5.00",special:true,rarity:"Super",rc:"rs",sold:142,isnew:false,bg:"rgba(236,72,153,0.08)",
+   svg:'<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="df" x1="32" y1="6" x2="32" y2="54" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#ff6d00"/><stop offset="55%" stop-color="#e53935"/><stop offset="100%" stop-color="#7b1fa2"/></linearGradient></defs><path d="M32 6 C28 18 17 20 19 33 C21 44 32 52 32 52 C32 52 43 44 45 33 C47 20 36 18 32 6Z" fill="url(#df)"/><path d="M26 16 L21 8 M27 13 L20 10" stroke="#ffca28" stroke-width="2" stroke-linecap="round"/><path d="M38 16 L43 8 M37 13 L44 10" stroke="#ffca28" stroke-width="2" stroke-linecap="round"/></svg>',
+   desc:"Fiery and hard to find. Worth grabbing early."},
+  {name:"Moon Bloom Seed",key:"moon",restock:"5 hours ago",price:"$10.00",rarity:"Super",rc:"rs",sold:38,isnew:true,stock:2,bg:"rgba(236,72,153,0.08)",
+   svg:'<svg viewBox="0 0 64 64" fill="none"><defs><radialGradient id="mnh" cx="50%" cy="50%"><stop offset="0%" stop-color="#e1bee7"/><stop offset="100%" stop-color="#7b1fa2"/></radialGradient><radialGradient id="mnc" cx="50%" cy="50%"><stop offset="0%" stop-color="#fff176"/><stop offset="100%" stop-color="#f9a825"/></radialGradient></defs><ellipse cx="32" cy="13" rx="4.5" ry="8" fill="#e1bee7" opacity=".9"/><ellipse cx="32" cy="51" rx="4.5" ry="8" fill="#e1bee7" opacity=".9"/><ellipse cx="13" cy="32" rx="8" ry="4.5" fill="#e1bee7" opacity=".9"/><ellipse cx="51" cy="32" rx="8" ry="4.5" fill="#e1bee7" opacity=".9"/><ellipse cx="19" cy="19" rx="4.5" ry="8" fill="#ce93d8" opacity=".8" transform="rotate(-45 19 19)"/><ellipse cx="45" cy="19" rx="4.5" ry="8" fill="#ce93d8" opacity=".8" transform="rotate(45 45 19)"/><ellipse cx="19" cy="45" rx="4.5" ry="8" fill="#ce93d8" opacity=".8" transform="rotate(45 19 45)"/><ellipse cx="45" cy="45" rx="4.5" ry="8" fill="#ce93d8" opacity=".8" transform="rotate(-45 45 45)"/><circle cx="32" cy="32" r="12" fill="url(#mnh)"/><circle cx="32" cy="32" r="8" fill="url(#mnc)"/></svg>',
+   desc:"Mythical rarity. Only blooms under moonlight."},
+  {name:"Poison Apple Seed",key:"poison",restock:"1 day ago",price:"$4.00",rarity:"Legendary",rc:"rl",sold:74,isnew:false,stock:4,bg:"rgba(234,179,8,0.08)",
+   svg:'<svg viewBox="0 0 64 64" fill="none"><defs><radialGradient id="pah" cx="33%" cy="32%"><stop offset="0%" stop-color="#ab47bc"/><stop offset="60%" stop-color="#6a1b9a"/><stop offset="100%" stop-color="#1a237e"/></radialGradient></defs><path d="M32 13 C32 13 26 7 20 9" stroke="#388e3c" stroke-width="2.5" stroke-linecap="round" fill="none"/><ellipse cx="32" cy="10" rx="4" ry="4.5" fill="#4caf50" transform="rotate(-15 32 10)"/><path d="M17 22 C11 28 11 48 21 54 C25 57 28 58 32 58 C36 58 39 57 43 54 C53 48 53 28 47 22 C43 17 40 16 32 18 C24 16 21 17 17 22Z" fill="url(#pah)"/><circle cx="24" cy="30" r="2.5" fill="#ce93d8" opacity=".6"/><circle cx="40" cy="36" r="2" fill="#ce93d8" opacity=".5"/><circle cx="32" cy="40" r="2" fill="#ce93d8" opacity=".4"/></svg>',
+   desc:"Legendary rarity. One of the most sought-after seeds."},
+  {name:"Venus Fly Trap Seed",key:"venus",restock:"3 hours ago",price:"$3.00",rarity:"Legendary",rc:"rl",sold:91,isnew:false,bg:"rgba(234,179,8,0.08)",
+   svg:'<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="vl" x1="12" y1="18" x2="32" y2="38"><stop offset="0%" stop-color="#a5d6a7"/><stop offset="100%" stop-color="#2e7d32"/></linearGradient><linearGradient id="vr" x1="52" y1="18" x2="32" y2="38"><stop offset="0%" stop-color="#a5d6a7"/><stop offset="100%" stop-color="#2e7d32"/></linearGradient></defs><rect x="29" y="38" width="6" height="20" rx="3" fill="#388e3c"/><ellipse cx="32" cy="38" rx="7" ry="2.5" fill="#2e7d32"/><path d="M32 18 C21 14 12 22 14 32 C16 38 32 38 32 38Z" fill="url(#vl)"/><path d="M32 18 C43 14 52 22 50 32 C48 38 32 38 32 38Z" fill="url(#vr)"/><path d="M17 29 L15 22 M22 27 L21 20 M27 26 L28 19" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M47 29 L49 22 M42 27 L43 20 M37 26 L36 19" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M32 20 C23 17 16 24 18 31Z" fill="#e53935" opacity=".45"/><path d="M32 20 C41 17 48 24 46 31Z" fill="#e53935" opacity=".45"/></svg>',
+   desc:"Carnivorous and epic rarity. Hard to find."},
+  {name:"Bamboo Seed",key:"bamboo",restock:"just now",price:"$0.05",rarity:"Rare",rc:"rr",sold:312,isnew:false,bg:"rgba(59,130,246,0.08)",
+   svg:'<svg viewBox="0 0 64 64" fill="none"><rect x="26" y="2" width="6" height="18" rx="3" fill="#4caf50"/><rect x="26" y="22" width="6" height="18" rx="3" fill="#388e3c"/><rect x="26" y="42" width="6" height="18" rx="3" fill="#2e7d32"/><rect x="25" y="20" width="8" height="4" rx="2" fill="#1b5e20"/><rect x="25" y="40" width="8" height="4" rx="2" fill="#1b5e20"/><path d="M32 10 Q44 6 46 2" stroke="#4caf50" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M32 30 Q20 26 18 20" stroke="#388e3c" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M32 52 Q44 48 46 42" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" fill="none"/></svg>',
+   desc:"Fast-growing crop. Great for beginners."},
+  {name:"Mushroom Seed",key:"mushroom",restock:"30 minutes ago",price:"$0.10",rarity:"Rare",rc:"rr",sold:287,isnew:false,bg:"rgba(59,130,246,0.08)",
+   svg:'<svg viewBox="0 0 64 64" fill="none"><defs><radialGradient id="mh" cx="40%" cy="35%"><stop offset="0%" stop-color="#ef5350"/><stop offset="100%" stop-color="#b71c1c"/></radialGradient></defs><ellipse cx="32" cy="29" rx="22" ry="14" fill="url(#mh)"/><circle cx="20" cy="26" r="4.5" fill="white" opacity=".9"/><circle cx="32" cy="21" r="3.5" fill="white" opacity=".9"/><circle cx="43" cy="27" r="3.5" fill="white" opacity=".9"/><rect x="27" y="41" width="10" height="16" rx="5" fill="#f5cba7"/><ellipse cx="32" cy="43" rx="13" ry="3.5" fill="#e8a87c"/></svg>',
+   desc:"Reliable classic. Solid early-game earner."},
+  {name:"Pomegranate Seed",key:"pom",restock:"1 day ago",price:"$2.00",rarity:"Legendary",rc:"rl",sold:56,isnew:true,stock:3,bg:"rgba(234,179,8,0.08)",
+   svg:'<svg viewBox="0 0 64 64" fill="none"><defs><radialGradient id="ph" cx="38%" cy="32%"><stop offset="0%" stop-color="#ef5350"/><stop offset="100%" stop-color="#b71c1c"/></radialGradient></defs><circle cx="32" cy="38" r="20" fill="url(#ph)"/><path d="M26 16 C26 10 32 6 32 6 C32 6 38 10 38 16" stroke="#4caf50" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="32" cy="16" rx="5" ry="3" fill="#388e3c"/><circle cx="25" cy="34" r="2.5" fill="#ff8a80" opacity=".85"/><circle cx="32" cy="30" r="2.5" fill="#ff8a80" opacity=".85"/><circle cx="39" cy="34" r="2.5" fill="#ff8a80" opacity=".85"/><circle cx="28" cy="41" r="2.5" fill="#ff8a80" opacity=".85"/><circle cx="36" cy="41" r="2.5" fill="#ff8a80" opacity=".85"/></svg>',
+   desc:"Rare fruiting plant with great sell value."},
+  {name:"Venom Spitter Seed",key:"venom",price:"$15.00",rarity:"Mythical",rc:"rm",sold:0,isnew:true,restock:"just now",bg:"rgba(34,197,94,0.08)",
+   svg:'<svg viewBox="0 0 64 64" fill="none"><defs><radialGradient id="vs" cx="50%" cy="40%"><stop offset="0%" stop-color="#a3e635"/><stop offset="100%" stop-color="#166534"/></radialGradient></defs><ellipse cx="32" cy="40" rx="18" ry="14" fill="url(#vs)"/><path d="M22 34 C18 28 20 20 32 18 C44 20 46 28 42 34" fill="#166534"/><circle cx="25" cy="36" r="3" fill="#4ade80" opacity=".7"/><circle cx="39" cy="36" r="3" fill="#4ade80" opacity=".7"/><path d="M28 44 L26 54 M36 44 L38 54" stroke="#86efac" stroke-width="2" stroke-linecap="round"/><path d="M26 54 L24 58 M26 54 L28 58" stroke="#86efac" stroke-width="1.5" stroke-linecap="round"/><path d="M38 54 L36 58 M38 54 L40 58" stroke="#86efac" stroke-width="1.5" stroke-linecap="round"/><circle cx="32" cy="26" r="4" fill="#bbf7d0"/><ellipse cx="32" cy="14" rx="3" ry="5" fill="#86efac" opacity=".6"/></svg>',
+   desc:"Brand new Mythical drop. Spits venom and sells for massive Sheckles. Just added to the game."}
+];
+
+var active = null;
+var activeQty = 1;
+var payMethod = '';
+
+
+function launchConfetti(){
+  var colors=['#52b788','#ffd700','#f472b6','#60a5fa','#fff'];
+  for(var i=0;i<80;i++){
+    var el=document.createElement('div');el.className='confetti-piece';
+    el.style.cssText='left:'+Math.random()*100+'vw;top:0;background:'+colors[Math.floor(Math.random()*colors.length)]+';animation-duration:'+(1.5+Math.random()*2)+'s;animation-delay:'+Math.random()*.5+'s;width:'+(6+Math.random()*6)+'px;height:'+(6+Math.random()*6)+'px';
+    document.body.appendChild(el);
+    setTimeout(function(e){return function(){e.remove()}}(el),3500);
+  }
+}
+
+var buyers=['xXBlake99Xx','GardenKing42','SeedHunter7','FlowerQueen','RobloxPro22','GreenThumb_','NightBloom','CropMaster'];
+var purchaseItems=[
+  {name:'Moon Bloom Seed x1',price:'$10.00'},{name:'Dragon Breath Seed x3',price:'$3.00'},
+  {name:'Poison Apple Seed x2',price:'$8.00'},{name:'500M Sheckles',price:'$30.00'},
+  {name:'Venus Fly Trap Seed x1',price:'$3.00'},{name:'1B Sheckles',price:'$60.00'},
+  {name:'Pomegranate Seed x2',price:'$4.00'}
+];
+function showPurchaseNotif(){
+  var notif=document.getElementById('purchase-notif');
+  var buyer=buyers[Math.floor(Math.random()*buyers.length)];
+  var item=purchaseItems[Math.floor(Math.random()*purchaseItems.length)];
+  document.getElementById('pn-name').textContent=buyer+' purchased';
+  document.getElementById('pn-item').textContent=item.name+' - '+item.price;
+  notif.classList.add('show');
+  setTimeout(function(){notif.classList.remove('show');},4000);
+}
+setTimeout(function(){showPurchaseNotif();setInterval(showPurchaseNotif,(Math.random()*300000)+600000);},8000);
+
+function buildFeatured(){
+  var fw=document.getElementById('featured-wrap');
+  var s=seeds[0];
+  var oldPriceHtml=s.oldprice?'<span class="featured-old">'+s.oldprice+'</span><span class="sotd-price-tag">SALE</span>':'';
+  var soldHtml=s.sold?'<div class="sold-count"><span>'+s.sold+'+ sold</span></div>':'';
+  fw.innerHTML='<div class="featured-card" style="background:'+s.bg+'">'+
+    '<div class="featured-art">'+s.svg+'</div>'+
+    '<div class="featured-info">'+
+      '<span class="rbadge '+s.rc+'" style="display:inline-block;width:fit-content">'+s.rarity+'</span>'+
+      '<div class="featured-name">'+s.name+'</div>'+
+      '<div class="featured-desc">'+s.desc+'</div>'+
+      '<div class="featured-price-row"><span class="featured-price">'+s.price+'</span>'+oldPriceHtml+'</div>'+
+      soldHtml+
+      '<div class="countdown-banner"><span class="countdown-label">&#9889; Offer ends in</span><span class="countdown-timer" id="feat-countdown">--:--:--</span></div>'+
+      '<div class="featured-foot">'+
+        '<div class="featured-qty-row">'+
+          '<button class="qty-btn" id="feat-minus">&#8722;</button>'+
+          '<span class="qty-num" id="feat-qty">1</span>'+
+          '<button class="qty-btn" id="feat-plus">&#43;</button>'+
+        '</div>'+
+        '<button class="featured-buy" id="feat-buy">Buy Now</button>'+
+      '</div>'+
+    '</div>'+
+  '</div>';
+  document.getElementById('feat-minus').addEventListener('click',function(){
+    var q=Math.max(1,parseInt(document.getElementById('feat-qty').textContent)-1);
+    document.getElementById('feat-qty').textContent=q;
+  });
+  document.getElementById('feat-plus').addEventListener('click',function(){
+    var q=Math.min(10,parseInt(document.getElementById('feat-qty').textContent)+1);
+    document.getElementById('feat-qty').textContent=q;
+  });
+  document.getElementById('feat-buy').addEventListener('click',function(){
+    playBuySound();
+    openModal(seeds[0],parseInt(document.getElementById('feat-qty').textContent));
+  });
+}
+
+function buildGrid(){
+  var g=document.getElementById('grid');
+  // Seed of the Day - pick based on day of year (skipping index 0 which is featured)
+  var dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  var sotdIdx = (dayOfYear % (seeds.length - 1)) + 1;
+  seeds.forEach(function(s,idx){
+    if(idx===0) return;
+    var c=document.createElement('div');
+    c.className='card';
+    c.setAttribute('data-r',s.rarity);
+    var bg=s.bg||'rgba(255,255,255,0.04)';
+    var specialBanner=s.special?'<div class="special-banner">&#9889; Limited Time Offer</div>':'';
+    var newBadge=s.isnew?'<div class="new-badge">New</div>':'';
+    var soldHtml=s.sold?'<div class="sold-count"><span>'+s.sold+'+ sold</span></div>':'';
+    var stockHtml=(s.stock&&s.stock<=5)?'<div class="low-stock">Only '+s.stock+' left!</div>':'';
+
+    if(s.special) c.classList.add('special');
+    var isSotd = (idx===sotdIdx);
+    if(isSotd) c.classList.add('sotd');
+    var sotdBadge = isSotd ? '<div class="sotd-badge">&#11088; Seed of the Day</div>' : '';
+    var sotdOldPrice = (isSotd && !s.oldprice) ? ('$'+(parseFloat(s.price.replace('$',''))*1.25).toFixed(2)) : '';
+    var priceHtml=s.special
+      ?'<div class="card-foot-prices"><span class="old-price">'+s.oldprice+'</span><span class="card-price" id="price-'+s.key+'">'+s.price+'</span></div>'
+      :isSotd && sotdOldPrice
+        ?'<div class="card-foot-prices"><span class="old-price">'+sotdOldPrice+'</span><span class="card-price" id="price-'+s.key+'">'+s.price+'</span><span class="sotd-price-tag">SALE</span></div>'
+        :'<span class="card-price" id="price-'+s.key+'">'+s.price+'</span>';
+    var rarityColor = {Common:'#9ca3af',Legendary:'#facc15',Mythical:'#f472b6'}[s.rarity]||'#fff';
+    c.innerHTML=
+      '<div class="card-inner">'+
+        '<div class="card-front">'+
+          '<div class="card-art" style="background:'+bg+'">'+sotdBadge+specialBanner+newBadge+
+          s.svg+'<span class="rbadge '+s.rc+'">'+s.rarity+'</span></div>'+
+          '<div class="card-body">'+
+            '<div class="card-name">'+s.name+'</div>'+
+            '<div class="card-desc">'+s.desc+'</div>'+
+            soldHtml+stockHtml+(s.restock?'<div class="restock-time">Restocked '+s.restock+'</div>':'')+
+            '<div class="card-foot">'+priceHtml+
+              '<div class="qty-row">'+
+                '<button class="qty-btn" data-key="'+s.key+'" data-dir="-1">&#8722;</button>'+
+                '<span class="qty-num" id="qty-'+s.key+'">1</span>'+
+                '<button class="qty-btn" data-key="'+s.key+'" data-dir="1">&#43;</button>'+
+                '<button class="buybtn">Buy</button>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="card-back">'+
+          '<div class="card-back-title">'+s.name+'</div>'+
+          '<div class="card-back-stats">'+
+            '<div class="stat-row"><span class="stat-label">Rarity</span><span class="stat-val" style="color:'+rarityColor+'">'+s.rarity+'</span></div>'+
+            '<div class="stat-row"><span class="stat-label">Price</span><span class="stat-val" style="color:#52b788">'+s.price+'</span></div>'+
+            '<div class="stat-row"><span class="stat-label">Total sold</span><span class="stat-val">'+(s.sold||0)+'+ units</span></div>'+
+            (s.stock?'<div class="stat-row"><span class="stat-label">Stock</span><span class="stat-val" style="color:#f87171">Only '+s.stock+' left</span></div>':'<div class="stat-row"><span class="stat-label">Stock</span><span class="stat-val" style="color:#4ade80">Available</span></div>')+
+            (s.restock?'<div class="stat-row"><span class="stat-label">Restocked</span><span class="stat-val">'+s.restock+'</span></div>':'')+
+            (s.isnew?'<div class="stat-row"><span class="stat-label">Status</span><span class="stat-val" style="color:#60a5fa">New arrival</span></div>':'')+
+          '</div>'+
+          '<button class="card-back-btn" id="back-buy-'+s.key+'">Buy Now</button>'+
+        '</div>'+
+      '</div>';
+    if(s.oos){
+      c.classList.add('oos');
+      c.innerHTML+='<div class="oos-badge"><span class="oos-pill">Out of Stock</span></div>';
+    } else {
+      c.querySelector('.buybtn').addEventListener('click',function(){playBuySound();openModal(s,getQty(s.key));});
+      var backBuyBtn = c.querySelector('#back-buy-'+s.key);
+      if(backBuyBtn) backBuyBtn.addEventListener('click',function(){playBuySound();openModal(s,1);});
+    }
+    c.querySelectorAll('.qty-btn').forEach(function(btn){
+      btn.addEventListener('click',function(e){
+        e.stopPropagation();
+        changeQty(btn.getAttribute('data-key'),parseInt(btn.getAttribute('data-dir')),s);
+      });
+    });
+    g.appendChild(c);
+  });
+}
+
+function getQty(key){var el=document.getElementById('qty-'+key);return el?parseInt(el.textContent):1;}
+function changeQty(key,dir,s){
+  var el=document.getElementById('qty-'+key);if(!el) return;
+  var next=Math.max(1,Math.min(10,parseInt(el.textContent)+dir));
+  el.textContent=next;
+  var base=parseFloat(s.price.replace('$',''));
+  var priceEl=document.getElementById('price-'+key);
+  if(priceEl) priceEl.textContent=next>1?'$'+(base*next).toFixed(2)+' (x'+next+')':s.price;
+}
+
+function openModal(s,qty){
+  active=s;activeQty=qty||1;payMethod='';
+  var base=parseFloat(s.price.replace('$',''));
+  var total=activeQty>1?'$'+(base*activeQty).toFixed(2):s.price;
+  var displayName=activeQty>1?s.name+' x'+activeQty:s.name;
+  document.getElementById('m-svg').innerHTML=s.svg;
+  document.getElementById('m-name').textContent=displayName;
+  document.getElementById('m-price').textContent=total;
+  document.getElementById('pay-item-name').textContent=displayName;
+  document.getElementById('pay-item-price').textContent=total;
+  setStep(1);
+  document.getElementById('overlay').classList.add('open');
+}
+function closeModal(){document.getElementById('overlay').classList.remove('open');}
+function setStep(n){
+  [1,2,3].forEach(function(i){
+    document.getElementById('p'+i).className='pane'+(i===n?' on':'');
+    var t=document.getElementById('t'+i);
+    t.className='tab'+(i===n?' on':i<n?' done':'');
+  });
+}
+function choosePay(method){
+  payMethod=method;
+  var labels={venmo:'Venmo (@eclipsekw)',cashapp:'Cash App ($keywestBlake)'};
+  document.getElementById('pay-method-label').textContent=labels[method];
+  setStep(2);
+}
+function confirmPay(){
+  setStep(3);
+  setTimeout(launchConfetti,300);
+  var base=parseFloat(active.price.replace('$',''));
+  var total=activeQty>1?'$'+(base*activeQty).toFixed(2):active.price;
+  var label=activeQty>1?active.name+' x'+activeQty:active.name;
+  var mysteryNote = active.mysteryPicked ? ' [Mystery: ' + active.mysteryPicked + ']' : '';
+  var msg=':seedling: **'+label+'** - '+total+' via '+payMethod.toUpperCase()+mysteryNote+'\n:speech_balloon: **Reply here:** https://app.crisp.chat/inbox/';
+  fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:msg})});
+  setTimeout(function(){
+    if(typeof $crisp!=='undefined'){
+      $crisp.push(['do','chat:show']);
+      $crisp.push(['do','chat:open']);
+      $crisp.push(['do','message:send',['text','Hi! I just paid '+total+' via '+payMethod+' for '+label+'. Please confirm!']]);
+    }
+  },800);
+}
+
+function updateSheckles(){
+  var amt=parseInt(document.getElementById('sh-amount').value)||100;
+  if(amt<100){amt=100;document.getElementById('sh-amount').value=100;} if(amt>500){amt=500;document.getElementById('sh-amount').value=500;}
+  var total=(amt*0.06).toFixed(2);
+  document.getElementById('sh-total').textContent='$'+total;
+  var label=amt>=1000?(amt/1000).toFixed(amt%1000===0?0:3).replace(/\.?0+$/,'')+'B Sheckles':amt+'M Sheckles';
+  document.getElementById('sh-breakdown').textContent=label;
+}
+document.getElementById('sh-amount').addEventListener('input',updateSheckles);
+document.getElementById('sh-minus').addEventListener('click',function(){
+  var v=Math.max(100,(parseInt(document.getElementById('sh-amount').value)||100)-1);
+  document.getElementById('sh-amount').value=v;updateSheckles();
+});
+document.getElementById('sh-plus').addEventListener('click',function(){
+  var v=Math.min(500,(parseInt(document.getElementById('sh-amount').value)||100)+1);
+  document.getElementById('sh-amount').value=v;updateSheckles();
+});
+document.getElementById('sh-buy-btn').addEventListener('click',function(){
+  var amt=parseInt(document.getElementById('sh-amount').value)||100;
+  var total=(amt*0.06).toFixed(2);
+  var label=amt>=1000?(amt/1000)+'B':amt+'M';
+  active={name:label+' Sheckles',price:'$'+total,svg:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#ffd700" opacity=".2"/><circle cx="32" cy="32" r="20" fill="#ffd700" opacity=".3"/><text x="32" y="40" text-anchor="middle" font-size="24" fill="#ffd700" font-weight="bold">$</text></svg>'};
+  activeQty=1;payMethod='';
+  document.getElementById('m-svg').innerHTML=active.svg;
+  document.getElementById('m-name').textContent=active.name;
+  document.getElementById('m-price').textContent=active.price;
+  document.getElementById('pay-item-name').textContent=active.name;
+  document.getElementById('pay-item-price').textContent=active.price;
+  setStep(1);document.getElementById('overlay').classList.add('open');
+});
+
+document.getElementById('mclose').addEventListener('click',closeModal);
+document.getElementById('backbtn').addEventListener('click',closeModal);
+document.getElementById('confirmbtn').addEventListener('click',confirmPay);
+document.getElementById('pay-venmo').addEventListener('click',function(){choosePay('venmo');});
+document.getElementById('pay-cashapp').addEventListener('click',function(){choosePay('cashapp');});
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target===document.getElementById('overlay'))closeModal();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+
+// MYSTERY BOX
+document.getElementById('mystery-buy-btn').addEventListener('click', function(){
+  // Pick random seed weighted by rarity
+  var roll = Math.random() * 100;
+  var pool;
+  if (roll < 70) {
+    pool = seeds.filter(function(s){ return s.rarity === 'Common'; });
+  } else if (roll < 95) {
+    pool = seeds.filter(function(s){ return s.rarity === 'Legendary'; });
+  } else {
+    pool = seeds.filter(function(s){ return s.rarity === 'Mythical'; });
+  }
+  if (!pool.length) pool = seeds;
+  var picked = pool[Math.floor(Math.random() * pool.length)];
+  // Open payment modal with mystery box as item
+  active = {name: 'Mystery Seed Box', price: '$5.00', svg: picked.svg, mysteryPicked: picked.name};
+  activeQty = 1;
+  payMethod = '';
+  document.getElementById('m-svg').innerHTML = active.svg;
+  document.getElementById('m-name').textContent = 'Mystery Seed Box';
+  document.getElementById('m-price').textContent = '$2.00';
+  document.getElementById('pay-item-name').textContent = 'Mystery Seed Box';
+  document.getElementById('pay-item-price').textContent = '$2.00';
+  setStep(1);
+  document.getElementById('overlay').classList.add('open');
+});
+
+// VISITOR COUNTER
+(function(){
+  var base = Math.floor(Math.random()*8)+4;
+  document.getElementById('visitor-num').textContent = base;
+  setInterval(function(){
+    var change = Math.random() < 0.5 ? 1 : -1;
+    base = Math.max(2, Math.min(20, base + change));
+    document.getElementById('visitor-num').textContent = base;
+  }, Math.random()*8000+5000);
+})();
+
+// ORDER COUNTER - slowly ticks up
+(function(){
+  var base = 127;
+  var el = document.getElementById('order-count');
+  // Increment based on day so it feels real
+  var daysSinceLaunch = Math.floor((Date.now() - new Date('2025-01-01').getTime()) / 86400000);
+  base = 127 + daysSinceLaunch * 3 + Math.floor(Math.random()*5);
+  el.textContent = base;
+  // Occasionally tick up by 1
+  setInterval(function(){
+    if(Math.random() < 0.15){
+      base++;
+      el.textContent = base;
+    }
+  }, 45000);
+})();
+
+// BUY SOUND
+function playBuySound() {
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var o1 = ctx.createOscillator();
+    var o2 = ctx.createOscillator();
+    var g = ctx.createGain();
+    o1.connect(g); o2.connect(g); g.connect(ctx.destination);
+    o1.type = 'sine'; o2.type = 'sine';
+    o1.frequency.setValueAtTime(523, ctx.currentTime);
+    o1.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+    o2.frequency.setValueAtTime(784, ctx.currentTime + 0.1);
+    g.gain.setValueAtTime(0.3, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    o1.start(ctx.currentTime); o2.start(ctx.currentTime + 0.1);
+    o1.stop(ctx.currentTime + 0.4); o2.stop(ctx.currentTime + 0.4);
+  } catch(e) {}
+}
+
+// COUNTDOWN TIMER - resets every 6 hours
+var countdownEnd = localStorage.getItem('cdEnd');
+if (!countdownEnd || Date.now() > parseInt(countdownEnd)) {
+  countdownEnd = Date.now() + 24 * 60 * 60 * 1000;
+  localStorage.setItem('cdEnd', countdownEnd);
+}
+function updateCountdown() {
+  var remaining = parseInt(countdownEnd) - Date.now();
+  if (remaining <= 0) {
+    countdownEnd = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem('cdEnd', countdownEnd);
+    remaining = 24 * 60 * 60 * 1000;
+  }
+  var h = Math.floor(remaining / 3600000);
+  var m = Math.floor((remaining % 3600000) / 60000);
+  var s = Math.floor((remaining % 60000) / 1000);
+  var el = document.getElementById('feat-countdown');
+  if (el) el.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// EASTER EGG - click logo 5 times
+var logoClicks = 0;
+var logoTimer;
+document.querySelector('.nav-logo').addEventListener('click', function(){
+  logoClicks++;
+  clearTimeout(logoTimer);
+  logoTimer = setTimeout(function(){ logoClicks = 0; }, 2000);
+  if (logoClicks >= 5) {
+    logoClicks = 0;
+    // Play funny sound
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var notes = [200, 150, 180, 100, 250, 80];
+      notes.forEach(function(freq, i) {
+        var o = ctx.createOscillator();
+        var g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'sawtooth';
+        o.frequency.value = freq;
+        g.gain.setValueAtTime(0.15, ctx.currentTime + i*0.08);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i*0.08 + 0.15);
+        o.start(ctx.currentTime + i*0.08);
+        o.stop(ctx.currentTime + i*0.08 + 0.15);
+      });
+    } catch(e) {}
+    document.getElementById('easter-overlay').classList.add('show');
+  }
+});
+
+// FAQ TOGGLE
+function toggleFaq(el) {
+  var item = el.parentElement;
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
+}
+
+// PARALLAX
+window.addEventListener('scroll', function(){
+  var el = document.getElementById('hero-parallax-bg');
+  if (el) {
+    var scrolled = window.scrollY;
+    el.style.transform = 'translateY(' + scrolled * 0.3 + 'px)';
+  }
+}, {passive: true});
+
+// LOGO GLITCH
+setInterval(function(){
+  var logo = document.querySelector('.nav-logo');
+  logo.classList.add('glitch');
+  setTimeout(function(){ logo.classList.remove('glitch'); }, 300);
+}, 45000);
+
+// FIREFLIES (after 8pm local time)
+(function(){
+  var hour = new Date().getHours();
+  if (hour >= 20 || hour < 4) {
+    var count = 18;
+    for (var i = 0; i < count; i++) {
+      (function(i){
+        setTimeout(function(){
+          var ff = document.createElement('div');
+          ff.className = 'firefly';
+          var startX = Math.random() * window.innerWidth;
+          var startY = Math.random() * window.innerHeight;
+          var dx = (Math.random() - 0.5) * 300;
+          var dy = (Math.random() - 0.5) * 300;
+          var dur = 4 + Math.random() * 8;
+          ff.style.cssText = 'left:'+startX+'px;top:'+startY+'px;--fx:'+dx+'px;--fy:'+dy+'px;animation-duration:'+dur+'s;animation-delay:'+(Math.random()*5)+'s';
+          document.body.appendChild(ff);
+          // reposition after each cycle
+          ff.addEventListener('animationiteration', function(){
+            ff.style.left = Math.random() * window.innerWidth + 'px';
+            ff.style.top = Math.random() * window.innerHeight + 'px';
+            ff.style.setProperty('--fx', (Math.random()-0.5)*300+'px');
+            ff.style.setProperty('--fy', (Math.random()-0.5)*300+'px');
+          });
+        }, i * 600);
+      })(i);
+    }
+  }
+})();
+
+// FILTERS
+document.querySelectorAll('.filter-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    var r = btn.getAttribute('data-r');
+    // Filter grid cards
+    document.querySelectorAll('#grid .card').forEach(function(card){
+      card.style.display = (r === 'All' || card.getAttribute('data-r') === r) ? '' : 'none';
+    });
+    // Also hide/show featured card
+    var fw = document.getElementById('featured-wrap');
+    if (fw) {
+      var featRarity = seeds[0].rarity;
+      fw.style.display = (r === 'All' || r === featRarity) ? '' : 'none';
+    }
+  });
+});
+
+// HOLOGRAPHIC MOUSE TRACKING
+document.addEventListener('mousemove', function(e){
+  document.querySelectorAll('.card[data-r="Super"]').forEach(function(card){
+    var holo = card.querySelector('.holo-cursor');
+    if (!holo) return;
+    var rect = card.getBoundingClientRect();
+    var x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%';
+    var y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1) + '%';
+    holo.style.setProperty('--mx', x);
+    holo.style.setProperty('--my', y);
+  });
+});
+
+buildFeatured();
+buildGrid();
+</script>
+
+    </div>
+
+<div id="easter-overlay" onclick="this.classList.remove('show')">
+  <div class="easter-emoji">&#129300;</div>
+  <div class="easter-msg">"what could you possibly have been trying to do?"</div>
+  <button class="easter-close" onclick="document.getElementById('easter-overlay').classList.remove('show')">Close</button>
+</div>
+
+</body>
+</html>
