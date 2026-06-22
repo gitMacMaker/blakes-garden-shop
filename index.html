@@ -1105,36 +1105,54 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
   });
 });
 
-// PRICE CHECK AT PURCHASE — fetches latest price before opening modal
+// PRICE CHECK AT PURCHASE — direct fetch, compares before updating
 function checkAndBuy(s, cardEl){
   var btn = cardEl ? cardEl.querySelector('.buybtn') : null;
-  var oldPrice = s.price; // capture before fetch updates it
+  var oldPrice = s.price;
   if(btn){ btn.textContent='Checking...'; btn.disabled=true; }
-  fetchPrices(function(){
-    if(btn){ btn.textContent='Buy'; btn.disabled=false; }
-    var qty = getQty(s.key);
-    // Update displayed price
-    var priceEl = document.getElementById('price-'+s.key);
-    if(priceEl){
-      var base = parseFloat(s.price.replace('$',''));
-      priceEl.textContent = qty > 1 ? '$'+(base*qty).toFixed(2)+' (x'+qty+')' : s.price;
-    }
-    if(s.price !== oldPrice){
-      // Price changed — warn user, do NOT open modal
-      var existing = cardEl ? cardEl.querySelector('.price-updated-banner') : null;
-      if(existing) existing.remove();
-      if(cardEl){
-        var banner = document.createElement('div');
-        banner.className='price-updated-banner';
-        banner.innerHTML='&#9888; Price updated &mdash; tap Buy again to confirm';
-        cardEl.appendChild(banner);
-        setTimeout(function(){ if(banner.parentNode) banner.remove(); }, 4000);
+  fetch(SHEET_CSV + '&t=' + Date.now())
+    .then(function(r){ return r.text(); })
+    .then(function(csv){
+      if(btn){ btn.textContent='Buy'; btn.disabled=false; }
+      // Parse CSV to find this seed's current sheet price
+      var lines = csv.trim().split('\n');
+      var headers = lines[0].replace(/^\uFEFF/,'').replace(/\r/,'').split(',').map(function(h){ return h.trim().toLowerCase().replace(/"/g,''); });
+      var nameIdx=headers.indexOf('item'), priceIdx=-1;
+      for(var h=0;h<headers.length;h++){ if(headers[h].indexOf('your price')!==-1){priceIdx=h;break;} }
+      var sheetPrice=null;
+      var seedName=s.name.toLowerCase();
+      for(var i=1;i<lines.length;i++){
+        var cols=lines[i].replace(/\r/,'').split(',').map(function(c){ return c.trim().replace(/"/g,''); });
+        if((cols[nameIdx]||'').toLowerCase()===seedName){
+          var num=parseFloat((cols[priceIdx]||'').replace('$',''));
+          if(!isNaN(num)) sheetPrice='$'+num.toFixed(2);
+          break;
+        }
       }
-    } else {
-      // Price unchanged — open modal immediately
-      playBuySound(); openModal(s, qty);
-    }
-  });
+      if(sheetPrice && sheetPrice!==oldPrice){
+        // Price changed — update seed and display, block purchase
+        s.price=sheetPrice;
+        var qty=getQty(s.key);
+        var priceEl=document.getElementById('price-'+s.key);
+        if(priceEl){ var base=parseFloat(s.price.replace('$','')); priceEl.textContent=qty>1?'$'+(base*qty).toFixed(2)+' (x'+qty+')':s.price; }
+        var existing=cardEl?cardEl.querySelector('.price-updated-banner'):null;
+        if(existing) existing.remove();
+        if(cardEl){
+          var banner=document.createElement('div');
+          banner.className='price-updated-banner';
+          banner.innerHTML='&#9888; Price updated &mdash; tap Buy again to confirm';
+          cardEl.appendChild(banner);
+          setTimeout(function(){ if(banner.parentNode) banner.remove(); },4000);
+        }
+      } else {
+        // Price unchanged — proceed
+        playBuySound(); openModal(s,getQty(s.key));
+      }
+    })
+    .catch(function(){
+      if(btn){ btn.textContent='Buy'; btn.disabled=false; }
+      playBuySound(); openModal(s,getQty(s.key));
+    });
 }
 
 
