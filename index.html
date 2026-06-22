@@ -83,9 +83,6 @@ nav{position:sticky;top:0;background:rgba(10,15,10,0.85);backdrop-filter:blur(20
 .hero p{font-size:1.05rem;color:rgba(255,255,255,0.6);line-height:1.7;max-width:460px;margin:0 auto 2rem}
 @keyframes gold-slide{0%{background-position:100% 0}100%{background-position:0% 0}}
 @keyframes coin-spin{0%,100%{transform:rotateY(0deg)}50%{transform:rotateY(180deg)}}
-.sheckles-hero-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:14px;color:#ffd700;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;text-decoration:none;letter-spacing:.04em;transition:background .2s,border-color .2s;cursor:pointer;animation:pulse-gold 2.5s ease infinite}
-.sheckles-hero-btn:hover{background:rgba(255,215,0,0.15);border-color:rgba(255,215,0,0.6)}
-.sheckles-hero-btn .coin{font-size:1.3rem;animation:coin-spin 2s ease infinite}
 @keyframes pulse-gold{0%,100%{box-shadow:0 0 0px rgba(255,215,0,0)}50%{box-shadow:0 0 20px rgba(255,215,0,0.2)}}
 .section-label{text-align:center;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:1rem 0 2rem;position:relative;z-index:1}
 .ticker-wrap{width:100%;overflow:hidden;background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:10px 0;position:relative;z-index:1}
@@ -163,7 +160,6 @@ nav{position:sticky;top:0;background:rgba(10,15,10,0.85);backdrop-filter:blur(20
 .card-price{font-size:1.1rem;font-weight:700;color:#52b788}
 .buybtn{background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s}
 .buybtn:hover{opacity:.9}
-.special-banner{position:absolute;top:0;left:0;right:0;background:linear-gradient(135deg,#ff6d00,#ff8c00);color:#fff;font-size:10px;font-weight:800;text-align:center;padding:5px;letter-spacing:.1em;text-transform:uppercase;z-index:3}
 .card.special{border-color:rgba(255,165,0,0.4)}
 .new-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;font-size:9px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;z-index:5;box-shadow:0 0 12px rgba(59,130,246,0.5)}
 .low-stock{font-size:11px;font-weight:700;color:#f87171;display:flex;align-items:center;gap:4px;margin-top:3px}
@@ -289,19 +285,23 @@ footer span{color:#52b788}
 .discord-close:hover{color:rgba(255,255,255,0.6)}
 
 /* 3D CARD FLIP */
-.card{perspective:1000px}
-.card-inner{position:relative;width:100%;height:100%;transition:transform 0.6s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;flex:1}
-.card:hover .card-inner{transform:rotateY(180deg)}
-.card-front,.card-back{backface-visibility:hidden;-webkit-backface-visibility:hidden;width:100%;flex-direction:column}
-.card-front{display:flex;flex-direction:column;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.card-back{position:absolute;inset:0;background:rgba(15,26,15,0.98);border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:1.5rem;gap:12px}
-.card-back-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#fff;text-align:center}
-.card-back-stats{width:100%;display:flex;flex-direction:column;gap:8px}
+/* TABS */
+.price-updated-banner{position:absolute;bottom:0;left:0;right:0;background:rgba(234,179,8,0.9);color:#000;font-size:11px;font-weight:700;text-align:center;padding:7px 8px;z-index:10;pointer-events:none;animation:fade-in .2s ease}
+@keyframes fade-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.tab-bar{display:flex;gap:0;justify-content:center;width:100%;padding:0 1.5rem;position:sticky;top:64px;z-index:100;border-bottom:1px solid rgba(255,255,255,0.12);background:rgba(10,20,10,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.tab-btn{background:none;border:none;border-bottom:3px solid transparent;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;color:rgba(255,255,255,0.4);transition:all .2s;margin-bottom:-1px;letter-spacing:.02em}
+.tab-btn:hover{color:rgba(255,255,255,0.8)}
+.tab-btn.active{color:#52b788;border-bottom-color:#52b788}
+/* EMPTY TAB */
+.empty-tab{text-align:center;padding:5rem 2rem;color:rgba(255,255,255,0.2)}
+.empty-tab-icon{font-size:3rem;margin-bottom:1rem;opacity:.4}
+.empty-tab-text{font-size:1rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+/* CARD STATS */
+.card-stats{display:flex;flex-direction:column;gap:3px;margin:6px 0 2px;flex:1}
 .stat-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:6px}
 .stat-label{color:rgba(255,255,255,0.4);font-weight:500}
 .stat-val{font-weight:700;color:#fff}
-.card-back-btn{background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:4px;width:100%}
-.card-back-btn:hover{opacity:.9}
+
 
 
 .loader-text{font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
@@ -364,7 +364,6 @@ footer span{color:#52b788}
 
 /* SEED OF THE DAY */
 .card.sotd{border-color:rgba(255,215,0,0.5);box-shadow:0 0 30px rgba(255,215,0,0.15)}
-.card.sotd .card-inner{border-radius:20px}
 
 /* ORDER COUNTER */
 .order-counter{font-size:12px;font-weight:600;color:rgba(255,255,255,0.45);display:flex;align-items:center;gap:5px}
@@ -409,8 +408,7 @@ footer span{color:#52b788}
   0%{background-position:0% 0%}
   100%{background-position:100% 0%}
 }
-/* Fix card-back content rendering above shimmer overlay */
-.card-back-title,.card-back-stats,.card-back-btn{position:relative;z-index:6}
+
 @media(max-width:600px){nav{padding:0 1rem}.hero{padding:4rem 1.25rem 3rem}.grid{padding:0 1rem 4rem}.pane{padding:16px}.how-grid{grid-template-columns:1fr}.sheckles-body{grid-template-columns:1fr}.sheckles-section{padding:0 1rem 4rem}}
 </style>
 </head>
@@ -425,6 +423,14 @@ footer span{color:#52b788}
   <div class="visitor-count"><span class="visitor-dot"></span><span id="visitor-num">0</span> browsing now</div>
   <div class="order-counter">&#9989; <strong id="order-count">127</strong> orders fulfilled</div>
 </nav>
+
+<div class="tab-bar" id="tab-bar">
+  <button class="tab-btn active" data-tab="seeds">Seeds</button>
+  <button class="tab-btn" data-tab="pets">Pets</button>
+  <button class="tab-btn" data-tab="gear">Gear</button>
+  <button class="tab-btn" data-tab="sheckles">&#128176; Sheckles</button>
+</div>
+
 
 <div class="discord-banner" id="discord-banner">
   <div class="discord-banner-text"><strong>Get restock alerts!</strong> Join the Discord for new seeds, price drops and exclusive deals.</div>
@@ -450,11 +456,6 @@ footer span{color:#52b788}
   <div class="hero-tag">&#128722; Roblox Shop</div>
   <h1><span class="line1">Real seeds,</span><br><span class="line2">delivered in-game.</span></h1>
   <p>Pick a seed, pay, then drop your Roblox username. I'll trade you directly in Grow a Garden 2.</p>
-  <button class="sheckles-hero-btn" onclick="document.getElementById('sheckles').scrollIntoView({behavior:'smooth'})">
-    <span class="coin">&#128176;</span>
-    Looking for Sheckles?
-    <span class="coin" style="animation-direction:reverse">&#128176;</span>
-  </button>
 </section>
 
 <div class="section-label">&#10022; How it works &#10022;</div>
@@ -490,22 +491,22 @@ footer span{color:#52b788}
   </div>
 </div>
 
-<div class="section-label">&#10022; Available seeds &#10022;</div>
-
-
-<div class="filter-bar" id="filter-bar">
-  <button class="filter-btn active" data-r="All">All</button>
-  <button class="filter-btn" data-r="Legendary">Legendary</button>
-  <button class="filter-btn" data-r="Mythical">Mythical</button>
-  <button class="filter-btn" data-r="Super">Super</button>
-  <button class="filter-btn" data-r="Limited">Limited</button>
+<div id="tab-seeds">
+  <div class="featured-wrap" id="featured-wrap"></div>
+  <main class="grid" id="grid"></main>
 </div>
 
-<div class="featured-wrap" id="featured-wrap"></div>
-<main class="grid" id="grid"></main>
+<div id="tab-pets" style="display:none">
+  <div class="empty-tab"><div class="empty-tab-icon">&#128062;</div><div class="empty-tab-text">Pets coming soon</div></div>
+  <main class="grid" id="pets-grid"></main>
+</div>
 
-<div class="section-label">&#10022; Sheckles &#10022;</div>
-<section class="sheckles-section" id="sheckles">
+<div id="tab-gear" style="display:none">
+  <div class="empty-tab"><div class="empty-tab-icon">&#9881;</div><div class="empty-tab-text">Gear coming soon</div></div>
+  <main class="grid" id="gear-grid"></main>
+</div>
+
+<section class="sheckles-section" id="sheckles" style="display:none">
   <div class="sheckles-card">
     <div class="sheckles-glow"></div>
     <div class="sheckles-header">
@@ -757,7 +758,7 @@ setTimeout(function(){showPurchaseNotif();setInterval(showPurchaseNotif,(Math.ra
 
 function buildFeatured(){
   var fw=document.getElementById('featured-wrap');
-  var s=seeds[0];
+  var s=seeds.find(function(x){return x.key==='ghost';})||seeds[0];
   var oldPriceHtml=s.oldprice?'<span class="featured-old">'+s.oldprice+'</span><span class="sotd-price-tag">SALE</span>':'';
   var soldHtml=s.sold?'<div class="sold-count"><span>'+s.sold+'+ sold</span></div>':'';
   fw.innerHTML='<div class="featured-card" style="background:'+s.bg+'">'+
@@ -795,63 +796,40 @@ function buildFeatured(){
 
 function buildGrid(){
   var g=document.getElementById('grid');
-  seeds.forEach(function(s,idx){
-    if(idx===0) return;
+  g.innerHTML='';
+  seeds.forEach(function(s){
+    if(s.key==='ghost') return; // ghost pepper is featured
     var c=document.createElement('div');
     c.className='card';
     c.setAttribute('data-r',s.rarity);
     var bg=s.bg||'rgba(255,255,255,0.04)';
-    var specialBanner=s.special?'<div class="special-banner">&#9889; Limited Time Offer</div>':'';
+    var specialBanner='';
     var newBadge=s.isnew?'<div class="new-badge">New</div>':'';
-    var soldHtml=s.sold?'<div class="sold-count"><span>'+s.sold+'+ sold</span></div>':'';
-    var stockHtml=(s.stock&&s.stock<=5)?'<div class="low-stock">Only '+s.stock+' left!</div>':'';
-
     if(s.special) c.classList.add('special');
     var priceHtml=s.oldprice
       ?'<div class="card-foot-prices"><span class="old-price">'+s.oldprice+'</span><span class="card-price" id="price-'+s.key+'">'+s.price+'</span></div>'
       :'<span class="card-price" id="price-'+s.key+'">'+s.price+'</span>';
-    
-    var rarityColor = {Common:'#9ca3af',Legendary:'#facc15',Mythical:'#f472b6',Super:'#ffd700'}[s.rarity]||'#fff';
     c.innerHTML=
-      '<div class="card-inner">'+
-        '<div class="card-front">'+
-          '<div class="card-art" style="background:'+bg+'">'+specialBanner+newBadge+
-          s.svg+'<span class="rbadge '+s.rc+'">'+s.rarity+'</span></div>'+
-          '<div class="card-body">'+
-            '<div class="card-name">'+s.name+'</div>'+
-            '<div class="card-desc">'+s.desc+'</div>'+
-            soldHtml+stockHtml+(s.restock?'<div class="restock-time">Restocked '+s.restock+'</div>':'')+
-            '<div class="card-foot">'+priceHtml+
-              '<div class="qty-row">'+
-                '<button class="qty-btn" data-key="'+s.key+'" data-dir="-1">&#8722;</button>'+
-                '<span class="qty-num" id="qty-'+s.key+'">'+(s.minQty||1)+'</span>'+
-                '<button class="qty-btn" data-key="'+s.key+'" data-dir="1">&#43;</button>'+
-                '<button class="buybtn">Buy</button>'+
-              '</div>'+
-            '</div>'+
-          '</div>'+
+      '<div class="card-art" style="background:'+bg+'">'+specialBanner+newBadge+
+      s.svg+'<span class="rbadge '+s.rc+'">'+s.rarity+'</span></div>'+
+      '<div class="card-body">'+
+        '<div class="card-name">'+s.name+'</div>'+
+        '<div class="card-stats">'+
+          (s.sold?'<div class="stat-row"><span class="stat-label">Sold</span><span class="stat-val">'+(s.sold)+'+ units</span></div>':'')+
+          (s.stock?'<div class="stat-row"><span class="stat-label">Stock</span><span class="stat-val stat-low">Only '+s.stock+' left</span></div>':'<div class="stat-row"><span class="stat-label">Stock</span><span class="stat-val stat-good">Available</span></div>')+
+          (s.restock?'<div class="stat-row"><span class="stat-label">Restocked</span><span class="stat-val">'+s.restock+'</span></div>':'')+
+          (s.isnew?'<div class="stat-row"><span class="stat-label">Status</span><span class="stat-val" style="color:#60a5fa">New</span></div>':'')+
         '</div>'+
-        '<div class="card-back">'+
-          '<div class="card-back-title">'+s.name+'</div>'+
-          '<div class="card-back-stats">'+
-            '<div class="stat-row"><span class="stat-label">Rarity</span><span class="stat-val" style="color:'+rarityColor+'">'+s.rarity+'</span></div>'+
-            '<div class="stat-row"><span class="stat-label">Price</span><span class="stat-val" style="color:#52b788">'+s.price+'</span></div>'+
-            '<div class="stat-row"><span class="stat-label">Total sold</span><span class="stat-val">'+(s.sold||0)+'+ units</span></div>'+
-            (s.stock?'<div class="stat-row"><span class="stat-label">Stock</span><span class="stat-val" style="color:#f87171">Only '+s.stock+' left</span></div>':'<div class="stat-row"><span class="stat-label">Stock</span><span class="stat-val" style="color:#4ade80">Available</span></div>')+
-            (s.restock?'<div class="stat-row"><span class="stat-label">Restocked</span><span class="stat-val">'+s.restock+'</span></div>':'')+
-            (s.isnew?'<div class="stat-row"><span class="stat-label">Status</span><span class="stat-val" style="color:#60a5fa">New arrival</span></div>':'')+
-          '</div>'+
-          '<div class="qty-row" style="justify-content:center;margin:8px 0 4px">'+
+        '<div class="card-foot">'+priceHtml+
+          '<div class="qty-row">'+
             '<button class="qty-btn" data-key="'+s.key+'" data-dir="-1">&#8722;</button>'+
-            '<span class="qty-num" id="qty-back-'+s.key+'">'+(s.minQty||1)+'</span>'+
+            '<span class="qty-num" id="qty-'+s.key+'">'+(s.minQty||1)+'</span>'+
             '<button class="qty-btn" data-key="'+s.key+'" data-dir="1">&#43;</button>'+
+            '<button class="buybtn">Buy</button>'+
           '</div>'+
-          '<button class="card-back-btn" id="back-buy-'+s.key+'">Buy Now</button>'+
         '</div>'+
       '</div>';
-    c.querySelector('.buybtn').addEventListener('click',function(){playBuySound();openModal(s,getQty(s.key));});
-    var backBuyBtn = c.querySelector('#back-buy-'+s.key);
-    if(backBuyBtn) backBuyBtn.addEventListener('click',function(){playBuySound();openModal(s,getQty(s.key));});
+    c.querySelector('.buybtn').addEventListener('click',function(){checkAndBuy(s,c);});
     c.querySelectorAll('.qty-btn').forEach(function(btn){
       btn.addEventListener('click',function(e){
         e.stopPropagation();
@@ -1112,24 +1090,60 @@ setInterval(function(){
 
 
 
-// FILTERS
-document.querySelectorAll('.filter-btn').forEach(function(btn){
+// TABS
+document.querySelectorAll('.tab-btn').forEach(function(btn){
   btn.addEventListener('click', function(){
-    document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
     btn.classList.add('active');
-    var r = btn.getAttribute('data-r');
-    // Filter grid cards
-    document.querySelectorAll('#grid .card').forEach(function(card){
-      card.style.display = (r === 'All' || card.getAttribute('data-r') === r) ? '' : 'none';
+    var tab = btn.getAttribute('data-tab');
+    ['seeds','pets','gear'].forEach(function(t){
+      var el = document.getElementById('tab-'+t);
+      if(el) el.style.display = (tab===t) ? '' : 'none';
     });
-    // Also hide/show featured card
-    var fw = document.getElementById('featured-wrap');
-    if (fw) {
-      var featRarity = seeds[0].rarity;
-      fw.style.display = (r === 'All' || r === featRarity) ? '' : 'none';
-    }
+    var sh = document.getElementById('sheckles');
+    if(sh) sh.style.display = (tab==='sheckles') ? '' : 'none';
   });
 });
+
+// PRICE CHECK AT PURCHASE — fetches latest price before opening modal
+function checkAndBuy(s, cardEl){
+  var btn = cardEl ? cardEl.querySelector('.buybtn') : null;
+  if(btn){ btn.textContent='Checking...'; btn.disabled=true; }
+  fetchPrices(function(){
+    if(btn){ btn.textContent='Buy'; btn.disabled=false; }
+    var qty = getQty(s.key);
+    var priceEl = cardEl ? cardEl.querySelector('#price-'+s.key) : document.getElementById('price-'+s.key);
+    // Update displayed price with whatever fetchPrices just set
+    if(priceEl){
+      var base = parseFloat(s.price.replace('$',''));
+      priceEl.textContent = qty > 1 ? '$'+(base*qty).toFixed(2)+' (x'+qty+')' : s.price;
+    }
+    // Show price-updated banner on card if it changed
+    var existing = cardEl ? cardEl.querySelector('.price-updated-banner') : null;
+    if(existing) existing.remove();
+    if(cardEl){
+      var banner = document.createElement('div');
+      banner.className='price-updated-banner';
+      banner.innerHTML='&#9888; Price updated &mdash; tap Buy to confirm';
+      cardEl.appendChild(banner);
+      setTimeout(function(){ if(banner.parentNode) banner.remove(); }, 3000);
+      // Second click confirms and opens modal
+      var onConfirm = function(){
+        btn.removeEventListener('click', onConfirm);
+        if(banner.parentNode) banner.remove();
+        btn.addEventListener('click', function(){ checkAndBuy(s, cardEl); });
+        playBuySound(); openModal(s, getQty(s.key));
+      };
+      if(btn){
+        btn.removeEventListener('click', arguments.callee);
+        btn.addEventListener('click', onConfirm);
+      }
+    } else {
+      playBuySound(); openModal(s, qty);
+    }
+  });
+}
+
 
 var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTInrxu2FbSLYCIyqdrlncW4wsgto2GHgMjg0KVHvrdhLOC7m8qHb3R_oX2xClpb05ToTGvoCYlgW5u/pub?output=csv';
 
@@ -1194,7 +1208,6 @@ fetchPrices(function(){
   buildGrid();
 });
 
-setInterval(function(){ fetchPrices(function(){ buildFeatured(); buildGrid(); }); }, 5 * 60 * 1000);
 </script>
 
     </div>
