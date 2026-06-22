@@ -286,8 +286,14 @@ footer span{color:#52b788}
 
 /* 3D CARD FLIP */
 /* TABS */
-.price-updated-banner{position:absolute;bottom:0;left:0;right:0;background:rgba(234,179,8,0.9);color:#000;font-size:11px;font-weight:700;text-align:center;padding:7px 8px;z-index:10;pointer-events:none;animation:fade-in .2s ease}
-@keyframes fade-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.price-confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center}
+.price-confirm-box{background:#0f1a0f;border:1px solid rgba(234,179,8,0.4);border-radius:20px;padding:2rem;max-width:340px;width:90%;text-align:center}
+.price-confirm-icon{font-size:2rem;margin-bottom:1rem}
+.price-confirm-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#ffd700;margin-bottom:.5rem}
+.price-confirm-msg{color:rgba(255,255,255,.6);font-size:.85rem;line-height:1.5;margin-bottom:1.5rem}
+.price-confirm-btns{display:flex;gap:10px}
+.price-confirm-yes{flex:1;background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
+.price-confirm-no{flex:1;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
 .tab-bar{display:flex;gap:0;justify-content:center;width:100%;padding:0 1.5rem;position:sticky;top:64px;z-index:100;border-bottom:1px solid rgba(255,255,255,0.12);background:rgba(10,20,10,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .tab-btn{background:none;border:none;border-bottom:3px solid transparent;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;color:rgba(255,255,255,0.4);transition:all .2s;margin-bottom:-1px;letter-spacing:.02em}
 .tab-btn:hover{color:rgba(255,255,255,0.8)}
@@ -1135,15 +1141,24 @@ function checkAndBuy(s, cardEl){
         var qty=getQty(s.key);
         var priceEl=document.getElementById('price-'+s.key);
         if(priceEl){ var base=parseFloat(s.price.replace('$','')); priceEl.textContent=qty>1?'$'+(base*qty).toFixed(2)+' (x'+qty+')':s.price; }
-        var existing=cardEl?cardEl.querySelector('.price-updated-banner'):null;
-        if(existing) existing.remove();
-        if(cardEl){
-          var banner=document.createElement('div');
-          banner.className='price-updated-banner';
-          banner.innerHTML='&#9888; Price updated &mdash; tap Buy again to confirm';
-          cardEl.appendChild(banner);
-          setTimeout(function(){ if(banner.parentNode) banner.remove(); },4000);
-        }
+        // Show confirmation dialog — must explicitly accept new price
+        var box=document.createElement('div');
+        box.className='price-confirm-overlay';
+        box.innerHTML='<div class="price-confirm-box">'+
+          '<div class="price-confirm-icon">&#9888;</div>'+
+          '<div class="price-confirm-title">Price Changed</div>'+
+          '<div class="price-confirm-msg">The price for <strong>'+s.name+'</strong> has changed. Do you want to continue at the updated price?</div>'+
+          '<div class="price-confirm-btns">'+
+            '<button class="price-confirm-no">Cancel</button>'+
+            '<button class="price-confirm-yes">Continue</button>'+
+          '</div>'+
+        '</div>';
+        document.body.appendChild(box);
+        box.querySelector('.price-confirm-no').addEventListener('click',function(){ box.remove(); });
+        box.querySelector('.price-confirm-yes').addEventListener('click',function(){
+          box.remove();
+          playBuySound(); openModal(s,getQty(s.key));
+        });
       } else {
         // Price unchanged — proceed
         playBuySound(); openModal(s,getQty(s.key));
