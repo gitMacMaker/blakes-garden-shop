@@ -425,10 +425,10 @@ footer span{color:#52b788}
 </nav>
 
 <div class="tab-bar" id="tab-bar">
-  <button class="tab-btn active" data-tab="seeds">Seeds</button>
-  <button class="tab-btn" data-tab="pets">Pets</button>
-  <button class="tab-btn" data-tab="gear">Gear</button>
-  <button class="tab-btn" data-tab="sheckles">&#128176; Sheckles</button>
+  <button class="tab-btn active" data-tab="seeds">🌱 Seeds</button>
+  <button class="tab-btn" data-tab="pets">🐾 Pets</button>
+  <button class="tab-btn" data-tab="gear">⚙️ Gear</button>
+  <button class="tab-btn" data-tab="sheckles">💰 Sheckles</button>
 </div>
 
 
@@ -1108,37 +1108,30 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
 // PRICE CHECK AT PURCHASE — fetches latest price before opening modal
 function checkAndBuy(s, cardEl){
   var btn = cardEl ? cardEl.querySelector('.buybtn') : null;
+  var oldPrice = s.price; // capture before fetch updates it
   if(btn){ btn.textContent='Checking...'; btn.disabled=true; }
   fetchPrices(function(){
     if(btn){ btn.textContent='Buy'; btn.disabled=false; }
     var qty = getQty(s.key);
-    var priceEl = cardEl ? cardEl.querySelector('#price-'+s.key) : document.getElementById('price-'+s.key);
-    // Update displayed price with whatever fetchPrices just set
+    // Update displayed price
+    var priceEl = document.getElementById('price-'+s.key);
     if(priceEl){
       var base = parseFloat(s.price.replace('$',''));
       priceEl.textContent = qty > 1 ? '$'+(base*qty).toFixed(2)+' (x'+qty+')' : s.price;
     }
-    // Show price-updated banner on card if it changed
-    var existing = cardEl ? cardEl.querySelector('.price-updated-banner') : null;
-    if(existing) existing.remove();
-    if(cardEl){
-      var banner = document.createElement('div');
-      banner.className='price-updated-banner';
-      banner.innerHTML='&#9888; Price updated &mdash; tap Buy to confirm';
-      cardEl.appendChild(banner);
-      setTimeout(function(){ if(banner.parentNode) banner.remove(); }, 3000);
-      // Second click confirms and opens modal
-      var onConfirm = function(){
-        btn.removeEventListener('click', onConfirm);
-        if(banner.parentNode) banner.remove();
-        btn.addEventListener('click', function(){ checkAndBuy(s, cardEl); });
-        playBuySound(); openModal(s, getQty(s.key));
-      };
-      if(btn){
-        btn.removeEventListener('click', arguments.callee);
-        btn.addEventListener('click', onConfirm);
+    if(s.price !== oldPrice){
+      // Price changed — warn user, do NOT open modal
+      var existing = cardEl ? cardEl.querySelector('.price-updated-banner') : null;
+      if(existing) existing.remove();
+      if(cardEl){
+        var banner = document.createElement('div');
+        banner.className='price-updated-banner';
+        banner.innerHTML='&#9888; Price updated &mdash; tap Buy again to confirm';
+        cardEl.appendChild(banner);
+        setTimeout(function(){ if(banner.parentNode) banner.remove(); }, 4000);
       }
     } else {
+      // Price unchanged — open modal immediately
       playBuySound(); openModal(s, qty);
     }
   });
