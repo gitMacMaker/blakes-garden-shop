@@ -1156,13 +1156,9 @@ function fetchPrices(afterFetch){
         if(!name || !price) continue;
         var key = NAME_TO_KEY[name];
         if(!key) continue;
-        var seed = null;
-        for(var j = 0; j < seeds.length; j++){ if(seeds[j].key === key){ seed = seeds[j]; break; } }
-        if(!seed) continue;
         var num = parseFloat(price.replace('$',''));
         if(isNaN(num)) continue;
-        seed.price = '$' + num.toFixed(2);
-        // Sheckles — update rate and display texts
+        // Sheckles — not a seed, handle separately
         if(key === 'sheckles'){
           sheckleRate = num;
           var rateStr = '$' + num.toFixed(2) + ' per million';
@@ -1173,6 +1169,10 @@ function fetchPrices(afterFetch){
           updateSheckles();
           continue;
         }
+        var seed = null;
+        for(var j = 0; j < seeds.length; j++){ if(seeds[j].key === key){ seed = seeds[j]; break; } }
+        if(!seed) continue;
+        seed.price = '$' + num.toFixed(2);
         var priceEl = document.getElementById('price-' + key);
         if(priceEl){
           var qty  = getQty(key);
