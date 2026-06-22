@@ -921,10 +921,11 @@ function confirmPay(){
   },800);
 }
 
+var sheckleRate = 0.06;
 function updateSheckles(){
   var amt=parseInt(document.getElementById('sh-amount').value)||100;
   if(amt<100){amt=100;document.getElementById('sh-amount').value=100;} if(amt>500){amt=500;document.getElementById('sh-amount').value=500;}
-  var total=(amt*0.06).toFixed(2);
+  var total=(amt*sheckleRate).toFixed(2);
   document.getElementById('sh-total').textContent='$'+total;
   var label=amt>=1000?(amt/1000).toFixed(amt%1000===0?0:3).replace(/\.?0+$/,'')+'B Sheckles':amt+'M Sheckles';
   document.getElementById('sh-breakdown').textContent=label;
@@ -940,7 +941,7 @@ document.getElementById('sh-plus').addEventListener('click',function(){
 });
 document.getElementById('sh-buy-btn').addEventListener('click',function(){
   var amt=parseInt(document.getElementById('sh-amount').value)||100;
-  var total=(amt*0.06).toFixed(2);
+  var total=(amt*sheckleRate).toFixed(2);
   var label=amt>=1000?(amt/1000)+'B':amt+'M';
   active={name:label+' Sheckles',price:'$'+total,svg:'<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" fill="#ffd700" opacity=".2"/><circle cx="32" cy="32" r="20" fill="#ffd700" opacity=".3"/><text x="32" y="40" text-anchor="middle" font-size="24" fill="#ffd700" font-weight="bold">$</text></svg>'};
   activeQty=1;payMethod='';
@@ -1135,7 +1136,7 @@ var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTInrxu2FbSLYCI
 var NAME_TO_KEY = {
   'ghost pepper seed':'ghost','dragon breath seed':'dragon','moon bloom seed':'moon',
   'venom spitter seed':'venom','poison apple seed':'poison','venus fly trap seed':'venus',
-  'bamboo seed':'bamboo','mushroom seed':'mushroom','pomegranate seed':'pom'
+  'bamboo seed':'bamboo','mushroom seed':'mushroom','pomegranate seed':'pom','sheckles (per m)':'sheckles'
 };
 
 function fetchPrices(afterFetch){
@@ -1161,6 +1162,17 @@ function fetchPrices(afterFetch){
         var num = parseFloat(price.replace('$',''));
         if(isNaN(num)) continue;
         seed.price = '$' + num.toFixed(2);
+        // Sheckles — update rate and display texts
+        if(key === 'sheckles'){
+          sheckleRate = num;
+          var rateStr = '$' + num.toFixed(2) + ' per million';
+          var sub = document.querySelector('.sheckles-subtitle');
+          var pm  = document.querySelector('.sheckles-permill');
+          if(sub) sub.innerHTML = rateStr + ' &nbsp;&middot;&nbsp; 100M minimum';
+          if(pm)  pm.innerHTML  = rateStr + ' &nbsp;&middot;&nbsp; Prices may change at any time without notice';
+          updateSheckles();
+          continue;
+        }
         var priceEl = document.getElementById('price-' + key);
         if(priceEl){
           var qty  = getQty(key);
