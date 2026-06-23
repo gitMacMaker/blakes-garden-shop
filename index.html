@@ -795,8 +795,7 @@ function buildFeatured(){
     document.getElementById('feat-qty').textContent=q;
   });
   document.getElementById('feat-buy').addEventListener('click',function(){
-    playBuySound();
-    openModal(seeds[0],parseInt(document.getElementById('feat-qty').textContent));
+    checkAndBuy(s, null);
   });
 }
 
@@ -1157,11 +1156,13 @@ function checkAndBuy(s, cardEl){
         box.querySelector('.price-confirm-no').addEventListener('click',function(){ box.remove(); });
         box.querySelector('.price-confirm-yes').addEventListener('click',function(){
           box.remove();
-          playBuySound(); openModal(s,getQty(s.key));
+          var qty = cardEl ? getQty(s.key) : parseInt(document.getElementById('feat-qty').textContent)||1;
+          playBuySound(); openModal(s, qty);
         });
       } else {
         // Price unchanged — proceed
-        playBuySound(); openModal(s,getQty(s.key));
+        var qty = cardEl ? getQty(s.key) : parseInt(document.getElementById('feat-qty').textContent)||1;
+        playBuySound(); openModal(s, qty);
       }
     })
     .catch(function(){
