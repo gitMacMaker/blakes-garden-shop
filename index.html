@@ -819,9 +819,11 @@ function buildGrid(){
     var specialBanner='';
     var newBadge=s.isnew?'<div class="new-badge">New</div>':'';
     if(s.special) c.classList.add('special');
+    var initQty=s.minQty||1;
+    var initPrice=initQty>1?'$'+(parseFloat(s.price.replace('$',''))*initQty).toFixed(2)+' (x'+initQty+')':s.price;
     var priceHtml=s.oldprice
-      ?'<div class="card-foot-prices"><span class="old-price">'+s.oldprice+'</span><span class="card-price" id="price-'+s.key+'">'+s.price+'</span></div>'
-      :'<span class="card-price" id="price-'+s.key+'">'+s.price+'</span>';
+      ?'<div class="card-foot-prices"><span class="old-price">'+s.oldprice+'</span><span class="card-price" id="price-'+s.key+'">'+initPrice+'</span></div>'
+      :'<span class="card-price" id="price-'+s.key+'">'+initPrice+'</span>';
     c.innerHTML=
       '<div class="card-art" style="background:'+bg+'">'+specialBanner+newBadge+
       s.svg+'<span class="rbadge '+s.rc+'">'+s.rarity+'</span></div>'+
@@ -1129,7 +1131,9 @@ function buildPets(){
     var c=document.createElement('div');
     c.className='card';
     c.setAttribute('data-r',s.rarity);
-    var priceHtml='<span class="card-price" id="price-'+s.key+'">'+s.price+'</span>';
+    var initQty=s.minQty||1;
+    var initPrice=initQty>1?'$'+(parseFloat(s.price.replace('$',''))*initQty).toFixed(2)+' (x'+initQty+')':s.price;
+    var priceHtml='<span class="card-price" id="price-'+s.key+'">'+initPrice+'</span>';
     c.innerHTML=
       '<div class="card-art" style="background:'+s.bg+'">'+
       s.svg+'<span class="rbadge '+s.rc+'">'+s.rarity+'</span></div>'+
@@ -1142,7 +1146,7 @@ function buildPets(){
         '<div class="card-foot">'+priceHtml+
           '<div class="qty-row">'+
             '<button class="qty-btn" data-key="'+s.key+'" data-dir="-1">&#8722;</button>'+
-            '<span class="qty-num" id="qty-'+s.key+'">1</span>'+
+            '<span class="qty-num" id="qty-'+s.key+'">'+(s.minQty||1)+'</span>'+
             '<button class="qty-btn" data-key="'+s.key+'" data-dir="1">&#43;</button>'+
             '<button class="buybtn">Buy</button>'+
           '</div>'+
@@ -1167,7 +1171,9 @@ function buildGear(){
     var c=document.createElement('div');
     c.className='card';
     c.setAttribute('data-r',s.rarity);
-    var priceHtml='<span class="card-price" id="price-'+s.key+'">'+s.price+'</span>';
+    var initQty=s.minQty||1;
+    var initPrice=initQty>1?'$'+(parseFloat(s.price.replace('$',''))*initQty).toFixed(2)+' (x'+initQty+')':s.price;
+    var priceHtml='<span class="card-price" id="price-'+s.key+'">'+initPrice+'</span>';
     c.innerHTML=
       '<div class="card-art" style="background:'+s.bg+'">'+
       s.svg+'<span class="rbadge '+s.rc+'">'+s.rarity+'</span></div>'+
@@ -1179,7 +1185,7 @@ function buildGear(){
         '<div class="card-foot">'+priceHtml+
           '<div class="qty-row">'+
             '<button class="qty-btn" data-key="'+s.key+'" data-dir="-1">&#8722;</button>'+
-            '<span class="qty-num" id="qty-'+s.key+'">1</span>'+
+            '<span class="qty-num" id="qty-'+s.key+'">'+(s.minQty||1)+'</span>'+
             '<button class="qty-btn" data-key="'+s.key+'" data-dir="1">&#43;</button>'+
             '<button class="buybtn">Buy</button>'+
           '</div>'+
