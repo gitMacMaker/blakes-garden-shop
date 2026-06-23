@@ -1286,11 +1286,33 @@ function fetchPrices(afterFetch){
     .catch(function(e){ console.error('[Shop] Fetch failed:', e); if(afterFetch) afterFetch(); });
 }
 
+// Save scroll position before refresh
+window.addEventListener('beforeunload', function(){
+  sessionStorage.setItem('scrollY', window.scrollY);
+  sessionStorage.setItem('activeTab', document.querySelector('.tab-btn.active')?.getAttribute('data-tab') || 'seeds');
+});
+
 fetchPrices(function(){
+  // Restore active tab
+  var savedTab = sessionStorage.getItem('activeTab');
+  if(savedTab && savedTab !== 'seeds'){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    var tabBtn = document.querySelector('.tab-btn[data-tab="'+savedTab+'"]');
+    if(tabBtn) tabBtn.classList.add('active');
+    ['seeds','pets','gear'].forEach(function(t){
+      var el = document.getElementById('tab-'+t);
+      if(el) el.style.display = (t===savedTab) ? '' : 'none';
+    });
+    var sh = document.getElementById('sheckles');
+    if(sh) sh.style.display = (savedTab==='sheckles') ? '' : 'none';
+  }
   buildFeatured();
   buildGrid();
   buildPets();
   buildGear();
+  // Restore scroll position after content renders
+  var savedY = sessionStorage.getItem('scrollY');
+  if(savedY) requestAnimationFrame(function(){ window.scrollTo(0, parseInt(savedY)); });
 });
 
 </script>
