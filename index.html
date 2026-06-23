@@ -286,14 +286,6 @@ footer span{color:#52b788}
 
 /* 3D CARD FLIP */
 /* TABS */
-.price-confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center}
-.price-confirm-box{background:#0f1a0f;border:1px solid rgba(234,179,8,0.4);border-radius:20px;padding:2rem;max-width:340px;width:90%;text-align:center}
-.price-confirm-icon{font-size:2rem;margin-bottom:1rem}
-.price-confirm-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#ffd700;margin-bottom:.5rem}
-.price-confirm-msg{color:rgba(255,255,255,.6);font-size:.85rem;line-height:1.5;margin-bottom:1.5rem}
-.price-confirm-btns{display:flex;gap:10px}
-.price-confirm-yes{flex:1;background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
-.price-confirm-no{flex:1;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
 .tab-bar{display:flex;gap:0;justify-content:center;width:100%;padding:0 1.5rem;position:sticky;top:64px;z-index:100;border-bottom:1px solid rgba(255,255,255,0.12);background:rgba(10,20,10,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .tab-btn{background:none;border:none;border-bottom:3px solid transparent;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;color:rgba(255,255,255,0.4);transition:all .2s;margin-bottom:-1px;letter-spacing:.02em}
 .tab-btn:hover{color:rgba(255,255,255,0.8)}
@@ -795,7 +787,8 @@ function buildFeatured(){
     document.getElementById('feat-qty').textContent=q;
   });
   document.getElementById('feat-buy').addEventListener('click',function(){
-    checkAndBuy(s, null);
+    playBuySound();
+    openModal(s,parseInt(document.getElementById('feat-qty').textContent)||1);
   });
 }
 
@@ -834,7 +827,7 @@ function buildGrid(){
           '</div>'+
         '</div>'+
       '</div>';
-    c.querySelector('.buybtn').addEventListener('click',function(){checkAndBuy(s,c);});
+    c.querySelector('.buybtn').addEventListener('click',function(){playBuySound();openModal(s,getQty(s.key));});
     c.querySelectorAll('.qty-btn').forEach(function(btn){
       btn.addEventListener('click',function(e){
         e.stopPropagation();
@@ -1110,66 +1103,7 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
   });
 });
 
-// PRICE CHECK AT PURCHASE — direct fetch, compares before updating
-function checkAndBuy(s, cardEl){
-  var btn = cardEl ? cardEl.querySelector('.buybtn') : null;
-  var oldPrice = s.price;
-  if(btn){ btn.textContent='Checking...'; btn.disabled=true; }
-  fetch(SHEET_CSV + '&t=' + Date.now())
-    .then(function(r){ return r.text(); })
-    .then(function(csv){
-      if(btn){ btn.textContent='Buy'; btn.disabled=false; }
-      // Parse CSV to find this seed's current sheet price
-      var lines = csv.trim().split('\n');
-      var headers = lines[0].replace(/^\uFEFF/,'').replace(/\r/,'').split(',').map(function(h){ return h.trim().toLowerCase().replace(/"/g,''); });
-      var nameIdx=headers.indexOf('item'), priceIdx=-1;
-      for(var h=0;h<headers.length;h++){ if(headers[h].indexOf('your price')!==-1){priceIdx=h;break;} }
-      var sheetPrice=null;
-      var seedName=s.name.toLowerCase();
-      for(var i=1;i<lines.length;i++){
-        var cols=lines[i].replace(/\r/,'').split(',').map(function(c){ return c.trim().replace(/"/g,''); });
-        if((cols[nameIdx]||'').toLowerCase()===seedName){
-          var num=parseFloat((cols[priceIdx]||'').replace('$',''));
-          if(!isNaN(num)) sheetPrice='$'+num.toFixed(2);
-          break;
-        }
-      }
-      if(sheetPrice && sheetPrice!==oldPrice){
-        // Price changed — update seed and display, block purchase
-        s.price=sheetPrice;
-        var qty=getQty(s.key);
-        var priceEl=document.getElementById('price-'+s.key);
-        if(priceEl){ var base=parseFloat(s.price.replace('$','')); priceEl.textContent=qty>1?'$'+(base*qty).toFixed(2)+' (x'+qty+')':s.price; }
-        // Show confirmation dialog — must explicitly accept new price
-        var box=document.createElement('div');
-        box.className='price-confirm-overlay';
-        box.innerHTML='<div class="price-confirm-box">'+
-          '<div class="price-confirm-icon">&#9888;</div>'+
-          '<div class="price-confirm-title">Price Changed</div>'+
-          '<div class="price-confirm-msg">The price for <strong>'+s.name+'</strong> has changed. Do you want to continue at the updated price?</div>'+
-          '<div class="price-confirm-btns">'+
-            '<button class="price-confirm-no">Cancel</button>'+
-            '<button class="price-confirm-yes">Continue</button>'+
-          '</div>'+
-        '</div>';
-        document.body.appendChild(box);
-        box.querySelector('.price-confirm-no').addEventListener('click',function(){ box.remove(); });
-        box.querySelector('.price-confirm-yes').addEventListener('click',function(){
-          box.remove();
-          var qty = cardEl ? getQty(s.key) : parseInt(document.getElementById('feat-qty').textContent)||1;
-          playBuySound(); openModal(s, qty);
-        });
-      } else {
-        // Price unchanged — proceed
-        var qty = cardEl ? getQty(s.key) : parseInt(document.getElementById('feat-qty').textContent)||1;
-        playBuySound(); openModal(s, qty);
-      }
-    })
-    .catch(function(){
-      if(btn){ btn.textContent='Buy'; btn.disabled=false; }
-      playBuySound(); openModal(s,getQty(s.key));
-    });
-}
+
 
 
 var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTInrxu2FbSLYCIyqdrlncW4wsgto2GHgMjg0KVHvrdhLOC7m8qHb3R_oX2xClpb05ToTGvoCYlgW5u/pub?output=csv';
