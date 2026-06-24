@@ -916,8 +916,8 @@ function confirmPay(){
   var mysteryNote=active.mysteryPicked?' [Mystery: '+active.mysteryPicked+']':'';
   var payStr=payMethod.toUpperCase();
   var itemName=active.name.toLowerCase();
+  var payIcon=payMethod==='venmo'?'💜':'💚';
 
-  // Fetch real price from sheet at confirmation time to catch manipulation
   fetch(SHEET_CSV+'&t='+Date.now())
     .then(function(r){return r.text();})
     .then(function(csv){
@@ -943,20 +943,49 @@ function confirmPay(){
           }
         }
       }
-      var mismatch='';
+
+      var mismatch=false;
+      var realTotal=null;
       if(realPrice!==null){
-        var realTotal=parseFloat((activeQty*realPrice).toFixed(2));
+        realTotal=parseFloat((activeQty*realPrice).toFixed(2));
         var submittedTotal=parseFloat(total.replace('$',''));
-        if(Math.abs(submittedTotal-realTotal)>0.01){
-          mismatch='\n⚠️ **PRICE MISMATCH** — Expected: $'+realTotal.toFixed(2)+' | Submitted: '+total+' — DO NOT FULFIL';
-        }
+        if(Math.abs(submittedTotal-realTotal)>0.01) mismatch=true;
       }
-      var msg=':seedling: **'+label+'** - '+total+' via '+payStr+mysteryNote+mismatch+'\n:speech_balloon: **Reply here:** https://app.crisp.chat/inbox/';
-      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:msg})});
+
+      var embed={
+        color: mismatch ? 0xFF0000 : 0x52b788,
+        title: (mismatch ? '⚠️ PRICE MISMATCH — DO NOT FULFIL' : '🌱 New Order'),
+        fields:[
+          {name:'Item',value:'`'+label+mysteryNote+'`',inline:true},
+          {name:'Submitted Price',value:'`'+total+'`',inline:true},
+          {name:'Payment',value:payIcon+' '+payStr,inline:true}
+        ],
+        footer:{text:'Blake\'s Garden Shop'},
+        timestamp: new Date().toISOString()
+      };
+      if(mismatch && realTotal!==null){
+        embed.fields.push({name:'Expected Price',value:'`$'+realTotal.toFixed(2)+'`',inline:true});
+        embed.description='A customer submitted a manipulated price. **Do not fulfill this order.**';
+      }
+      embed.fields.push({name:'Chat',value:'[Open in Crisp](https://app.crisp.chat/inbox/)',inline:true});
+
+      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({embeds:[embed]})});
     })
     .catch(function(){
-      var msg=':seedling: **'+label+'** - '+total+' via '+payStr+mysteryNote+'\n⚠️ **Could not verify price — check sheet before fulfilling**'+'\n:speech_balloon: **Reply here:** https://app.crisp.chat/inbox/';
-      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:msg})});
+      var embed={
+        color:0xFFA500,
+        title:'🌱 New Order — ⚠️ Price Unverified',
+        description:'Could not reach the sheet to verify price. Check manually before fulfilling.',
+        fields:[
+          {name:'Item',value:'`'+label+mysteryNote+'`',inline:true},
+          {name:'Submitted Price',value:'`'+total+'`',inline:true},
+          {name:'Payment',value:payIcon+' '+payStr,inline:true},
+          {name:'Chat',value:'[Open in Crisp](https://app.crisp.chat/inbox/)',inline:true}
+        ],
+        footer:{text:'Blake\'s Garden Shop'},
+        timestamp:new Date().toISOString()
+      };
+      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({embeds:[embed]})});
     });
 
   setTimeout(function(){
