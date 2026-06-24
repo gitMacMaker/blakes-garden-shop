@@ -301,6 +301,14 @@ footer span{color:#52b788}
 .stat-label{color:rgba(255,255,255,0.4);font-weight:500}
 .stat-val{font-weight:700;color:#fff}
 .stat-good{color:#4ade80}.stat-low{color:#f87171}
+.price-confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center}
+.price-confirm-box{background:#0f1a0f;border:1px solid rgba(234,179,8,0.4);border-radius:20px;padding:2rem;max-width:340px;width:90%;text-align:center}
+.price-confirm-icon{font-size:2rem;margin-bottom:.75rem}
+.price-confirm-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#ffd700;margin-bottom:.5rem}
+.price-confirm-msg{color:rgba(255,255,255,.6);font-size:.85rem;line-height:1.5;margin-bottom:1.5rem}
+.price-confirm-btns{display:flex;gap:10px}
+.price-confirm-yes{flex:1;background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
+.price-confirm-no{flex:1;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
 .ability-row{align-items:flex-start}
 .ability-val{text-align:right;font-size:10px;color:rgba(255,255,255,0.65);font-weight:500;max-width:65%;line-height:1.4}
 
@@ -806,8 +814,7 @@ function buildFeatured(){
     document.getElementById('feat-qty').textContent=q;
   });
   document.getElementById('feat-buy').addEventListener('click',function(){
-    playBuySound();
-    openModal(s,parseInt(document.getElementById('feat-qty').textContent)||1);
+    checkAndBuy(s,function(){return parseInt(document.getElementById('feat-qty').textContent)||1;},null);
   });
 }
 
@@ -848,7 +855,7 @@ function buildGrid(){
           '</div>'+
         '</div>'+
       '</div>';
-    c.querySelector('.buybtn').addEventListener('click',function(){playBuySound();openModal(s,getQty(s.key));});
+    c.querySelector('.buybtn').addEventListener('click',function(){checkAndBuy(s,function(){return getQty(s.key);},c);});
     c.querySelectorAll('.qty-btn').forEach(function(btn){
       btn.addEventListener('click',function(e){
         e.stopPropagation();
@@ -1156,7 +1163,7 @@ function buildPets(){
           '</div>'+
         '</div>'+
       '</div>';
-    c.querySelector('.buybtn').addEventListener('click',function(){playBuySound();openModal(s,getQty(s.key));});
+    c.querySelector('.buybtn').addEventListener('click',function(){checkAndBuy(s,function(){return getQty(s.key);},c);});
     c.querySelectorAll('.qty-btn').forEach(function(btn){
       btn.addEventListener('click',function(e){
         e.stopPropagation();
@@ -1195,7 +1202,7 @@ function buildGear(){
           '</div>'+
         '</div>'+
       '</div>';
-    c.querySelector('.buybtn').addEventListener('click',function(){playBuySound();openModal(s,getQty(s.key));});
+    c.querySelector('.buybtn').addEventListener('click',function(){checkAndBuy(s,function(){return getQty(s.key);},c);});
     c.querySelectorAll('.qty-btn').forEach(function(btn){
       btn.addEventListener('click',function(e){
         e.stopPropagation();
@@ -1205,6 +1212,71 @@ function buildGear(){
     g.appendChild(c);
   });
 }
+
+// Price check on every purchase — fetches latest price, blocks if changed
+function checkAndBuy(s, getQtyFn, cardEl){
+  var btn = cardEl ? cardEl.querySelector('.buybtn') : document.getElementById('feat-buy');
+  var oldPrice = s.price;
+  if(btn){ btn.textContent = 'Checking...'; btn.disabled = true; }
+  fetch(SHEET_CSV + '&t=' + Date.now())
+    .then(function(r){ return r.text(); })
+    .then(function(csv){
+      if(btn){ btn.textContent = 'Buy'; btn.disabled = false; }
+      // Parse CSV properly
+      var lines = csv.trim().split('\n');
+      var rawHeaders = lines[0].replace(/^\uFEFF/,'').replace(/\r/,'');
+      var headers = rawHeaders.split(',').map(function(h){ return h.trim().toLowerCase().replace(/"/g,''); });
+      var nameIdx = headers.indexOf('item'), priceIdx = -1;
+      for(var h=0;h<headers.length;h++){ if(headers[h].indexOf('your price')!==-1){priceIdx=h;break;} }
+      var sheetPrice = null;
+      var seedName = s.name.toLowerCase();
+      for(var i=1;i<lines.length;i++){
+        var line = lines[i].replace(/\r/,'');
+        var cols = [], cur = '', inQ = false;
+        for(var c=0;c<line.length;c++){
+          if(line[c]==='"'){inQ=!inQ;}
+          else if(line[c]===','&&!inQ){cols.push(cur.trim());cur='';}
+          else{cur+=line[c];}
+        }
+        cols.push(cur.trim());
+        if((cols[nameIdx]||'').toLowerCase().replace(/"/g,'')===seedName){
+          var num=parseFloat((cols[priceIdx]||'').replace(/[^0-9.]/g,''));
+          if(!isNaN(num)) sheetPrice='$'+num.toFixed(2);
+          break;
+        }
+      }
+      if(sheetPrice && sheetPrice !== oldPrice){
+        // Price changed — update data and display, show confirmation
+        s.price = sheetPrice;
+        updatePriceDisplays();
+        var box = document.createElement('div');
+        box.className = 'price-confirm-overlay';
+        box.innerHTML =
+          '<div class="price-confirm-box">'+
+            '<div class="price-confirm-icon">&#9888;</div>'+
+            '<div class="price-confirm-title">Price Changed</div>'+
+            '<div class="price-confirm-msg">The price for <strong>'+s.name+'</strong> has been updated. Do you want to continue at the new price?</div>'+
+            '<div class="price-confirm-btns">'+
+              '<button class="price-confirm-no">Cancel</button>'+
+              '<button class="price-confirm-yes">Continue</button>'+
+            '</div>'+
+          '</div>';
+        document.body.appendChild(box);
+        box.querySelector('.price-confirm-no').addEventListener('click',function(){ box.remove(); });
+        box.querySelector('.price-confirm-yes').addEventListener('click',function(){
+          box.remove();
+          playBuySound(); openModal(s, getQtyFn());
+        });
+      } else {
+        playBuySound(); openModal(s, getQtyFn());
+      }
+    })
+    .catch(function(){
+      if(btn){ btn.textContent='Buy'; btn.disabled=false; }
+      playBuySound(); openModal(s, getQtyFn());
+    });
+}
+
 
 var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTInrxu2FbSLYCIyqdrlncW4wsgto2GHgMjg0KVHvrdhLOC7m8qHb3R_oX2xClpb05ToTGvoCYlgW5u/pub?output=csv';
 
@@ -1217,76 +1289,99 @@ var NAME_TO_KEY = {
   'super watering can':'wcan','super sprinkler':'sprink','legendary sprinkler':'legsprink'
 };
 
+// Build a flat lookup map from key → item object for fast access
+function buildItemMap(){
+  var map = {};
+  seeds.concat(pets).concat(gear).forEach(function(item){ map[item.key] = item; });
+  return map;
+}
+
+// Update all price elements on the page to match the data arrays
+function updatePriceDisplays(){
+  seeds.concat(pets).concat(gear).forEach(function(item){
+    var priceEl = document.getElementById('price-' + item.key);
+    if(!priceEl) return;
+    var qty = getQty(item.key);
+    var base = parseFloat(item.price.replace('$',''));
+    if(isNaN(base)) return;
+    priceEl.textContent = qty > 1 ? '$' + (base * qty).toFixed(2) + ' (x' + qty + ')' : item.price;
+  });
+  // Update sheckles display
+  var sub = document.querySelector('.sheckles-subtitle');
+  var pm  = document.querySelector('.sheckles-permill');
+  var rateStr = '$' + sheckleRate.toFixed(2) + ' per million';
+  if(sub) sub.innerHTML = rateStr + ' &nbsp;&middot;&nbsp; 100M minimum';
+  if(pm)  pm.innerHTML  = rateStr + ' &nbsp;&middot;&nbsp; Prices may change at any time without notice';
+  updateSheckles();
+}
+
 function fetchPrices(afterFetch){
   fetch(SHEET_CSV + '&t=' + Date.now())
     .then(function(r){ return r.text(); })
     .then(function(csv){
+      var itemMap = buildItemMap();
       var lines = csv.trim().split('\n');
-      var headers = lines[0].replace(/^\uFEFF/,'').replace(/\r/,'').split(',').map(function(h){ return h.trim().toLowerCase().replace(/"/g,''); });
-      console.log('[Shop] CSV headers:', headers);
-      var nameIdx  = headers.indexOf('item');
+      // Strip BOM and carriage returns, parse headers
+      var rawHeaders = lines[0].replace(/^\uFEFF/,'').replace(/\r/,'');
+      var headers = rawHeaders.split(',').map(function(h){ return h.trim().toLowerCase().replace(/"/g,''); });
+      var nameIdx = headers.indexOf('item');
       var priceIdx = -1;
       var minQtyIdx = headers.indexOf('min qty');
-      for(var h = 0; h < headers.length; h++){ if(headers[h].indexOf('your price') !== -1){ priceIdx = h; break; } }
-      console.log('[Shop] nameIdx:', nameIdx, 'priceIdx:', priceIdx, 'minQtyIdx:', minQtyIdx);
-      if(nameIdx === -1 || priceIdx === -1){ console.warn('[Shop] Could not find columns'); if(afterFetch) afterFetch(); return; }
+      for(var h = 0; h < headers.length; h++){
+        if(headers[h].indexOf('your price') !== -1){ priceIdx = h; break; }
+      }
+      if(nameIdx === -1 || priceIdx === -1){ if(afterFetch) afterFetch(); return; }
+
       for(var i = 1; i < lines.length; i++){
-        var cols  = lines[i].replace(/\r/,'').split(',').map(function(c){ return c.trim().replace(/"/g,''); });
-        var name  = (cols[nameIdx] || '').toLowerCase();
-        var price = cols[priceIdx] || '';
+        var line = lines[i].replace(/\r/,'');
+        if(!line.trim()) continue;
+        // Split handling quoted fields (dates with commas)
+        var cols = [];
+        var cur = '', inQuote = false;
+        for(var c = 0; c < line.length; c++){
+          if(line[c] === '"'){ inQuote = !inQuote; }
+          else if(line[c] === ',' && !inQuote){ cols.push(cur.trim()); cur = ''; }
+          else { cur += line[c]; }
+        }
+        cols.push(cur.trim());
+
+        var name = (cols[nameIdx] || '').toLowerCase().replace(/"/g,'');
+        var price = (cols[priceIdx] || '').replace(/"/g,'');
         if(!name || !price) continue;
         var key = NAME_TO_KEY[name];
-        console.log('[Shop] Row:', name, '→ key:', key, 'price col:', price);
         if(!key) continue;
         var num = parseFloat(price.replace('$',''));
         if(isNaN(num)) continue;
+
         if(key === 'sheckles'){
           sheckleRate = num;
-          console.log('[Shop] Sheckles rate set to', num);
-          var rateStr = '$' + num.toFixed(2) + ' per million';
-          var sub = document.querySelector('.sheckles-subtitle');
-          var pm  = document.querySelector('.sheckles-permill');
-          if(sub) sub.innerHTML = rateStr + ' &nbsp;&middot;&nbsp; 100M minimum';
-          if(pm)  pm.innerHTML  = rateStr + ' &nbsp;&middot;&nbsp; Prices may change at any time without notice';
-          updateSheckles();
           continue;
         }
 
-        // Try seeds first, then pets, then gear
-        var allItems = seeds.concat(pets).concat(gear);
-        var item = null;
-        for(var j=0;j<allItems.length;j++){ if(allItems[j].key===key){item=allItems[j];break;} }
+        var item = itemMap[key];
         if(!item) continue;
         item.price = '$' + num.toFixed(2);
 
-        // Update min quantity from sheet
+        // Update min quantity
         if(minQtyIdx !== -1){
-          var minQtyVal = parseInt(cols[minQtyIdx]);
-          if(!isNaN(minQtyVal) && minQtyVal > 0){
-            item.minQty = minQtyVal;
-            // Update qty display and enforce minimum
-            var qtyEl = document.getElementById('qty-'+key);
-            if(qtyEl){
-              var cur = parseInt(qtyEl.textContent);
-              if(cur < minQtyVal) qtyEl.textContent = minQtyVal;
-            }
+          var minQ = parseInt((cols[minQtyIdx] || '').replace(/"/g,''));
+          if(!isNaN(minQ) && minQ > 0){
+            item.minQty = minQ;
+            var qtyEl = document.getElementById('qty-' + key);
+            if(qtyEl && parseInt(qtyEl.textContent) < minQ) qtyEl.textContent = minQ;
           }
         }
-
-        var priceEl = document.getElementById('price-' + key);
-        if(priceEl){
-          var qty  = getQty(key);
-          var base = parseFloat(item.price.replace('$',''));
-          priceEl.textContent = qty > 1 ? '$' + (base * qty).toFixed(2) + ' (x' + qty + ')' : item.price;
-        }
       }
-      console.log('[Shop] Price fetch complete');
+
+      // Update all DOM price displays at once
+      updatePriceDisplays();
       if(afterFetch) afterFetch();
     })
     .catch(function(e){ console.error('[Shop] Fetch failed:', e); if(afterFetch) afterFetch(); });
 }
 
-// Save scroll position before refresh
+// Refresh prices every 5 minutes without rebuilding cards
+setInterval(function(){ fetchPrices(null); }, 5 * 60 * 1000);
 window.addEventListener('beforeunload', function(){
   sessionStorage.setItem('scrollY', window.scrollY);
   sessionStorage.setItem('activeTab', document.querySelector('.tab-btn.active')?.getAttribute('data-tab') || 'seeds');
