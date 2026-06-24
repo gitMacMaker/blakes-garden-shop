@@ -916,7 +916,7 @@ function confirmPay(){
   var mysteryNote=active.mysteryPicked?' [Mystery: '+active.mysteryPicked+']':'';
   var payStr=payMethod.toUpperCase();
   var itemName=active.name.toLowerCase();
-  var payIcon=payMethod==='venmo'?'💜':'💚';
+  var payIcon='';
 
   fetch(SHEET_CSV+'&t='+Date.now())
     .then(function(r){return r.text();})
