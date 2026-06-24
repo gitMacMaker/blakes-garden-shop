@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="google-site-verification" content="04FIo406TsfrHSbhuD4G2aT8R7bHzszLJXcQf_hFFUI" />
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSI+CiAgPGNpcmNsZSBjeD0iMzAiIGN5PSI1NSIgcj0iOCIgZmlsbD0iIzUyYjc4OCIgb3BhY2l0eT0iLjE1Ii8+CiAgPHBhdGggZD0iTTMwIDU1IFEzMCA0MCAzMCAyMCIgc3Ryb2tlPSIjNTJiNzg4IiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTMwIDM1IFExOCAyOCAyMCAxOCBRMjggMjIgMzAgMzVaIiBmaWxsPSIjNGNhZjUwIi8+CiAgPHBhdGggZD0iTTMwIDI1IFE0MiAxOCA0MCA4IFEzMiAxMiAzMCAyNVoiIGZpbGw9IiM1MmI3ODgiLz4KPC9zdmc+">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -914,9 +913,52 @@ function confirmPay(){
   var base=parseFloat(active.price.replace('$',''));
   var total=activeQty>1?'$'+(base*activeQty).toFixed(2):active.price;
   var label=activeQty>1?active.name+' x'+activeQty:active.name;
-  var mysteryNote = active.mysteryPicked ? ' [Mystery: ' + active.mysteryPicked + ']' : '';
-  var msg=':seedling: **'+label+'** - '+total+' via '+payMethod.toUpperCase()+mysteryNote+'\n:speech_balloon: **Reply here:** https://app.crisp.chat/inbox/';
-  fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:msg})});
+  var mysteryNote=active.mysteryPicked?' [Mystery: '+active.mysteryPicked+']':'';
+  var payStr=payMethod.toUpperCase();
+  var itemName=active.name.toLowerCase();
+
+  // Fetch real price from sheet at confirmation time to catch manipulation
+  fetch(SHEET_CSV+'&t='+Date.now())
+    .then(function(r){return r.text();})
+    .then(function(csv){
+      var realPrice=null;
+      var lines=csv.trim().split('\n');
+      var headers=lines[0].replace(/^\uFEFF/,'').replace(/\r/,'').split(',').map(function(h){return h.trim().toLowerCase().replace(/"/g,'');});
+      var nameIdx=headers.indexOf('item'),priceIdx=-1;
+      for(var h=0;h<headers.length;h++){if(headers[h].indexOf('your price')!==-1){priceIdx=h;break;}}
+      if(nameIdx!==-1&&priceIdx!==-1){
+        for(var i=1;i<lines.length;i++){
+          var line=lines[i].replace(/\r/,'');
+          var cols=[],cur='',inQ=false;
+          for(var c=0;c<line.length;c++){
+            if(line[c]==='"'){inQ=!inQ;}
+            else if(line[c]===','&&!inQ){cols.push(cur.trim());cur='';}
+            else{cur+=line[c];}
+          }
+          cols.push(cur.trim());
+          if((cols[nameIdx]||'').toLowerCase().replace(/"/g,'')===itemName){
+            var num=parseFloat((cols[priceIdx]||'').replace(/[^0-9.]/g,''));
+            if(!isNaN(num)) realPrice=num;
+            break;
+          }
+        }
+      }
+      var mismatch='';
+      if(realPrice!==null){
+        var realTotal=parseFloat((activeQty*realPrice).toFixed(2));
+        var submittedTotal=parseFloat(total.replace('$',''));
+        if(Math.abs(submittedTotal-realTotal)>0.01){
+          mismatch='\n⚠️ **PRICE MISMATCH** — Expected: $'+realTotal.toFixed(2)+' | Submitted: '+total+' — DO NOT FULFIL';
+        }
+      }
+      var msg=':seedling: **'+label+'** - '+total+' via '+payStr+mysteryNote+mismatch+'\n:speech_balloon: **Reply here:** https://app.crisp.chat/inbox/';
+      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:msg})});
+    })
+    .catch(function(){
+      var msg=':seedling: **'+label+'** - '+total+' via '+payStr+mysteryNote+'\n⚠️ **Could not verify price — check sheet before fulfilling**'+'\n:speech_balloon: **Reply here:** https://app.crisp.chat/inbox/';
+      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:msg})});
+    });
+
   setTimeout(function(){
     if(typeof $crisp!=='undefined'){
       $crisp.push(['do','chat:show']);
