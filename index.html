@@ -1213,68 +1213,36 @@ function buildGear(){
   });
 }
 
-// Price check on every purchase — fetches latest price, blocks if changed
+// Price check on every purchase — uses fetchPrices, blocks if price changed
 function checkAndBuy(s, getQtyFn, cardEl){
   var btn = cardEl ? cardEl.querySelector('.buybtn') : document.getElementById('feat-buy');
   var oldPrice = s.price;
   if(btn){ btn.textContent = 'Checking...'; btn.disabled = true; }
-  fetch(SHEET_CSV + '&t=' + Date.now())
-    .then(function(r){ return r.text(); })
-    .then(function(csv){
-      if(btn){ btn.textContent = 'Buy'; btn.disabled = false; }
-      // Parse CSV properly
-      var lines = csv.trim().split('\n');
-      var rawHeaders = lines[0].replace(/^\uFEFF/,'').replace(/\r/,'');
-      var headers = rawHeaders.split(',').map(function(h){ return h.trim().toLowerCase().replace(/"/g,''); });
-      var nameIdx = headers.indexOf('item'), priceIdx = -1;
-      for(var h=0;h<headers.length;h++){ if(headers[h].indexOf('your price')!==-1){priceIdx=h;break;} }
-      var sheetPrice = null;
-      var seedName = s.name.toLowerCase();
-      for(var i=1;i<lines.length;i++){
-        var line = lines[i].replace(/\r/,'');
-        var cols = [], cur = '', inQ = false;
-        for(var c=0;c<line.length;c++){
-          if(line[c]==='"'){inQ=!inQ;}
-          else if(line[c]===','&&!inQ){cols.push(cur.trim());cur='';}
-          else{cur+=line[c];}
-        }
-        cols.push(cur.trim());
-        if((cols[nameIdx]||'').toLowerCase().replace(/"/g,'')===seedName){
-          var num=parseFloat((cols[priceIdx]||'').replace(/[^0-9.]/g,''));
-          if(!isNaN(num)) sheetPrice='$'+num.toFixed(2);
-          break;
-        }
-      }
-      if(sheetPrice && sheetPrice !== oldPrice){
-        // Price changed — update data and display, show confirmation
-        s.price = sheetPrice;
-        updatePriceDisplays();
-        var box = document.createElement('div');
-        box.className = 'price-confirm-overlay';
-        box.innerHTML =
-          '<div class="price-confirm-box">'+
-            '<div class="price-confirm-icon">&#9888;</div>'+
-            '<div class="price-confirm-title">Price Changed</div>'+
-            '<div class="price-confirm-msg">The price for <strong>'+s.name+'</strong> has been updated. Do you want to continue at the new price?</div>'+
-            '<div class="price-confirm-btns">'+
-              '<button class="price-confirm-no">Cancel</button>'+
-              '<button class="price-confirm-yes">Continue</button>'+
-            '</div>'+
-          '</div>';
-        document.body.appendChild(box);
-        box.querySelector('.price-confirm-no').addEventListener('click',function(){ box.remove(); });
-        box.querySelector('.price-confirm-yes').addEventListener('click',function(){
-          box.remove();
-          playBuySound(); openModal(s, getQtyFn());
-        });
-      } else {
+  fetchPrices(function(){
+    if(btn){ btn.textContent = 'Buy'; btn.disabled = false; }
+    if(s.price !== oldPrice){
+      var box = document.createElement('div');
+      box.className = 'price-confirm-overlay';
+      box.innerHTML =
+        '<div class="price-confirm-box">'+
+          '<div class="price-confirm-icon">&#9888;</div>'+
+          '<div class="price-confirm-title">Price Changed</div>'+
+          '<div class="price-confirm-msg">The price for <strong>'+s.name+'</strong> has been updated. Do you want to continue at the new price?</div>'+
+          '<div class="price-confirm-btns">'+
+            '<button class="price-confirm-no">Cancel</button>'+
+            '<button class="price-confirm-yes">Continue</button>'+
+          '</div>'+
+        '</div>';
+      document.body.appendChild(box);
+      box.querySelector('.price-confirm-no').addEventListener('click',function(){ box.remove(); });
+      box.querySelector('.price-confirm-yes').addEventListener('click',function(){
+        box.remove();
         playBuySound(); openModal(s, getQtyFn());
-      }
-    })
-    .catch(function(){
-      if(btn){ btn.textContent='Buy'; btn.disabled=false; }
+      });
+    } else {
       playBuySound(); openModal(s, getQtyFn());
-    });
+    }
+  });
 }
 
 
