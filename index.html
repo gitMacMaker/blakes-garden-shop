@@ -970,7 +970,7 @@ function confirmPay(){
       }
       embed.fields.push({name:'Chat',value:'[Open in Crisp](https://app.crisp.chat/inbox/)',inline:true});
 
-      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({embeds:[embed]})});
+      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:'BGS Notifier',avatar_url:'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f331.png',embeds:[embed]})});
     })
     .catch(function(){
       var embed={
@@ -986,7 +986,7 @@ function confirmPay(){
         footer:{text:'Blake\'s Garden Shop'},
         timestamp:new Date().toISOString()
       };
-      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({embeds:[embed]})});
+      fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:'BGS Notifier',avatar_url:'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f331.png',embeds:[embed]})});
     });
 
   setTimeout(function(){
