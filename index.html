@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSI+CiAgPGNpcmNsZSBjeD0iMzAiIGN5PSI1NSIgcj0iOCIgZmlsbD0iIzUyYjc4OCIgb3BhY2l0eT0iLjE1Ii8+CiAgPHBhdGggZD0iTTMwIDU1IFEzMCA0MCAzMCAyMCIgc3Ryb2tlPSIjNTJiNzg4IiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTMwIDM1IFExOCAyOCAyMCAxOCBRMjggMjIgMzAgMzVaIiBmaWxsPSIjNGNhZjUwIi8+CiAgPHBhdGggZD0iTTMwIDI1IFE0MiAxOCA0MCA4IFEzMiAxMiAzMCAyNVoiIGZpbGw9IiM1MmI3ODgiLz4KPC9zdmc+">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blake's Garden Shop - Buy Grow a Garden 2 Seeds & Sheckles</title>
+<title>Blake's Game Store</title>
 
 <!-- SEO -->
 <meta name="description" content="Buy Grow a Garden 2 seeds and Sheckles cheap. Dragon Breath, Moon Bloom, Poison Apple, Venus Fly Trap and more. Fast delivery, trade in-game. Starting at $0.05.">
 <meta name="keywords" content="grow a garden 2, grow a garden 2 seeds, buy gag2 seeds, grow a garden sheckles, roblox grow a garden, cheap seeds roblox, moon bloom seed, poison apple seed, dragon breath seed, venus fly trap seed, grow a garden 2 shop">
-<meta name="author" content="Blake's Garden Shop">
+<meta name="author" content="Blake's Game Store">
 <link rel="canonical" href="https://blakes-garden-shop.vercel.app/">
 
 <!-- Open Graph (shows preview when sharing link on Discord, Twitter etc) -->
@@ -300,6 +300,40 @@ footer span{color:#52b788}
 .req-submit{flex:1;background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
 .req-cancel{flex:1;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
 .req-status{text-align:center;font-size:13px;margin-top:12px;min-height:18px}
+
+/* GAME NAV */
+.game-nav{display:flex;gap:4px}
+.game-nav-btn{background:none;border:none;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;color:rgba(255,255,255,0.4);border-radius:8px;transition:all .15s}
+.game-nav-btn:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.game-nav-btn.active{color:#52b788;background:rgba(82,183,136,0.1)}
+/* HOMEPAGE */
+.home-hero{text-align:center;padding:7rem 2rem 5rem;position:relative;overflow:hidden}
+.home-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(82,183,136,0.12) 0%,transparent 70%);pointer-events:none}
+.home-title{font-family:'Syne',sans-serif;font-weight:900;font-size:clamp(2.5rem,6vw,5rem);color:#fff;line-height:1.1;margin:0 0 1rem}
+.home-subtitle{font-size:clamp(1rem,2vw,1.3rem);color:rgba(255,255,255,0.5);margin:0 0 2.5rem;font-weight:500}
+.home-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.home-cta-primary{background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:14px;padding:14px 32px;font-size:15px;font-weight:800;cursor:pointer;font-family:'Syne',sans-serif;transition:opacity .15s}
+.home-cta-primary:hover{opacity:.9}
+.home-cta-secondary{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#fff;border-radius:14px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;display:inline-flex;align-items:center;transition:background .15s}
+.home-cta-secondary:hover{background:rgba(255,255,255,0.1)}
+/* GAMES GRID */
+.games-grid-section{max-width:800px;margin:0 auto;padding:0 1.5rem 3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.game-card-big{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:1.5rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:all .2s}
+.game-card-big:hover{border-color:rgba(82,183,136,0.4);background:rgba(82,183,136,0.06);transform:translateY(-2px)}
+.game-card-coming{cursor:default;opacity:.5}
+.game-card-coming:hover{transform:none;border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.04)}
+.game-card-img{font-size:2.5rem;flex-shrink:0}
+.game-card-info{flex:1}
+.game-card-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#fff;margin-bottom:4px}
+.game-card-items{font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.game-card-btn{background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap}
+/* TRUST SECTION */
+.trust-grid-section{max-width:1060px;margin:0 auto;padding:0 1.5rem 4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.trust-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.5rem;text-align:center}
+.trust-card-icon{font-size:2rem;margin-bottom:.75rem;display:block}
+.trust-card-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#fff;margin-bottom:.4rem}
+.trust-card-desc{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.5}
+
 /* TABS */
 .tab-bar{display:flex;gap:0;justify-content:center;width:100%;padding:0 1.5rem;position:sticky;top:64px;z-index:100;border-bottom:1px solid rgba(255,255,255,0.12);background:rgba(10,20,10,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .tab-btn{background:none;border:none;border-bottom:3px solid transparent;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;color:rgba(255,255,255,0.4);transition:all .2s;margin-bottom:-1px;letter-spacing:.02em}
@@ -439,22 +473,16 @@ footer span{color:#52b788}
 <body>
 <div class="particles" id="particles"></div>
 <nav>
-  <div class="nav-logo">
+  <div class="nav-logo" onclick="showPage('home')" style="cursor:pointer">
     <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><path d="M16 3C16 3 7 10 7 19a9 9 0 0018 0C25 10 16 3 16 3z" fill="#52b788"/><path d="M16 10v16M10 16l6-6 6 6" stroke="#1b4332" stroke-width="2" stroke-linecap="round"/></svg>
-    <span><span class="accent">Blake's</span> Garden Shop</span>
+    <span><span class="accent">Blake's</span> Game Store</span>
   </div>
-  <span class="nav-badge">Grow a Garden 2</span>
+  <div class="game-nav">
+    <button class="game-nav-btn active" id="gnav-home" onclick="showPage('home')">&#127968; Home</button>
+    <button class="game-nav-btn" id="gnav-gag2" onclick="showPage('gag2')">&#127807; GAG2</button>
+  </div>
   <div class="visitor-count"><span class="visitor-dot"></span><span id="visitor-num">0</span> browsing now</div>
-  <div class="order-counter">&#9989; <strong id="order-count">127</strong> orders fulfilled</div>
 </nav>
-
-<div class="tab-bar" id="tab-bar">
-  <button class="tab-btn active" data-tab="seeds">🌱 Seeds</button>
-  <button class="tab-btn" data-tab="pets">🐾 Pets</button>
-  <button class="tab-btn" data-tab="gear">⚙️ Gear</button>
-  <button class="tab-btn" data-tab="sheckles">💰 Sheckles</button>
-</div>
-
 
 <div class="discord-banner" id="discord-banner">
   <div class="discord-banner-text"><strong>Get restock alerts!</strong> Join the Discord for new seeds, price drops and exclusive deals.</div>
@@ -467,35 +495,78 @@ footer span{color:#52b788}
 
 <div class="ticker-wrap"><div class="ticker-track" id="ticker-track"></div></div>
 
-<section class="hero">
-  <div class="hero-parallax-bg" id="hero-parallax-bg"></div>
-  <div class="hero-sprout">
-    <svg class="sprout-svg" viewBox="0 0 60 60" fill="none">
-      <circle class="sprout-glow" cx="30" cy="55" r="8" fill="#52b788" opacity=".15"/>
-      <path class="sprout-stem" d="M30 55 Q30 40 30 20" stroke="#52b788" stroke-width="2.5" stroke-linecap="round"/>
-      <path class="sprout-leaf-l" d="M30 35 Q18 28 20 18 Q28 22 30 35Z" fill="#4caf50"/>
-      <path class="sprout-leaf-r" d="M30 25 Q42 18 40 8 Q32 12 30 25Z" fill="#52b788"/>
-    </svg>
+<!-- HOMEPAGE -->
+<div id="page-home">
+
+<section class="home-hero">
+  <div style="position:relative;z-index:1">
+    <h1 class="home-title">Blake's <span class="accent">Game</span> Store</h1>
+    <p class="home-subtitle">Real in-game items. Real trades. Real fast.</p>
+    <div class="home-cta">
+      <button class="home-cta-primary" onclick="showPage('gag2')">&#127807; Shop GAG2</button>
+      <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="home-cta-secondary">Join Discord</a>
+    </div>
   </div>
-  <div class="hero-tag">&#128722; Roblox Shop</div>
-  <h1><span class="line1">Real seeds,</span><br><span class="line2">delivered in-game.</span></h1>
-  <p>Pick a seed, pay, then drop your Roblox username. I'll trade you directly in Grow a Garden 2.</p>
 </section>
+
+<div class="section-label">&#127918; Games We Support</div>
+<div class="games-grid-section">
+  <div class="game-card-big" onclick="showPage('gag2')">
+    <div class="game-card-img">&#127807;</div>
+    <div class="game-card-info">
+      <div class="game-card-name">Grow a Garden 2</div>
+      <div class="game-card-items">Seeds &middot; Pets &middot; Gear &middot; Sheckles</div>
+    </div>
+    <button class="game-card-btn">Shop Now &#8594;</button>
+  </div>
+  <div class="game-card-big game-card-coming">
+    <div class="game-card-img">&#127918;</div>
+    <div class="game-card-info">
+      <div class="game-card-name">More Games Coming</div>
+      <div class="game-card-items">Stay tuned!</div>
+    </div>
+  </div>
+</div>
 
 <div class="section-label">&#10022; How it works &#10022;</div>
 <section class="how-section">
   <div class="how-grid">
-    <div class="how-card"><div class="how-num">01</div><div class="how-title">Pick your seeds</div><div class="how-desc">Browse the shop and choose what you want. Use the quantity selector to add multiple of the same seed.</div></div>
+    <div class="how-card"><div class="how-num">01</div><div class="how-title">Pick your items</div><div class="how-desc">Browse the shop and choose what you want. Use the quantity selector to add multiple of the same item.</div></div>
     <div class="how-card"><div class="how-num">02</div><div class="how-title">Send payment</div><div class="how-desc">Pay via Venmo or Cash App. Confirm once sent and a chat with Blake opens automatically.</div></div>
-    <div class="how-card"><div class="how-num">03</div><div class="how-title">Get your trade</div><div class="how-desc">Send Blake your Roblox username in the chat. Once payment is verified he'll find you in-game and send the trade.</div></div>
+    <div class="how-card"><div class="how-num">03</div><div class="how-title">Get your trade</div><div class="how-desc">Send Blake your Roblox username in the chat. Once payment is confirmed he'll find you in-game and deliver the trade.</div></div>
   </div>
 </section>
 
+
+<div class="section-label">&#11088; Why Buy From Blake?</div>
+<div class="trust-grid-section">
+  <div class="trust-card">
+    <span class="trust-card-icon">&#9889;</span>
+    <div class="trust-card-title">Fast Delivery</div>
+    <div class="trust-card-desc">Trade delivered within minutes of payment confirmation</div>
+  </div>
+  <div class="trust-card">
+    <span class="trust-card-icon">&#128202;</span>
+    <div class="trust-card-title">Real-time Prices</div>
+    <div class="trust-card-desc">Prices update live from market data every 5 minutes</div>
+  </div>
+  <div class="trust-card">
+    <span class="trust-card-icon">&#128274;</span>
+    <div class="trust-card-title">Secure Payment</div>
+    <div class="trust-card-desc">Pay via Venmo or CashApp — trusted by 100+ buyers</div>
+  </div>
+  <div class="trust-card">
+    <span class="trust-card-icon">&#128172;</span>
+    <div class="trust-card-title">Active Support</div>
+    <div class="trust-card-desc">Live chat via Discord and Crisp — always available</div>
+  </div>
+</div>
+
 <div class="role-banner">
   <div class="role-banner-inner">
-    <div class="role-banner-icon">&#127807;</div>
+    
     <div class="role-banner-text">
-      <div class="role-banner-title">Buy any seed and earn the <span class="role-pill">&#127807; Buyer</span> role in the Discord!</div>
+      <div class="role-banner-title">Buy anything and earn the <span class="role-pill">Buyer</span> role in the Discord!</div>
       <div class="role-banner-sub">Join the server, make a purchase, and DM @eclipsekw with proof. Role granted within 24 hours.</div>
     </div>
     <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="role-discord-btn">
@@ -504,6 +575,18 @@ footer span{color:#52b788}
     </a>
   </div>
 </div>
+
+
+</div><!-- end page-home -->
+
+<div id="page-gag2" style="display:none">
+<div class="tab-bar" id="tab-bar">
+  <button class="tab-btn active" data-tab="seeds">🌱 Seeds</button>
+  <button class="tab-btn" data-tab="pets">🐾 Pets</button>
+  <button class="tab-btn" data-tab="gear">⚙️ Gear</button>
+  <button class="tab-btn" data-tab="sheckles">💰 Sheckles</button>
+</div>
+
 
 <div class="price-guarantee">
   <div class="price-guarantee-inner">
@@ -662,7 +745,7 @@ footer span{color:#52b788}
   </div>
 </section>
 
-<footer>Blake's Garden Shop &nbsp;&middot;&nbsp; <span>Grow a Garden 2</span> &nbsp;&middot;&nbsp; All trades done manually in-game</footer>
+<footer>Blake's Game Store &nbsp;&middot;&nbsp; All trades done manually in-game</footer>
 
 <script type="text/javascript">
 window.$crisp=[];
@@ -1483,34 +1566,62 @@ function fetchPrices(afterFetch){
     .catch(function(e){ console.error('[Shop] Fetch failed:', e); if(afterFetch) afterFetch(); });
 }
 
-// Refresh prices every 5 minutes without rebuilding cards
+// Refresh prices every 5 minutes
 setInterval(function(){ fetchPrices(null); }, 5 * 60 * 1000);
-window.addEventListener('beforeunload', function(){
-  sessionStorage.setItem('scrollY', window.scrollY);
-  sessionStorage.setItem('activeTab', document.querySelector('.tab-btn.active')?.getAttribute('data-tab') || 'seeds');
-});
 
-fetchPrices(function(){
-  // Restore active tab
-  var savedTab = sessionStorage.getItem('activeTab');
-  if(savedTab && savedTab !== 'seeds'){
-    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-    var tabBtn = document.querySelector('.tab-btn[data-tab="'+savedTab+'"]');
-    if(tabBtn) tabBtn.classList.add('active');
-    ['seeds','pets','gear'].forEach(function(t){
-      var el = document.getElementById('tab-'+t);
-      if(el) el.style.display = (t===savedTab) ? '' : 'none';
+// PAGE ROUTING
+function showPage(page){
+  document.getElementById('page-home').style.display = (page==='home')?'':'none';
+  document.getElementById('page-gag2').style.display = (page==='gag2')?'':'none';
+  document.querySelectorAll('.game-nav-btn').forEach(function(b){b.classList.remove('active');});
+  var btn = document.getElementById('gnav-'+page);
+  if(btn) btn.classList.add('active');
+  if(page==='gag2' && !window._gag2Built){
+    window._gag2Built = true;
+    fetchPrices(function(){
+      buildFeatured();
+      buildGrid();
+      buildPets();
+      buildGear();
     });
-    var sh = document.getElementById('sheckles');
-    if(sh) sh.style.display = (savedTab==='sheckles') ? '' : 'none';
   }
-  buildFeatured();
-  buildGrid();
-  buildPets();
-  buildGear();
-  // Restore scroll position after content renders
-  var savedY = sessionStorage.getItem('scrollY');
-  if(savedY) requestAnimationFrame(function(){ window.scrollTo(0, parseInt(savedY)); });
+  sessionStorage.setItem('activePage', page);
+  sessionStorage.setItem('scrollY', '0');
+  window.scrollTo(0, 0);
+}
+
+// On load — restore last page
+(function(){
+  var savedPage = sessionStorage.getItem('activePage') || 'home';
+  var savedTab  = sessionStorage.getItem('activeTab') || 'seeds';
+  if(savedPage === 'gag2'){
+    document.getElementById('page-home').style.display = 'none';
+    document.getElementById('page-gag2').style.display = '';
+    var btn = document.getElementById('gnav-gag2');
+    if(btn){ document.querySelectorAll('.game-nav-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active'); }
+    window._gag2Built = true;
+    if(savedTab && savedTab !== 'seeds'){
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      var tabBtn = document.querySelector('.tab-btn[data-tab="'+savedTab+'"]');
+      if(tabBtn) tabBtn.classList.add('active');
+      ['seeds','pets','gear'].forEach(function(t){
+        var el = document.getElementById('tab-'+t);
+        if(el) el.style.display = (t===savedTab)?'':'none';
+      });
+      var sh = document.getElementById('sheckles');
+      if(sh) sh.style.display = (savedTab==='sheckles')?'':'none';
+    }
+    fetchPrices(function(){
+      buildFeatured(); buildGrid(); buildPets(); buildGear();
+      var savedY = sessionStorage.getItem('scrollY');
+      if(savedY && parseInt(savedY)) requestAnimationFrame(function(){ window.scrollTo(0, parseInt(savedY)); });
+    });
+  }
+})();
+
+window.addEventListener('beforeunload', function(){
+  sessionStorage.setItem('activeTab', (document.querySelector('.tab-btn.active') || {getAttribute:function(){return 'seeds';}}).getAttribute('data-tab'));
+  sessionStorage.setItem('scrollY', window.scrollY);
 });
 
 </script>
@@ -1519,6 +1630,8 @@ fetchPrices(function(){
 
 
 <!-- REQUEST FORM -->
+</div><!-- end page-gag2 -->
+
 <div id="req-overlay" class="req-overlay" style="display:none" onclick="if(event.target===this)closeRequestForm()">
   <div class="req-box">
     <div class="req-title">📥 Request an Item</div>
