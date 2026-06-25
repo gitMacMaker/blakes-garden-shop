@@ -286,6 +286,20 @@ footer span{color:#52b788}
 .discord-close:hover{color:rgba(255,255,255,0.6)}
 
 /* 3D CARD FLIP */
+
+/* REQUEST MODAL */
+.req-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center}
+.req-box{background:#0f1a0f;border:1px solid rgba(82,183,136,0.3);border-radius:20px;padding:2rem;max-width:380px;width:90%}
+.req-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#fff;margin-bottom:.3rem}
+.req-sub{color:rgba(255,255,255,.4);font-size:.85rem;margin-bottom:1.5rem}
+.req-field{margin-bottom:1rem}
+.req-field label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+.req-field input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 14px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;box-sizing:border-box}
+.req-field input:focus{border-color:rgba(82,183,136,.5)}
+.req-btns{display:flex;gap:10px;margin-top:1.5rem}
+.req-submit{flex:1;background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;border:none;border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
+.req-cancel{flex:1;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif}
+.req-status{text-align:center;font-size:13px;margin-top:12px;min-height:18px}
 /* TABS */
 .tab-bar{display:flex;gap:0;justify-content:center;width:100%;padding:0 1.5rem;position:sticky;top:64px;z-index:100;border-bottom:1px solid rgba(255,255,255,0.12);background:rgba(10,20,10,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .tab-btn{background:none;border:none;border-bottom:3px solid transparent;padding:14px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;color:rgba(255,255,255,0.4);transition:all .2s;margin-bottom:-1px;letter-spacing:.02em}
@@ -497,7 +511,8 @@ footer span{color:#52b788}
       <span class="pg-icon">&#128176;</span>
       <div class="pg-text"><strong>Price Guarantee</strong> &mdash; Prices are always fair and updated in real time.</div>
     </div>
-    <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="pg-btn">DM @eclipsekw</a>
+    <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="pg-btn">Join Discord</a>
+    <button class="pg-btn" onclick="openRequestForm()" style="background:rgba(82,183,136,0.08)">📥 Request an Item</button>
   </div>
 </div>
 
@@ -1189,6 +1204,52 @@ setInterval(function(){
 
 
 
+
+// REQUEST FORM
+function openRequestForm(){
+  document.getElementById('req-overlay').style.display='flex';
+  document.getElementById('req-game').value='';
+  document.getElementById('req-item').value='';
+  document.getElementById('req-user').value='';
+  document.getElementById('req-status').textContent='';
+  document.getElementById('req-submit-btn').textContent='Send Request';
+  document.getElementById('req-submit-btn').disabled=false;
+}
+function closeRequestForm(){
+  document.getElementById('req-overlay').style.display='none';
+}
+function submitRequest(){
+  var game=document.getElementById('req-game').value.trim();
+  var item=document.getElementById('req-item').value.trim();
+  var user=document.getElementById('req-user').value.trim();
+  var status=document.getElementById('req-status');
+  var btn=document.getElementById('req-submit-btn');
+  if(!game||!item){status.style.color='#f87171';status.textContent='Please fill in both Game and Item.';return;}
+  btn.textContent='Sending...';btn.disabled=true;status.textContent='';
+  fetch('/api/request',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({game:game,item:item,username:user||'Anonymous'})
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d.success){
+      status.style.color='#52b788';
+      status.textContent='✓ Request sent! Check Discord for updates.';
+      btn.textContent='Sent!';
+      setTimeout(closeRequestForm,2000);
+    } else {
+      status.style.color='#f87171';
+      status.textContent='Something went wrong. Try again.';
+      btn.textContent='Send Request';btn.disabled=false;
+    }
+  })
+  .catch(function(){
+    status.style.color='#f87171';
+    status.textContent='Could not connect. Try again.';
+    btn.textContent='Send Request';btn.disabled=false;
+  });
+}
 // TABS
 document.querySelectorAll('.tab-btn').forEach(function(btn){
   btn.addEventListener('click', function(){
@@ -1456,6 +1517,31 @@ fetchPrices(function(){
 
     </div>
 
+
+<!-- REQUEST FORM -->
+<div id="req-overlay" class="req-overlay" style="display:none" onclick="if(event.target===this)closeRequestForm()">
+  <div class="req-box">
+    <div class="req-title">📥 Request an Item</div>
+    <div class="req-sub">Can't find what you're looking for? Let me know and I'll try to stock it.</div>
+    <div class="req-field">
+      <label>Game</label>
+      <input id="req-game" type="text" placeholder="e.g. Grow a Garden 2">
+    </div>
+    <div class="req-field">
+      <label>Item</label>
+      <input id="req-item" type="text" placeholder="e.g. Dragon Egg Seed">
+    </div>
+    <div class="req-field">
+      <label>Your Roblox Username</label>
+      <input id="req-user" type="text" placeholder="optional">
+    </div>
+    <div class="req-btns">
+      <button class="req-cancel" onclick="closeRequestForm()">Cancel</button>
+      <button class="req-submit" id="req-submit-btn" onclick="submitRequest()">Send Request</button>
+    </div>
+    <div class="req-status" id="req-status"></div>
+  </div>
+</div>
 <div id="easter-overlay" onclick="this.classList.remove('show')">
   <div class="easter-emoji">&#129300;</div>
   <div class="easter-msg">"what could you possibly have been trying to do?"</div>
