@@ -1076,18 +1076,14 @@ document.getElementById('mystery-buy-btn').addEventListener('click', function(){
 
 // ORDER COUNTER - slowly ticks up
 (function(){
-  var base = 127;
   var el = document.getElementById('order-count');
-  // Increment based on day so it feels real
+  if(!el) return;
+  var base = 127;
   var daysSinceLaunch = Math.floor((Date.now() - new Date('2025-01-01').getTime()) / 86400000);
   base = 127 + daysSinceLaunch * 3 + Math.floor(Math.random()*5);
   el.textContent = base;
-  // Occasionally tick up by 1
   setInterval(function(){
-    if(Math.random() < 0.15){
-      base++;
-      el.textContent = base;
-    }
+    if(Math.random() < 0.15){ base++; el.textContent = base; }
   }, 45000);
 })();
 
