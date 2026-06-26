@@ -1332,6 +1332,11 @@ function switchTab(tab, btn){
   });
   var sh = document.getElementById('sheckles');
   if(sh) sh.style.display = (tab==='sheckles') ? '' : 'none';
+  // Build content if not yet populated
+  var pg = document.getElementById('pets-grid');
+  var gg = document.getElementById('gear-grid');
+  if(tab==='pets' && pg && !pg.children.length) buildPets();
+  if(tab==='gear' && gg && !gg.children.length) buildGear();
   sessionStorage.setItem('activeTab', tab);
 }
 
