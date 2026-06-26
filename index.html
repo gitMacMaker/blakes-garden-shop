@@ -570,10 +570,10 @@ footer span{color:#52b788}
 
 <div id="page-gag2" style="display:none">
 <div class="tab-bar" id="tab-bar">
-  <button class="tab-btn active" data-tab="seeds">🌱 Seeds</button>
-  <button class="tab-btn" data-tab="pets">🐾 Pets</button>
-  <button class="tab-btn" data-tab="gear">⚙️ Gear</button>
-  <button class="tab-btn" data-tab="sheckles">💰 Sheckles</button>
+  <button class="tab-btn active" data-tab="seeds" onclick="switchTab('seeds',this)">🌱 Seeds</button>
+  <button class="tab-btn" data-tab="pets" onclick="switchTab('pets',this)">🐾 Pets</button>
+  <button class="tab-btn" data-tab="gear" onclick="switchTab('gear',this)">⚙️ Gear</button>
+  <button class="tab-btn" data-tab="sheckles" onclick="switchTab('sheckles',this)">💰 Sheckles</button>
 </div>
 
 
@@ -1323,19 +1323,17 @@ function submitRequest(){
   });
 }
 // TABS
-document.querySelectorAll('.tab-btn').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-    btn.classList.add('active');
-    var tab = btn.getAttribute('data-tab');
-    ['seeds','pets','gear'].forEach(function(t){
-      var el = document.getElementById('tab-'+t);
-      if(el) el.style.display = (tab===t) ? '' : 'none';
-    });
-    var sh = document.getElementById('sheckles');
-    if(sh) sh.style.display = (tab==='sheckles') ? '' : 'none';
+function switchTab(tab, btn){
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  ['seeds','pets','gear'].forEach(function(t){
+    var el = document.getElementById('tab-'+t);
+    if(el) el.style.display = (tab===t) ? '' : 'none';
   });
-});
+  var sh = document.getElementById('sheckles');
+  if(sh) sh.style.display = (tab==='sheckles') ? '' : 'none';
+  sessionStorage.setItem('activeTab', tab);
+}
 
 
 
@@ -1470,6 +1468,33 @@ function buildItemMap(){
   return map;
 }
 
+// Load cached prices from localStorage into data arrays (instant, before fetch)
+function loadCachedPrices(){
+  try {
+    var cached = localStorage.getItem('bgs_prices');
+    if(!cached) return;
+    var data = JSON.parse(cached);
+    var itemMap = buildItemMap();
+    Object.keys(data).forEach(function(key){
+      if(key === 'sheckles'){ sheckleRate = data[key]; return; }
+      if(itemMap[key]) itemMap[key].price = data[key];
+    });
+  } catch(e){}
+}
+
+// Save fetched prices to localStorage for next load
+function savePriceCache(){
+  try {
+    var cache = {};
+    seeds.concat(pets).concat(gear).forEach(function(item){ cache[item.key] = item.price; });
+    cache['sheckles'] = sheckleRate;
+    localStorage.setItem('bgs_prices', JSON.stringify(cache));
+  } catch(e){}
+}
+
+// Apply cached prices on startup immediately
+loadCachedPrices();
+
 // Update all price elements on the page to match the data arrays
 function updatePriceDisplays(){
   seeds.concat(pets).concat(gear).forEach(function(item){
@@ -1550,6 +1575,7 @@ function fetchPrices(afterFetch){
 
       // Update all DOM price displays at once
       updatePriceDisplays();
+      savePriceCache();
       if(afterFetch) afterFetch();
     })
     .catch(function(e){ console.error('[Shop] Fetch failed:', e); if(afterFetch) afterFetch(); });
@@ -1590,15 +1616,7 @@ function showPage(page){
     if(btn){ document.querySelectorAll('.game-nav-btn').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active'); }
     window._gag2Built = true;
     if(savedTab && savedTab !== 'seeds'){
-      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-      var tabBtn = document.querySelector('.tab-btn[data-tab="'+savedTab+'"]');
-      if(tabBtn) tabBtn.classList.add('active');
-      ['seeds','pets','gear'].forEach(function(t){
-        var el = document.getElementById('tab-'+t);
-        if(el) el.style.display = (t===savedTab)?'':'none';
-      });
-      var sh = document.getElementById('sheckles');
-      if(sh) sh.style.display = (savedTab==='sheckles')?'':'none';
+      switchTab(savedTab, document.querySelector('.tab-btn[data-tab="'+savedTab+'"]'));
     }
     fetchPrices(function(){
       buildFeatured(); buildGrid(); buildPets(); buildGear();
