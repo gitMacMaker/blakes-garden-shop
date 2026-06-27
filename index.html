@@ -412,13 +412,23 @@ footer span{color:#52b788}
 
 /* PRICE GUARANTEE BANNER */
 .price-guarantee{max-width:1060px;margin:0 auto;padding:0 1.5rem 2rem;position:relative;z-index:1}
-.price-guarantee-inner{background:rgba(82,183,136,0.06);border:1px solid rgba(82,183,136,0.2);border-radius:14px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.pg-left{display:flex;align-items:center;gap:12px}
-.pg-icon{font-size:1.5rem}
+.price-guarantee-inner{background:rgba(82,183,136,0.06);border:1px solid rgba(82,183,136,0.2);border-radius:14px;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap}
+.pg-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.pg-icon{font-size:1.5rem;flex-shrink:0}
 .pg-text{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.5}
 .pg-text strong{color:#fff}
+.pg-btns{display:flex;gap:8px;flex-shrink:0}
 .pg-btn{background:none;border:1px solid rgba(82,183,136,0.4);color:#52b788;border-radius:10px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .15s;text-decoration:none;display:inline-block}
 .pg-btn:hover{background:rgba(82,183,136,0.1)}
+
+.request-bar{max-width:1060px;margin:0 auto;padding:0 1.5rem 1.5rem;position:relative;z-index:1}
+.request-bar-inner{background:rgba(88,101,242,0.06);border:1px solid rgba(88,101,242,0.2);border-radius:14px;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.request-bar-left{display:flex;align-items:center;gap:12px}
+.request-bar-icon{font-size:1.5rem;flex-shrink:0}
+.request-bar-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.request-bar-sub{font-size:12px;color:rgba(255,255,255,0.4)}
+.request-bar-btn{background:none;border:1px solid rgba(88,101,242,0.5);color:#818cf8;border-radius:10px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .15s;text-decoration:none;display:inline-block;flex-shrink:0}
+.request-bar-btn:hover{background:rgba(88,101,242,0.1)}
 
 /* SEED OF THE DAY */
 .card.sotd{border-color:rgba(255,215,0,0.5);box-shadow:0 0 30px rgba(255,215,0,0.15)}
@@ -494,8 +504,23 @@ footer span{color:#52b788}
       <span class="pg-icon">&#128176;</span>
       <div class="pg-text"><strong>Price Guarantee</strong> &mdash; Prices are always fair and updated in real time.</div>
     </div>
+    <div class="pg-btns">
     <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="pg-btn">Join Discord</a>
-    <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="pg-btn" style="background:rgba(82,183,136,0.08)">📥 Request an Item</a>
+    </div>
+  </div>
+</div>
+
+
+<div class="request-bar">
+  <div class="request-bar-inner">
+    <div class="request-bar-left">
+      <span class="request-bar-icon">📥</span>
+      <div>
+        <div class="request-bar-title">Can't find what you need?</div>
+        <div class="request-bar-sub">Request an item and I'll try to stock it</div>
+      </div>
+    </div>
+    <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="request-bar-btn">Request an Item</a>
   </div>
 </div>
 
