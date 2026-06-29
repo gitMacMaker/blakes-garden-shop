@@ -1493,7 +1493,7 @@ function fetchPrices(afterFetch){
       var urlIdx = -1;
       for(var h = 0; h < headers.length; h++){
         if(headers[h].indexOf('your price') !== -1){ priceIdx = h; }
-        if(headers[h].indexOf('url') !== -1 || headers[h].indexOf('link') !== -1){ urlIdx = h; }
+        if(headers[h].indexOf('eldorado') !== -1 || headers[h].indexOf('link') !== -1){ urlIdx = h; }
       }
       if(nameIdx === -1 || priceIdx === -1){ if(afterFetch) afterFetch(); return; }
 
@@ -1527,10 +1527,10 @@ function fetchPrices(afterFetch){
         if(!item) continue;
         item.price = '$' + num.toFixed(2);
 
-        // Store Eldorado URL if present
+        // Store Eldorado URL from "Eldorado Link" column
         if(urlIdx !== -1){
           var itemUrl = (cols[urlIdx] || '').replace(/"/g,'').trim();
-          if(itemUrl) item.eldoradoUrl = itemUrl;
+          if(itemUrl && itemUrl.indexOf('http') === 0) item.eldoradoUrl = itemUrl;
         }
 
         // Update min quantity (skip non-numeric like "100M")
