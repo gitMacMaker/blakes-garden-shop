@@ -430,6 +430,13 @@ footer span{color:#52b788}
 .request-bar-btn{background:none;border:1px solid rgba(88,101,242,0.5);color:#818cf8;border-radius:10px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .15s;text-decoration:none;display:inline-block;flex-shrink:0}
 .request-bar-btn:hover{background:rgba(88,101,242,0.1)}
 
+
+.pay-btn.paypal-btn{border:2px solid rgba(253,196,10,0.6);position:relative;box-shadow:0 0 16px rgba(253,196,10,0.15)}
+.pay-btn.paypal-btn:hover{border-color:rgba(253,196,10,0.9);box-shadow:0 0 24px rgba(253,196,10,0.25)}
+.pay-recommended{position:absolute;top:-10px;right:10px;background:linear-gradient(135deg,#f59e0b,#fcd34d);color:#000;font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase}
+#paypal-button-container{margin:0 0 12px;display:none}
+#paypal-button-container.active{display:block}
+
 /* SEED OF THE DAY */
 .card.sotd{border-color:rgba(255,215,0,0.5);box-shadow:0 0 30px rgba(255,215,0,0.15)}
 
@@ -500,6 +507,7 @@ footer span{color:#52b788}
 
 @media(max-width:600px){nav{padding:0 1rem}.hero{padding:4rem 1.25rem 3rem}.grid{padding:0 1rem 4rem}.pane{padding:16px}.how-grid{grid-template-columns:1fr}.sheckles-body{grid-template-columns:1fr}.sheckles-section{padding:0 1rem 4rem}}
 </style>
+<script src="https://www.paypal.com/sdk/js?client-id=ATcnF3UOhk9pmoLuYwe-yKSOvB0z1ZllUfEraERwCDhl35xodlkTES-ZKOpa463Q618sYCKatfgMxvoO&currency=USD" data-namespace="paypal_sdk"></script>
 </head>
 <body>
 <div class="particles" id="particles"></div>
@@ -620,6 +628,11 @@ footer span{color:#52b788}
         <div class="pay-item-price" id="pay-item-price"></div>
       </div>
       <div class="pay-methods">
+        <button class="pay-btn paypal-btn" id="pay-paypal">
+          <span class="pay-recommended">⭐ Recommended</span>
+          <div class="pay-icon" style="background:#003087"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M7.5 3h7.1c3.2 0 5.4 1.9 5 5.1-.5 3.9-3.4 5.4-6.7 5.4H11l-.9 5.5H6.8L8.9 3H7.5zm3 2.5l-.9 5.5h1.3c2 0 3.7-.8 4-3 .3-1.9-.8-2.5-2.4-2.5H10.5z"/></svg></div>
+          <div><div class="pay-label">PayPal</div><div class="pay-handle">Auto-verified</div></div>
+        </button>
         <button class="pay-btn" id="pay-venmo">
           <div class="pay-icon" style="background:#008CFF"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.5 2c.6 1 .9 2.1.9 3.4 0 4.2-3.6 9.7-6.5 13.6H7.8L5 2.9l5.8-.6 1.5 11.9c1.4-2.3 3.1-5.9 3.1-8.4 0-1.4-.2-2.3-.6-3.1L19.5 2z"/></svg></div>
           <div><div class="pay-label">Venmo</div><div class="pay-handle">@eclipsekw</div></div>
@@ -629,6 +642,7 @@ footer span{color:#52b788}
           <div><div class="pay-label">Cash App</div><div class="pay-handle">$keywestBlake</div></div>
         </button>
       </div>
+      <div id="paypal-button-container"></div>
       <p class="pay-notice">Send the exact amount then click your payment method above.</p>
     </div>
     <div class="pane" id="p2">
@@ -1095,8 +1109,51 @@ document.getElementById('sh-buy-btn').addEventListener('click',function(){
 document.getElementById('mclose').addEventListener('click',closeModal);
 document.getElementById('backbtn').addEventListener('click',closeModal);
 document.getElementById('confirmbtn').addEventListener('click',confirmPay);
-document.getElementById('pay-venmo').addEventListener('click',function(){choosePay('venmo');});
-document.getElementById('pay-cashapp').addEventListener('click',function(){choosePay('cashapp');});
+document.getElementById('pay-paypal').addEventListener('click',function(){
+  payMethod='paypal';
+  document.getElementById('paypal-button-container').classList.add('active');
+  if(!window._ppRendered){
+    window._ppRendered=true;
+    window.paypal_sdk.Buttons({
+      createOrder:function(data,actions){
+        var base=parseFloat(active.price.replace('$',''));
+        var total=activeQty>1?'$'+(base*activeQty).toFixed(2):active.price;
+        return fetch('/api/paypal-create-order',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({amount:total.replace('$',''),item:active.name+(activeQty>1?' x'+activeQty:'')})
+        }).then(function(r){return r.json();}).then(function(d){return d.orderId;});
+      },
+      onApprove:function(data,actions){
+        var base=parseFloat(active.price.replace('$',''));
+        var total=activeQty>1?'$'+(base*activeQty).toFixed(2):active.price;
+        var label=activeQty>1?active.name+' x'+activeQty:active.name;
+        return fetch('/api/paypal-capture-order',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({orderId:data.orderID,item:label,qty:activeQty,total:total.replace('$',''),eldoradoUrl:active.eldoradoUrl||''})
+        }).then(function(r){return r.json();}).then(function(d){
+          if(d.success){
+            setStep(3);
+            setTimeout(launchConfetti,300);
+            if(typeof $crisp!=='undefined'){
+              $crisp.push(['do','chat:show']);
+              $crisp.push(['do','chat:open']);
+              $crisp.push(['do','message:send',['text','Hi! I just paid '+total+' via PayPal for '+label+'. Transaction ID: '+d.transactionId]]);
+            }
+          }
+        });
+      },
+      onError:function(err){console.error('PayPal error:',err);}
+    }).render('#paypal-button-container');
+  }
+});
+document.getElementById('pay-venmo').addEventListener('click',function(){
+  choosePay('venmo');
+  document.getElementById('paypal-button-container').classList.remove('active');
+});
+document.getElementById('pay-cashapp').addEventListener('click',function(){
+  choosePay('cashapp');
+  document.getElementById('paypal-button-container').classList.remove('active');
+});
 document.getElementById('overlay').addEventListener('click',function(e){if(e.target===document.getElementById('overlay'))closeModal();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
 
