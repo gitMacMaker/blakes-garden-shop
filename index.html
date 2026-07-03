@@ -507,7 +507,6 @@ footer span{color:#52b788}
 
 @media(max-width:600px){nav{padding:0 1rem}.hero{padding:4rem 1.25rem 3rem}.grid{padding:0 1rem 4rem}.pane{padding:16px}.how-grid{grid-template-columns:1fr}.sheckles-body{grid-template-columns:1fr}.sheckles-section{padding:0 1rem 4rem}}
 </style>
-<script src="https://www.paypal.com/sdk/js?client-id=ATcnF3UOhk9pmoLuYwe-yKSOvB0z1ZllUfEraERwCDhl35xodlkTES-ZKOpa463Q618sYCKatfgMxvoO&currency=USD" data-namespace="paypal_sdk"></script>
 </head>
 <body>
 <div class="particles" id="particles"></div>
@@ -1109,42 +1108,61 @@ document.getElementById('sh-buy-btn').addEventListener('click',function(){
 document.getElementById('mclose').addEventListener('click',closeModal);
 document.getElementById('backbtn').addEventListener('click',closeModal);
 document.getElementById('confirmbtn').addEventListener('click',confirmPay);
+function renderPayPalButtons(){
+  if(!window.paypal_sdk){return;}
+  if(window._ppRendered){return;}
+  window._ppRendered=true;
+  window.paypal_sdk.Buttons({
+    fundingSource: window.paypal_sdk.FUNDING.PAYPAL,
+    style:{layout:'vertical',color:'gold',shape:'pill',label:'pay',height:40},
+    createOrder:function(){
+      var base=parseFloat(active.price.replace('$',''));
+      var total=(activeQty>1?(base*activeQty).toFixed(2):base.toFixed(2));
+      return fetch('/api/paypal-create-order',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({amount:total,item:active.name+(activeQty>1?' x'+activeQty:'')})
+      }).then(function(r){return r.json();}).then(function(d){
+        if(d.error) throw new Error(d.error);
+        return d.orderId;
+      });
+    },
+    onApprove:function(data){
+      var base=parseFloat(active.price.replace('$',''));
+      var total=(activeQty>1?(base*activeQty).toFixed(2):base.toFixed(2));
+      var label=activeQty>1?active.name+' x'+activeQty:active.name;
+      return fetch('/api/paypal-capture-order',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({orderId:data.orderID,item:label,qty:activeQty,total:total,eldoradoUrl:active.eldoradoUrl||''})
+      }).then(function(r){return r.json();}).then(function(d){
+        if(d.success){
+          setStep(3);
+          setTimeout(launchConfetti,300);
+          if(typeof $crisp!=='undefined'){
+            $crisp.push(['do','chat:show']);
+            $crisp.push(['do','chat:open']);
+            $crisp.push(['do','message:send',['text','Hi! I just paid $'+total+' via PayPal for '+label+'. Transaction: '+d.transactionId]]);
+          }
+        }
+      });
+    },
+    onError:function(err){console.error('PayPal error:',err);}
+  }).render('#paypal-button-container');
+}
+
+function loadPayPalSDK(cb){
+  if(window.paypal_sdk){cb();return;}
+  fetch('/api/paypal-config').then(function(r){return r.json();}).then(function(d){
+    var s=document.createElement('script');
+    s.src='https://www.paypal.com/sdk/js?client-id='+d.clientId+'&currency=USD&disable-funding=paylater,card&data-namespace=paypal_sdk';
+    s.onload=function(){cb();};
+    document.head.appendChild(s);
+  });
+}
+
 document.getElementById('pay-paypal').addEventListener('click',function(){
   payMethod='paypal';
   document.getElementById('paypal-button-container').classList.add('active');
-  if(!window._ppRendered){
-    window._ppRendered=true;
-    window.paypal_sdk.Buttons({
-      createOrder:function(data,actions){
-        var base=parseFloat(active.price.replace('$',''));
-        var total=activeQty>1?'$'+(base*activeQty).toFixed(2):active.price;
-        return fetch('/api/paypal-create-order',{
-          method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({amount:total.replace('$',''),item:active.name+(activeQty>1?' x'+activeQty:'')})
-        }).then(function(r){return r.json();}).then(function(d){return d.orderId;});
-      },
-      onApprove:function(data,actions){
-        var base=parseFloat(active.price.replace('$',''));
-        var total=activeQty>1?'$'+(base*activeQty).toFixed(2):active.price;
-        var label=activeQty>1?active.name+' x'+activeQty:active.name;
-        return fetch('/api/paypal-capture-order',{
-          method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({orderId:data.orderID,item:label,qty:activeQty,total:total.replace('$',''),eldoradoUrl:active.eldoradoUrl||''})
-        }).then(function(r){return r.json();}).then(function(d){
-          if(d.success){
-            setStep(3);
-            setTimeout(launchConfetti,300);
-            if(typeof $crisp!=='undefined'){
-              $crisp.push(['do','chat:show']);
-              $crisp.push(['do','chat:open']);
-              $crisp.push(['do','message:send',['text','Hi! I just paid '+total+' via PayPal for '+label+'. Transaction ID: '+d.transactionId]]);
-            }
-          }
-        });
-      },
-      onError:function(err){console.error('PayPal error:',err);}
-    }).render('#paypal-button-container');
-  }
+  loadPayPalSDK(renderPayPalButtons);
 });
 document.getElementById('pay-venmo').addEventListener('click',function(){
   choosePay('venmo');
