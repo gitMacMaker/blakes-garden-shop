@@ -649,7 +649,9 @@ footer span{color:#52b788}
       <button class="abtn green" id="confirmbtn">I've sent payment &#10003;</button>
       <div id="p2-paypal" style="display:none">
         <p style="font-size:13px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:12px">Complete your payment securely via PayPal — it's automatically verified.</p>
+        <div id="paypal-loading" style="text-align:center;color:rgba(255,255,255,0.4);font-size:13px;padding:12px">Loading PayPal...</div>
         <div id="paypal-button-container"></div>
+        <div id="paypal-error" style="display:none;color:#f87171;font-size:12px;text-align:center;margin-top:8px"></div>
       </div>
     </div>
     <div class="pane" id="p3">
@@ -1112,9 +1114,14 @@ document.getElementById('mclose').addEventListener('click',closeModal);
 document.getElementById('backbtn').addEventListener('click',closeModal);
 document.getElementById('confirmbtn').addEventListener('click',confirmPay);
 function renderPayPalButtons(){
-  if(!window.paypal_sdk){return;}
+  if(!window.paypal_sdk){
+    document.getElementById('paypal-error').style.display='';
+    document.getElementById('paypal-error').textContent='PayPal failed to load. Try refreshing.';
+    return;
+  }
   if(window._ppRendered){return;}
   window._ppRendered=true;
+  document.getElementById('paypal-loading').style.display='none';
   window.paypal_sdk.Buttons({
     fundingSource: window.paypal_sdk.FUNDING.PAYPAL,
     style:{layout:'vertical',color:'gold',shape:'pill',label:'pay',height:40},
@@ -1155,10 +1162,25 @@ function renderPayPalButtons(){
 function loadPayPalSDK(cb){
   if(window.paypal_sdk){cb();return;}
   fetch('/api/paypal-config').then(function(r){return r.json();}).then(function(d){
+    if(!d.clientId){
+      document.getElementById('paypal-loading').style.display='none';
+      document.getElementById('paypal-error').style.display='';
+      document.getElementById('paypal-error').textContent='PayPal not configured. Use Venmo or CashApp.';
+      return;
+    }
     var s=document.createElement('script');
     s.src='https://www.paypal.com/sdk/js?client-id='+d.clientId+'&currency=USD&disable-funding=paylater,card&data-namespace=paypal_sdk';
     s.onload=function(){cb();};
+    s.onerror=function(){
+      document.getElementById('paypal-loading').style.display='none';
+      document.getElementById('paypal-error').style.display='';
+      document.getElementById('paypal-error').textContent='Could not load PayPal. Try Venmo or CashApp instead.';
+    };
     document.head.appendChild(s);
+  }).catch(function(){
+    document.getElementById('paypal-loading').style.display='none';
+    document.getElementById('paypal-error').style.display='';
+    document.getElementById('paypal-error').textContent='Could not reach server. Try Venmo or CashApp instead.';
   });
 }
 
