@@ -641,13 +641,16 @@ footer span{color:#52b788}
           <div><div class="pay-label">Cash App</div><div class="pay-handle">$keywestBlake</div></div>
         </button>
       </div>
-      <div id="paypal-button-container"></div>
       <p class="pay-notice">Send the exact amount then click your payment method above.</p>
     </div>
     <div class="pane" id="p2">
-      <div class="confirm-box"><p>&#128338; Sent payment via <strong id="pay-method-label"></strong>? Click confirm and I'll verify it before sending your item.</p></div>
-      <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:4px">After confirming, use the chat bubble in the corner to message Blake directly.</p>
+      <div class="confirm-box" id="p2-manual"><p>&#128338; Sent payment via <strong id="pay-method-label"></strong>? Click confirm and I'll verify it before sending your item.</p></div>
+      <p id="p2-manual-sub" style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:4px">After confirming, use the chat bubble in the corner to message Blake directly.</p>
       <button class="abtn green" id="confirmbtn">I've sent payment &#10003;</button>
+      <div id="p2-paypal" style="display:none">
+        <p style="font-size:13px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:12px">Complete your payment securely via PayPal — it's automatically verified.</p>
+        <div id="paypal-button-container"></div>
+      </div>
     </div>
     <div class="pane" id="p3">
       <div class="chat-prompt">
@@ -1161,16 +1164,26 @@ function loadPayPalSDK(cb){
 
 document.getElementById('pay-paypal').addEventListener('click',function(){
   payMethod='paypal';
-  document.getElementById('paypal-button-container').classList.add('active');
+  document.getElementById('p2-manual').style.display='none';
+  document.getElementById('p2-manual-sub').style.display='none';
+  document.getElementById('confirmbtn').style.display='none';
+  document.getElementById('p2-paypal').style.display='';
+  setStep(2);
   loadPayPalSDK(renderPayPalButtons);
 });
 document.getElementById('pay-venmo').addEventListener('click',function(){
+  document.getElementById('p2-manual').style.display='';
+  document.getElementById('p2-manual-sub').style.display='';
+  document.getElementById('confirmbtn').style.display='';
+  document.getElementById('p2-paypal').style.display='none';
   choosePay('venmo');
-  document.getElementById('paypal-button-container').classList.remove('active');
 });
 document.getElementById('pay-cashapp').addEventListener('click',function(){
+  document.getElementById('p2-manual').style.display='';
+  document.getElementById('p2-manual-sub').style.display='';
+  document.getElementById('confirmbtn').style.display='';
+  document.getElementById('p2-paypal').style.display='none';
   choosePay('cashapp');
-  document.getElementById('paypal-button-container').classList.remove('active');
 });
 document.getElementById('overlay').addEventListener('click',function(e){if(e.target===document.getElementById('overlay'))closeModal();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
