@@ -431,11 +431,6 @@ footer span{color:#52b788}
 .request-bar-btn:hover{background:rgba(88,101,242,0.1)}
 
 
-.pay-btn.paypal-btn{border:2px solid rgba(253,196,10,0.6);position:relative;box-shadow:0 0 16px rgba(253,196,10,0.15)}
-.pay-btn.paypal-btn:hover{border-color:rgba(253,196,10,0.9);box-shadow:0 0 24px rgba(253,196,10,0.25)}
-.pay-recommended{position:absolute;top:-10px;right:10px;background:linear-gradient(135deg,#f59e0b,#fcd34d);color:#000;font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase}
-#paypal-button-container{margin:0 0 12px;display:none}
-#paypal-button-container.active{display:block}
 
 /* SEED OF THE DAY */
 .card.sotd{border-color:rgba(255,215,0,0.5);box-shadow:0 0 30px rgba(255,215,0,0.15)}
@@ -627,11 +622,6 @@ footer span{color:#52b788}
         <div class="pay-item-price" id="pay-item-price"></div>
       </div>
       <div class="pay-methods">
-        <button class="pay-btn paypal-btn" id="pay-paypal">
-          <span class="pay-recommended">⭐ Recommended</span>
-          <div class="pay-icon" style="background:#003087"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M7.5 3h7.1c3.2 0 5.4 1.9 5 5.1-.5 3.9-3.4 5.4-6.7 5.4H11l-.9 5.5H6.8L8.9 3H7.5zm3 2.5l-.9 5.5h1.3c2 0 3.7-.8 4-3 .3-1.9-.8-2.5-2.4-2.5H10.5z"/></svg></div>
-          <div><div class="pay-label">PayPal</div><div class="pay-handle">Auto-verified</div></div>
-        </button>
         <button class="pay-btn" id="pay-venmo">
           <div class="pay-icon" style="background:#008CFF"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.5 2c.6 1 .9 2.1.9 3.4 0 4.2-3.6 9.7-6.5 13.6H7.8L5 2.9l5.8-.6 1.5 11.9c1.4-2.3 3.1-5.9 3.1-8.4 0-1.4-.2-2.3-.6-3.1L19.5 2z"/></svg></div>
           <div><div class="pay-label">Venmo</div><div class="pay-handle">@eclipsekw</div></div>
@@ -644,16 +634,9 @@ footer span{color:#52b788}
       <p class="pay-notice">Send the exact amount then click your payment method above.</p>
     </div>
     <div class="pane" id="p2">
-      <div class="confirm-box" id="p2-manual"><p>&#128338; Sent payment via <strong id="pay-method-label"></strong>? Click confirm and I'll verify it before sending your item.</p></div>
-      <p id="p2-manual-sub" style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:4px">After confirming, use the chat bubble in the corner to message Blake directly.</p>
+      <div class="confirm-box"><p>&#128338; Sent payment via <strong id="pay-method-label"></strong>? Click confirm and I'll verify it before sending your item.</p></div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:4px">After confirming, use the chat bubble in the corner to message Blake directly.</p>
       <button class="abtn green" id="confirmbtn">I've sent payment &#10003;</button>
-      <div id="p2-paypal" style="display:none">
-        <p style="font-size:13px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:12px">Complete your payment securely via PayPal — it's automatically verified.</p>
-        <div id="paypal-loading" style="text-align:center;color:rgba(255,255,255,0.4);font-size:13px;padding:12px">Loading PayPal...</div>
-        <div id="paypal-button-container"></div>
-        <div id="paypal-error" style="display:none;color:#f87171;font-size:12px;text-align:center;margin-top:8px"></div>
-      </div>
-    </div>
     <div class="pane" id="p3">
       <div class="chat-prompt">
         <div style="font-size:3rem;margin-bottom:10px">&#128172;</div>
@@ -1113,100 +1096,9 @@ document.getElementById('sh-buy-btn').addEventListener('click',function(){
 document.getElementById('mclose').addEventListener('click',closeModal);
 document.getElementById('backbtn').addEventListener('click',closeModal);
 document.getElementById('confirmbtn').addEventListener('click',confirmPay);
-function renderPayPalButtons(){
-  if(!window.paypal_sdk){
-    document.getElementById('paypal-error').style.display='';
-    document.getElementById('paypal-error').textContent='PayPal failed to load. Try refreshing.';
-    return;
-  }
-  if(window._ppRendered){return;}
-  window._ppRendered=true;
-  document.getElementById('paypal-loading').style.display='none';
-  window.paypal_sdk.Buttons({
-    fundingSource: window.paypal_sdk.FUNDING.PAYPAL,
-    style:{layout:'vertical',color:'gold',shape:'pill',label:'pay',height:40},
-    createOrder:function(){
-      var base=parseFloat(active.price.replace('$',''));
-      var total=(activeQty>1?(base*activeQty).toFixed(2):base.toFixed(2));
-      return fetch('/api/paypal-create-order',{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({amount:total,item:active.name+(activeQty>1?' x'+activeQty:'')})
-      }).then(function(r){return r.json();}).then(function(d){
-        if(d.error) throw new Error(d.error);
-        return d.orderId;
-      });
-    },
-    onApprove:function(data){
-      var base=parseFloat(active.price.replace('$',''));
-      var total=(activeQty>1?(base*activeQty).toFixed(2):base.toFixed(2));
-      var label=activeQty>1?active.name+' x'+activeQty:active.name;
-      return fetch('/api/paypal-capture-order',{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({orderId:data.orderID,item:label,qty:activeQty,total:total,eldoradoUrl:active.eldoradoUrl||''})
-      }).then(function(r){return r.json();}).then(function(d){
-        if(d.success){
-          setStep(3);
-          setTimeout(launchConfetti,300);
-          if(typeof $crisp!=='undefined'){
-            $crisp.push(['do','chat:show']);
-            $crisp.push(['do','chat:open']);
-            $crisp.push(['do','message:send',['text','Hi! I just paid $'+total+' via PayPal for '+label+'. Transaction: '+d.transactionId]]);
-          }
-        }
-      });
-    },
-    onError:function(err){console.error('PayPal error:',err);}
-  }).render('#paypal-button-container');
-}
 
-function loadPayPalSDK(cb){
-  if(window.paypal_sdk){cb();return;}
-  fetch('/api/paypal-config').then(function(r){return r.json();}).then(function(d){
-    if(!d.clientId){
-      document.getElementById('paypal-loading').style.display='none';
-      document.getElementById('paypal-error').style.display='';
-      document.getElementById('paypal-error').textContent='PayPal not configured. Use Venmo or CashApp.';
-      return;
-    }
-    var s=document.createElement('script');
-    s.src='https://www.paypal.com/sdk/js?client-id='+d.clientId+'&currency=USD&disable-funding=paylater,card&data-namespace=paypal_sdk';
-    s.onload=function(){cb();};
-    s.onerror=function(){
-      document.getElementById('paypal-loading').style.display='none';
-      document.getElementById('paypal-error').style.display='';
-      document.getElementById('paypal-error').textContent='Could not load PayPal. Try Venmo or CashApp instead.';
-    };
-    document.head.appendChild(s);
-  }).catch(function(){
-    document.getElementById('paypal-loading').style.display='none';
-    document.getElementById('paypal-error').style.display='';
-    document.getElementById('paypal-error').textContent='Could not reach server. Try Venmo or CashApp instead.';
-  });
-}
-
-document.getElementById('pay-paypal').addEventListener('click',function(){
-  payMethod='paypal';
-  document.getElementById('p2-manual').style.display='none';
-  document.getElementById('p2-manual-sub').style.display='none';
-  document.getElementById('confirmbtn').style.display='none';
-  document.getElementById('p2-paypal').style.display='';
-  setStep(2);
-  loadPayPalSDK(renderPayPalButtons);
-});
-document.getElementById('pay-venmo').addEventListener('click',function(){
-  document.getElementById('p2-manual').style.display='';
-  document.getElementById('p2-manual-sub').style.display='';
-  document.getElementById('confirmbtn').style.display='';
-  document.getElementById('p2-paypal').style.display='none';
-  choosePay('venmo');
-});
-document.getElementById('pay-cashapp').addEventListener('click',function(){
-  document.getElementById('p2-manual').style.display='';
-  document.getElementById('p2-manual-sub').style.display='';
-  document.getElementById('confirmbtn').style.display='';
-  document.getElementById('p2-paypal').style.display='none';
-  choosePay('cashapp');
-});
+document.getElementById('pay-venmo').addEventListener('click',function(){choosePay('venmo');});
+document.getElementById('pay-cashapp').addEventListener('click',function(){choosePay('cashapp');});
 document.getElementById('overlay').addEventListener('click',function(e){if(e.target===document.getElementById('overlay'))closeModal();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
 
