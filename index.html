@@ -1314,7 +1314,6 @@ function buildAll(){
   g.innerHTML='';
   var all = seeds.concat(pets).concat(gear).slice().sort(raritySort);
   all.forEach(function(s){
-    if(s.key==='ghost') return;
     var c = document.createElement('div');
     c.className='card';
     c.setAttribute('data-r', s.rarity);
