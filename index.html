@@ -421,7 +421,7 @@ footer span{color:#52b788}
 .pg-btn{background:none;border:1px solid rgba(82,183,136,0.4);color:#52b788;border-radius:10px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .15s;text-decoration:none;display:inline-block}
 .pg-btn:hover{background:rgba(82,183,136,0.1)}
 
-.search-wrap{max-width:1060px;margin:0 auto;padding:0 1.5rem 1rem;position:relative;z-index:1}
+.search-wrap{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 0.5rem;position:relative;z-index:1}
 #shop-search{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s}
 #shop-search:focus{border-color:rgba(82,183,136,0.5)}
 #shop-search::placeholder{color:rgba(255,255,255,0.3)}
@@ -1373,6 +1373,9 @@ function switchTab(tab, btn){
 // SEARCH
 function filterShop(q){
   q = q.toLowerCase().trim();
+  // Hide/show featured card when searching
+  var fw = document.getElementById('featured-wrap');
+  if(fw) fw.style.display = q ? 'none' : '';
   var grids = ['grid','pets-grid','gear-grid','all-grid'];
   grids.forEach(function(id){
     var g = document.getElementById(id);
