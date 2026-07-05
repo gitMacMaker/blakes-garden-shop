@@ -1373,15 +1373,23 @@ function switchTab(tab, btn){
 // SEARCH
 function filterShop(q){
   q = q.toLowerCase().trim();
-  // Hide/show featured card when searching
+  // Handle featured card — hide when searching unless query matches it
   var fw = document.getElementById('featured-wrap');
-  if(fw) fw.style.display = q ? 'none' : '';
+  if(fw){
+    if(!q){
+      fw.style.display = '';
+    } else {
+      // Check if query matches the featured item (Ghost Pepper)
+      var featName = 'ghost pepper seed';
+      fw.style.display = (featName.indexOf(q) !== -1) ? '' : 'none';
+    }
+  }
   var grids = ['grid','pets-grid','gear-grid','all-grid'];
   grids.forEach(function(id){
     var g = document.getElementById(id);
     if(!g) return;
     Array.from(g.children).forEach(function(card){
-      var name = card.getAttribute('data-name') || card.querySelector('.card-name')?.textContent.toLowerCase() || '';
+      var name = card.getAttribute('data-name') || (card.querySelector('.card-name') ? card.querySelector('.card-name').textContent.toLowerCase() : '');
       card.style.display = (!q || name.indexOf(q)!==-1) ? '' : 'none';
     });
   });
