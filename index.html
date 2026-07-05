@@ -421,6 +421,11 @@ footer span{color:#52b788}
 .pg-btn{background:none;border:1px solid rgba(82,183,136,0.4);color:#52b788;border-radius:10px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .15s;text-decoration:none;display:inline-block}
 .pg-btn:hover{background:rgba(82,183,136,0.1)}
 
+.search-wrap{max-width:1060px;margin:0 auto;padding:0 1.5rem 1rem;position:relative;z-index:1}
+#shop-search{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s}
+#shop-search:focus{border-color:rgba(82,183,136,0.5)}
+#shop-search::placeholder{color:rgba(255,255,255,0.3)}
+
 .request-bar{max-width:1060px;margin:0 auto;padding:0 1.5rem 1.5rem;position:relative;z-index:1}
 .request-bar-inner{background:rgba(88,101,242,0.06);border:1px solid rgba(88,101,242,0.2);border-radius:14px;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .request-bar-left{display:flex;align-items:center;gap:12px}
@@ -515,10 +520,14 @@ footer span{color:#52b788}
 
 
 <div class="tab-bar" id="tab-bar">
+  <button class="tab-btn" data-tab="all" onclick="switchTab('all',this)">✨ All</button>
   <button class="tab-btn active" data-tab="seeds" onclick="switchTab('seeds',this)">🌱 Seeds</button>
   <button class="tab-btn" data-tab="pets" onclick="switchTab('pets',this)">🐾 Pets</button>
   <button class="tab-btn" data-tab="gear" onclick="switchTab('gear',this)">⚙️ Gear</button>
   <button class="tab-btn" data-tab="sheckles" onclick="switchTab('sheckles',this)">💰 Sheckles</button>
+</div>
+<div class="search-wrap">
+  <input type="text" id="shop-search" placeholder="🔍  Search items..." oninput="filterShop(this.value)" autocomplete="off">
 </div>
 
 <div class="price-guarantee">
@@ -546,6 +555,8 @@ footer span{color:#52b788}
     <a href="https://discord.gg/7sMGwmv6AK" target="_blank" class="request-bar-btn">Request an Item</a>
   </div>
 </div>
+
+<div id="tab-all" style="display:none"><div class="featured-wrap" id="all-featured"></div><main class="grid" id="all-grid"></main></div>
 
 <div id="tab-seeds">
   <div class="featured-wrap" id="featured-wrap"></div>
@@ -880,7 +891,7 @@ function buildFeatured(){
 function buildGrid(){
   var g=document.getElementById('grid');
   g.innerHTML='';
-  seeds.forEach(function(s){
+  seeds.slice().sort(raritySort).forEach(function(s){
     if(s.key==='ghost') return; // ghost pepper is featured
     var c=document.createElement('div');
     c.className='card';
@@ -1297,22 +1308,80 @@ function submitRequest(){
     btn.textContent='Send Request';btn.disabled=false;
   });
 }
+function buildAll(){
+  var g = document.getElementById('all-grid');
+  if(!g) return;
+  g.innerHTML='';
+  var all = seeds.concat(pets).concat(gear).slice().sort(raritySort);
+  all.forEach(function(s){
+    if(s.key==='ghost') return;
+    var c = document.createElement('div');
+    c.className='card';
+    c.setAttribute('data-r', s.rarity);
+    c.setAttribute('data-name', s.name.toLowerCase());
+    var initQty = s.minQty||1;
+    var initPrice = initQty>1?'$'+(parseFloat(s.price.replace('$',''))*initQty).toFixed(2)+' (x'+initQty+')':s.price;
+    var priceHtml = '<span class="card-price" id="price-all-'+s.key+'">'+initPrice+'</span>';
+    c.innerHTML =
+      '<div class="card-art" style="background:'+s.bg+'">'+s.svg+
+      '<span class="rbadge '+s.rc+'">'+s.rarity+'</span></div>'+
+      '<div class="card-body">'+
+        '<div class="card-name">'+s.name+'</div>'+
+        '<div class="card-stats">'+
+          (s.desc?'<div class="stat-row"><span class="stat-label">'+(s.rc==='rs'||s.rc==='rm'?'Sell Price':'Sell Price')+'</span><span class="stat-val ability-val">'+s.desc+'</span></div>':'')+
+          '<div class="stat-row"><span class="stat-label">Stock</span><span class="stat-val stat-good">Available</span></div>'+
+        '</div>'+
+        '<div class="card-foot">'+priceHtml+
+          '<div class="qty-row">'+
+            '<button class="qty-btn" data-k="all-'+s.key+'" data-d="-1">&#x2212;</button>'+
+            '<span class="qty-num" id="qty-all-'+s.key+'">'+initQty+'</span>'+
+            '<button class="qty-btn" data-k="all-'+s.key+'" data-d="1">&#43;</button>'+
+            '<button class="buybtn">Buy</button>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    c.querySelector('.buybtn').addEventListener('click',function(){
+      checkAndBuy(s,function(){return parseInt(c.querySelector('.qty-num').textContent)||1;},c);
+    });
+    g.appendChild(c);
+  });
+}
+
 // TABS
 function switchTab(tab, btn){
   document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
   if(btn) btn.classList.add('active');
-  ['seeds','pets','gear'].forEach(function(t){
+  var allTabs = ['all','seeds','pets','gear'];
+  allTabs.forEach(function(t){
     var el = document.getElementById('tab-'+t);
     if(el) el.style.display = (tab===t) ? '' : 'none';
   });
   var sh = document.getElementById('sheckles');
   if(sh) sh.style.display = (tab==='sheckles') ? '' : 'none';
   // Build content if not yet populated
+  if(tab==='all'){ var ag=document.getElementById('all-grid'); if(ag&&!ag.children.length) buildAll(); }
   var pg = document.getElementById('pets-grid');
   var gg = document.getElementById('gear-grid');
   if(tab==='pets' && pg && !pg.children.length) buildPets();
   if(tab==='gear' && gg && !gg.children.length) buildGear();
   sessionStorage.setItem('activeTab', tab);
+  // Clear search
+  var si = document.getElementById('shop-search');
+  if(si){ si.value=''; filterShop(''); }
+}
+
+// SEARCH
+function filterShop(q){
+  q = q.toLowerCase().trim();
+  var grids = ['grid','pets-grid','gear-grid','all-grid'];
+  grids.forEach(function(id){
+    var g = document.getElementById(id);
+    if(!g) return;
+    Array.from(g.children).forEach(function(card){
+      var name = card.getAttribute('data-name') || card.querySelector('.card-name')?.textContent.toLowerCase() || '';
+      card.style.display = (!q || name.indexOf(q)!==-1) ? '' : 'none';
+    });
+  });
 }
 
 
@@ -1322,10 +1391,11 @@ function buildPets(){
   var g=document.getElementById('pets-grid');
   if(!g) return;
   g.innerHTML='';
-  pets.forEach(function(s){
+  pets.slice().sort(raritySort).forEach(function(s){
     var c=document.createElement('div');
     c.className='card';
     c.setAttribute('data-r',s.rarity);
+    c.setAttribute('data-name',s.name.toLowerCase());
     var initQty=s.minQty||1;
     var initPrice=initQty>1?'$'+(parseFloat(s.price.replace('$',''))*initQty).toFixed(2)+' (x'+initQty+')':s.price;
     var priceHtml='<span class="card-price" id="price-'+s.key+'">'+initPrice+'</span>';
@@ -1362,10 +1432,11 @@ function buildGear(){
   var g=document.getElementById('gear-grid');
   if(!g) return;
   g.innerHTML='';
-  gear.forEach(function(s){
+  gear.slice().sort(raritySort).forEach(function(s){
     var c=document.createElement('div');
     c.className='card';
     c.setAttribute('data-r',s.rarity);
+    c.setAttribute('data-name',s.name.toLowerCase());
     var initQty=s.minQty||1;
     var initPrice=initQty>1?'$'+(parseFloat(s.price.replace('$',''))*initQty).toFixed(2)+' (x'+initQty+')':s.price;
     var priceHtml='<span class="card-price" id="price-'+s.key+'">'+initPrice+'</span>';
@@ -1432,6 +1503,15 @@ function checkAndBuy(s, getQtyFn, cardEl){
 
 
 var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTInrxu2FbSLYCIyqdrlncW4wsgto2GHgMjg0KVHvrdhLOC7m8qHb3R_oX2xClpb05ToTGvoCYlgW5u/pub?output=csv';
+
+
+// Rarity sort order (lower = higher priority)
+var RARITY_ORDER = {
+  'Limited':0,'Super':1,'Mythical':2,'Legendary':3,'Epic':3,'Rare':4,'Uncommon':5,'Common':6
+};
+function raritySort(a,b){
+  return (RARITY_ORDER[a.rarity]||9) - (RARITY_ORDER[b.rarity]||9);
+}
 
 // Rarity config — maps sheet rarity names to site display values
 var RARITY_CONFIG = {
