@@ -1532,7 +1532,9 @@ var RARITY_OVERRIDE = {
 };
 
 function raritySort(a,b){
-  return (RARITY_ORDER[a.rarity]||9) - (RARITY_ORDER[b.rarity]||9);
+  var ra = RARITY_ORDER[a.rarity] !== undefined ? RARITY_ORDER[a.rarity] : 9;
+  var rb = RARITY_ORDER[b.rarity] !== undefined ? RARITY_ORDER[b.rarity] : 9;
+  return ra - rb;
 }
 
 // Rarity config — maps sheet rarity names to site display values
