@@ -520,8 +520,8 @@ footer span{color:#52b788}
 
 
 <div class="tab-bar" id="tab-bar">
-  <button class="tab-btn" data-tab="all" onclick="switchTab('all',this)">✨ All</button>
-  <button class="tab-btn active" data-tab="seeds" onclick="switchTab('seeds',this)">🌱 Seeds</button>
+  <button class="tab-btn active" data-tab="all" onclick="switchTab('all',this)">✨ All</button>
+  <button class="tab-btn" data-tab="seeds" onclick="switchTab('seeds',this)">🌱 Seeds</button>
   <button class="tab-btn" data-tab="pets" onclick="switchTab('pets',this)">🐾 Pets</button>
   <button class="tab-btn" data-tab="gear" onclick="switchTab('gear',this)">⚙️ Gear</button>
   <button class="tab-btn" data-tab="sheckles" onclick="switchTab('sheckles',this)">💰 Sheckles</button>
@@ -556,9 +556,9 @@ footer span{color:#52b788}
   </div>
 </div>
 
-<div id="tab-all" style="display:none"><div class="featured-wrap" id="all-featured"></div><main class="grid" id="all-grid"></main></div>
+<div id="tab-all"><div class="featured-wrap" id="all-featured"></div><main class="grid" id="all-grid"></main></div>
 
-<div id="tab-seeds">
+<div id="tab-seeds" style="display:none">
   <div class="featured-wrap" id="featured-wrap"></div>
   <main class="grid" id="grid"></main>
 </div>
@@ -1312,7 +1312,7 @@ function buildAll(){
   var g = document.getElementById('all-grid');
   if(!g) return;
   g.innerHTML='';
-  var all = seeds.concat(pets).concat(gear).slice().sort(raritySort);
+  var all = seeds.concat(pets).concat(gear).filter(function(s){ return !HIDDEN_FROM_ALL[s.key]; }).slice().sort(raritySort);
   all.forEach(function(s){
     var c = document.createElement('div');
     c.className='card';
@@ -1519,6 +1519,18 @@ var SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTInrxu2FbSLYCI
 var RARITY_ORDER = {
   'Limited':0,'Super':1,'Mythical':2,'Legendary':3,'Epic':3,'Rare':4,'Uncommon':5,'Common':6
 };
+
+// Items hidden from All tab (not currently for sale)
+var HIDDEN_FROM_ALL = {
+  'rocket-pop':true,'sunflower':true,'fire-fern':true,
+  'butterfly':true,'bear':true,'bald-eagle':true,'black-dragon':true
+};
+
+// Rarity overrides — force specific items to a rarity regardless of sheet
+var RARITY_OVERRIDE = {
+  'rocket-pop': {rarity:'Limited', rc:'rlim', bg:'rgba(96,165,250,0.08)'}
+};
+
 function raritySort(a,b){
   return (RARITY_ORDER[a.rarity]||9) - (RARITY_ORDER[b.rarity]||9);
 }
@@ -1694,6 +1706,8 @@ function fetchPrices(afterFetch){
         var item = itemMap[key];
         if(!item) continue;
         item.price = '$' + num.toFixed(2);
+        // Apply rarity override
+        if(RARITY_OVERRIDE[key]){ var ro=RARITY_OVERRIDE[key]; item.rarity=ro.rarity; item.rc=ro.rc; item.bg=ro.bg; }
         if(urlIdx !== -1){ var iu=(cols[urlIdx]||'').replace(/"/g,'').trim(); if(iu&&iu.indexOf('http')===0) item.eldoradoUrl=iu; }
         if(minQtyIdx !== -1){
           var minQRaw=(cols[minQtyIdx]||'').replace(/"/g,'').trim();
@@ -1727,7 +1741,7 @@ setInterval(function(){ fetchPrices(null); }, 5 * 60 * 1000);
 
 // Restore active tab on load
 (function(){
-  var savedTab = sessionStorage.getItem('activeTab') || 'seeds';
+  var savedTab = sessionStorage.getItem('activeTab') || 'all';
   if(savedTab && savedTab !== 'seeds'){
     switchTab(savedTab, document.querySelector('.tab-btn[data-tab="'+savedTab+'"]'));
   }
@@ -1742,6 +1756,7 @@ fetchPrices(function(changed){
   buildGrid();
   buildPets();
   buildGear();
+  buildAll();
 });
 
 </script>
