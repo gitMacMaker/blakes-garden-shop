@@ -1468,8 +1468,6 @@ var NAME_TO_KEY = {
   'bamboo seed':'bamboo','mushroom seed':'mushroom','pomegranate seed':'pom','hypno bloom seed':'hypno','rainbow seed':'rainbow','mega seed':'mega','gold seed':'gold','sheckles (per m)':'sheckles',
   'unicorn':'unicorn','raccoon':'raccoon','dragonfly':'dragonfly','deer':'deer',
   'robin':'robin','ice serpent':'ice','bee':'bee','monkey':'monkey','turtle':'turtle',
-  'fire fern seed':'fire-fern','sunflower seed':'sunflower','cherry seed':'cherry',
-  'acorn seed':'acorn','dragon fruit seed':'dragon-fruit','rocket pop seed':'rocket-pop',
   'super watering can':'wcan','super sprinkler':'sprink','legendary sprinkler':'legsprink'
 };
 
@@ -1574,14 +1572,15 @@ function fetchPrices(afterFetch){
         if(isNaN(num)) continue;
 
         var key = NAME_TO_KEY[name];
+        var item = key ? itemMap[key] : null;
 
-        if(!key){
+        if(!key || !item){
           // New item — only add if Rarity and Type columns are filled
           var rawType   = typeIdx   !== -1 ? (cols[typeIdx]   || '').replace(/"/g,'').trim().toLowerCase() : '';
           var rawRarity = rarityIdx !== -1 ? (cols[rarityIdx] || '').replace(/"/g,'').trim().toLowerCase() : '';
           if(!rawType || !rawRarity) continue;
           var rarCfg = RARITY_CONFIG[rawRarity] || RARITY_CONFIG['legendary'];
-          key = nameToKey(rawName);
+          if(!key) key = nameToKey(rawName);
           if(!key) continue;
           var newItem = {
             name: rawName, key: key,
