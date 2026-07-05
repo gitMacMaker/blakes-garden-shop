@@ -1684,6 +1684,8 @@ function fetchPrices(afterFetch){
           var rarCfg = RARITY_CONFIG[rawRarity] || RARITY_CONFIG['legendary'];
           if(!key) key = nameToKey(rawName);
           if(!key) continue;
+          // Apply rarity override if defined
+          if(RARITY_OVERRIDE[key]) rarCfg = RARITY_OVERRIDE[key];
           var newItem = {
             name: rawName, key: key,
             price: '$' + num.toFixed(2),
